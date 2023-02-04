@@ -24,11 +24,13 @@ export default function User({ children }) {
 
     return (
         <Wrapper>
-            <Header
-                headerHeight={headerHeight}
-                isExpanded={isExpanded}
-                setExpanded={setExpanded}
-            />
+            <div onClick={minimize}>
+                <Header
+                    headerHeight={headerHeight}
+                    isExpanded={isExpanded}
+                    setExpanded={setExpanded}
+                />
+            </div>
 
             <Aside
                 expandedAside={expandedAside}
