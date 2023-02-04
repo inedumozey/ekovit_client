@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 
     bg_image: toggleState ? 'url(/images/2b.png)' : 'url(/images/2a.png)',
     bg_image_aside: toggleState ? 'url(/images/4b.png)' : 'url(/images/4a.png)',
-    bg_image_auth: toggleState ? 'url(/images/5b.png)' : 'url(/images/5a.png)',
+    bg_image_auth: toggleState ? 'url(/images/5a.png)' : 'url(/images/5b.png)',
     pri: toggleState ? '#000;' : '#ccc',
     title: toggleState ? '#5d7c89' : '#c9b168',
     subtitle: toggleState ? '' : '',
