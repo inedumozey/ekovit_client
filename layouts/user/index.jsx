@@ -82,7 +82,7 @@ const MainStyle = styled.div`;
 const MainContent = styled.div`
     width: 100%;
     background: ${({ theme }) => theme.bg_image};
-    background-size: 50%;
+    background-size: 70%;
     background-repeat: no-repeat;
     background-position: center;
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight})`};
