@@ -1,7 +1,5 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
@@ -50,24 +48,23 @@ const HeaderStyle = styled.div`
     z-index: 1000;
 
     .toggle {
-        width: 35px;
-        height: 80%;
-        box-shadow: 0 0 5px rgb(18 23 39 / 50%), -0 -0 5px rgb(18 23 39 / 50%);
-        background: ${({ theme }) => theme.title};
-        color: #fff;
+        width: 10px;
+        height: 10px;
+        // box-shadow: 0 0 5px rgb(18 23 39 / 50%), -0 -0 5px rgb(18 23 39 / 50%);
+        // background: inherit;
         user-select: none;
         border-radius: 50%;
         font-size: .9rem;
         position: absolute;
-        left: -20px;
+        left: 5px;
         top: 50%;
         transform: translateY(-50%);
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         cursor: pointer;
         
         .icon {
-            color: #ccc;
+            color: ${({ theme }) => theme.title};
             font-size: 2rem;
         }
 
