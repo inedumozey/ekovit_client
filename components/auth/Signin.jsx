@@ -134,5 +134,4 @@ export default function Signin() {
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    margin-top: 100px;
 `
