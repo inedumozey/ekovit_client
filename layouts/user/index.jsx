@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
 import Aside from './aside/Aside';
+import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
 
 const headerHeight = '63px'
 const expandedAside = '200px'
@@ -9,14 +10,27 @@ const shrinkedAside = '40px'
 
 export default function User({ children }) {
     const [isExpanded, setExpanded] = useState(false)
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(mobileAndTabletCheck(window))
+    }, [])
+
+    const minimize = () => {
+        if (isExpanded && isMobile) {
+            setExpanded(false)
+        }
+    }
+
     return (
         <Wrapper>
-            <Header
-                headerHeight={headerHeight}
-                isExpanded={isExpanded}
-                setExpanded={setExpanded}
-            />
-
+            <div onClick={minimize}>
+                <Header
+                    headerHeight={headerHeight}
+                    isExpanded={isExpanded}
+                    setExpanded={setExpanded}
+                />
+            </div>
 
             <Aside
                 expandedAside={expandedAside}
@@ -30,6 +44,7 @@ export default function User({ children }) {
                 shrinkedAside={shrinkedAside}
                 headerHeight={headerHeight}
                 isExpanded={isExpanded}
+                onClick={minimize}
             >
                 <MainContent headerHeight={headerHeight}>
                     {"children"}
