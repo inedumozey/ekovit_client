@@ -23,11 +23,12 @@ function MyApp({ Component, pageProps }) {
     lg_screen: '1000px',
     xl_screen: '1500px',
 
+    bg_image: toggleState ? 'url(/images/2b.png)' : 'url(/images/2a.png)',
+    bg_image_aside: toggleState ? 'url(/images/4b.png)' : 'url(/images/4a.png)',
     pri: toggleState ? '#000;' : '#ccc',
     title: toggleState ? '#5d7c89' : '#c9b168',
     subtitle: toggleState ? '' : '',
     bg: toggleState ? '#607d8b36' : 'linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)',
-    border: '#acada7',
 
     lg_padding: '60px',
     md_padding: '25px',
@@ -67,6 +68,7 @@ function MyApp({ Component, pageProps }) {
               <span style={{ border: '2px solid #666', display: 'inline-block', padding: '20px' }}>
                 <div onClick={() => { Cookies.remove('refreshtoken'); Cookies.remove('accesstoken'); router.push('/auth') }} style={{ cursor: 'pointer' }}>Logout</div>
                 <div onClick={() => router.push('/auth/reset-password')} style={{ cursor: 'pointer' }}>Reset Password</div>
+
               </span> : ''
           }
           <Component {...pageProps} />

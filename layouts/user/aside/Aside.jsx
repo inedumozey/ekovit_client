@@ -31,6 +31,11 @@ const AsideStyle = styled.div`
     z-index: 2;
     height: ${({ headerHeight }) => `calc(100vh - ${headerHeight})`};
 
+    background: ${({ theme }) => theme.bg_image_aside};
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
     @media (max-width: ${({ theme }) => theme.md_screen}){
         width: ${({ isExpanded, expandedAside, shrinkedAside }) => isExpanded ? expandedAside : shrinkedAside};
         left: ${({ isExpanded }) => isExpanded ? `0` : '-100%'};
@@ -42,8 +47,9 @@ const AsideStyle = styled.div`
         position: absolute;
         top:0;
         bottom: 0;
+        box-shadow:  -3px 0px 3px 0px rgb(0 0 0 / 42%);
         right: 0;
-        background: ${({ theme }) => theme.title};
+        // background: ${({ theme }) => theme.title};
 
         &:hover {
             cursor: e-resize

@@ -42,16 +42,15 @@ const HeaderStyle = styled.div`
     left: 0;
     top: 0;
     right: 0;
-    border-bottom: 4px solid ${({ theme }) => theme.title};
+    // border-bottom: 2px solid #5d7c89;
+    // border-bottom: 4px solid ${({ theme }) => theme.title};
     text-align: center;
-    box-shadow: 0 0 5px rgb(18 23 39 / 50%);
+    box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
     z-index: 1000;
 
     .toggle {
         width: 10px;
         height: 10px;
-        // box-shadow: 0 0 5px rgb(18 23 39 / 50%), -0 -0 5px rgb(18 23 39 / 50%);
-        // background: inherit;
         user-select: none;
         border-radius: 50%;
         font-size: .9rem;
