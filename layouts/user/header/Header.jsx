@@ -40,13 +40,14 @@ const HeaderStyle = styled.div`
     height: ${({ headerHeight }) => headerHeight};
     font-weight: 600;
     position: fixed;
+    background: inherit;
     left: 0;
     top: 0;
     right: 0;
     border-bottom: 4px solid ${({ theme }) => theme.title};
     text-align: center;
     box-shadow: 0 0 5px rgb(18 23 39 / 50%);
-    z-index: 3;
+    z-index: 1000;
 
     .toggle {
         width: 35px;
