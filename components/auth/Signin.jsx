@@ -122,7 +122,7 @@ export default function Signin() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <span>
-                            Don't have an account? <Link href='/auth/signup' >Sign Up</Link>
+                            Don&apos;t have an account? <Link href='/auth/signup' >Sign Up</Link>
                         </span>
                     </div>
                 </div>
