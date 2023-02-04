@@ -59,6 +59,7 @@ export default function User({ children }) {
 const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
+    position: relative;
 `
 const MainStyle = styled.div`;
     position: absolute;
