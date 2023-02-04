@@ -6,7 +6,6 @@ export default function Auth({ children }) {
         <>
             <Header>Header</Header>
             <Main>{children}</Main>
-            <Footer>Footer</Footer>
         </>
     )
 }
@@ -18,9 +17,9 @@ const Header = styled.div`
 `
 const Main = styled.div`
     width: 100%;
-    min-height: calc(100vh - 50px - 50px);
-`
-const Footer = styled.div`
-    width: 100%;
-    min-height: 50px;
+    min-height: calc(100vh - 50px);
+    background: ${({ theme }) => theme.bg_image_auth};
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
 `

@@ -24,38 +24,6 @@ const ScrollBar = () => css`
 `
 
 const GlobalStyle = createGlobalStyle`
-    :root{
-        --blue: #007bff;
-        --blue-deep: #6861ce;
-        --purple: #6f42c1;
-        --pink: #e83e8c;
-        --red: #dc3545;
-        --orange: #fd7e14;
-        --yellow: #E6922E;
-        --green: #28a745;
-        --teal: #20c997;
-        --cyan: #17a2b8;
-        --white: #fff;
-        --gray: #6c757d;
-        --gray-dark: #343a40;
-        --gray-light: #bdbdbd40;
-        --gray-pale: #f7f7f7;
-        --text: #000000bf;
-        --primary: #007bff;
-        --secondary: #6c757d;
-        --success: #28a745;
-        --info: #17a2b8;
-        --warning: #ffc107;
-        --danger: #dc3545;
-        --light: #f8f9fa;
-        --dark: #343a40;
-        --breakpoint-xs: 0;
-        --breakpoint-sm: 576px;
-        --breakpoint-md: 768px;
-        --breakpoint-lg: 992px;
-        --breakpoint-xl: 1200px;
-    }
-
     *{
         padding: 0;
         margin: 0;
@@ -68,44 +36,140 @@ const GlobalStyle = createGlobalStyle`
         min-height: 100vh;
         min-height: auto;
         overflow-x: hidden;
-        color: #000000bf;
-        font-size: .9rem;
+        font-size: .8rem;
         
 
-        .bs-container {
-          padding: 0;
-          margin: 0;
+        .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
-    
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0
+        }
+        input[type=number] {
+          -moz-appearance: textfield;
+        } 
 
         ${ScrollBar()}
 
         .swiper-button-next, .swiper-button-prev {
             color: var(--major-cclicked={clicked} index={index} isActive={isActive}olor-purest);
         };
+    }
+`
 
-        a {
-            color: inherit;
-            text-decoration: none;
+const Table = styled.div`
+    width: 100%;
+    // max-height: 63vh;
+    overflow: auto;
+    margin: 0px auto 10px auto;
 
-            &:hover {
-                opacity:.6
-            }
-        };
+    ${ScrollBar()}
+
+    table{
+        font-size: .7rem;
+        margin: auto;
+        border-spacing: 0.5rem;
+        height: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        cursor: default;
+        color: #000;
+    }
+
+    td, th {
+        border: 1px solid #999;
+        padding: 0.5rem;
+        text-align: left;
+        padding: 10px;
+    }
+
+    th{
+        background: #00a5ef;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+
+      &:hover {
+        opacity: .7;
+    }
+  }
+
+    tbody tr:hover {
+        opacity: .5;
+    }
+
+`
+
+const Form = styled.form`
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    padding: 0 10px;
+
+    .title {
+        color: ${({ theme }) => theme.title}
+    }
+`
+const InputWrapper = styled.div`
+    width: 100%;
+    height: 46px;
+    margin-bottom: 15px;
+    position: relative;
+    
+    input {
+        border:  ${({ theme }) => `1px solid ${theme.border}`};
+        padding: 12px 30px 12px 30px;
+        height: 100%;
+        width: 100%;
+        border-radius: 3px;
+        display: block;
+        font-size: .9rem;
+        background: transparent;
+        color: ${({ theme }) => theme.pri};
         
-        .link {
-            padding: 0;
-            border: none;
-            color: #fff;
-        }
-
-        .active-icon{
-            border: 2px solid var(--bright-color)
+        &: focus{
+            outline: none;
+            border: ${({ theme }) => `2px solid ${theme.title}`};
         }
     }
+`
+
+const InputIcon = styled.div`
+    position: absolute;
+    padding: 3px;
+    width: 30px;
+    z-index: 1;
+    color: #555;
+    bottom: 0;
+    left: ${({ left }) => left};
+    right: ${({ right }) => right};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+
+    .icon {
+        color: var(--pri);
+    }
+`
+
+const Title = styled.div`
+  color: ${({ theme }) => theme.title};
 `
 
 export {
   GlobalStyle,
   ScrollBar,
+  Table,
+  Form,
+  InputWrapper,
+  InputIcon,
+  Title,
 };
