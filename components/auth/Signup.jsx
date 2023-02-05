@@ -29,7 +29,6 @@ export default function Signup() {
     const [msg, setMsg] = useState({ msg: '', status: false });
 
     const [email, setEmail] = useState("");
-    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [cPassword, setCpassword] = useState("");
     const [phone, setPhone] = useState("");
@@ -59,7 +58,6 @@ export default function Signup() {
 
             // clear input
             setEmail("");
-            setUsername("");
             setPassword("");
             setCpassword("");
             setPhone("");
@@ -87,7 +85,7 @@ export default function Signup() {
     const getCode = async () => {
         setGettingCode(true)
 
-        const data_ = { email, password, cPassword, phone, username }
+        const data_ = { email, password, cPassword, phone }
 
         try {
 
@@ -145,19 +143,6 @@ export default function Signup() {
                             value={email || ''}
                             placeholder="Email"
                             onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </InputWrapper>
-
-                    <InputWrapper>
-
-                        <InputIcon right="" left="0">
-                            <EmailRoundedIcon className='icon' />
-                        </InputIcon>
-                        <input
-                            type="text"
-                            value={username || ''}
-                            placeholder="Username"
-                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </InputWrapper>
 
