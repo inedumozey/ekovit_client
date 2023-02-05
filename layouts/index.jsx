@@ -7,7 +7,7 @@ import Landing from './landing'
 
 
 
-export default function Layout({ children }) {
+export default function Layout({ children, toggleState, toggle }) {
     const router = useRouter()
 
     return (
@@ -15,13 +15,13 @@ export default function Layout({ children }) {
             {
                 (function () {
                     if (router.pathname.includes('/pos')) {
-                        return <Pos children={children} />
+                        return <Pos children={children} toggleState={toggleState} toggle={toggle} />
                     }
                     else if (router.pathname.includes('/auth')) {
-                        return <Auth children={children} />
+                        return <Auth children={children} toggleState={toggleState} toggle={toggle} />
                     }
                     else {
-                        return <Landing children={children} />
+                        return <Landing children={children} toggleState={toggleState} toggle={toggle} />
                     }
                 }())
             }

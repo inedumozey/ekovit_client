@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 
 class apiClass {
     constructor() { }
@@ -10,6 +10,9 @@ class apiClass {
     setCookies = (
         accesstoken,
         refreshtoken,
+        xxxxx1, // admin token
+        xxxxx2, // agent token
+        xxxxx3, // agent token
     ) => {
         Cookies.set("accesstoken", accesstoken, {
             expires: new Date(new Date().getTime() + 1000 * 60 * 3), // 3 minutes (this is the same time backend accesstoken expires))
@@ -21,16 +24,50 @@ class apiClass {
             secure: true,
             sameSite: 'strict'
         })
-    }
-
-    setAdminCookies = (
-        admintoken
-    ) => {
-        Cookies.set("admintoken", admintoken, {
-            // expires: new Date(new Date().getTime() + 1000 * 60 * 3), // 3 minutes (this is the same time backend accesstoken expires))
+        Cookies.set("xxxxx1", xxxxx1, {
+            expires: 28, // 28 days (this is the same time backend refreshtoken expires)
             secure: true,
             sameSite: 'strict'
         })
+        Cookies.set("xxxxx2", xxxxx2, {
+            expires: 28, // 28 days (this is the same time backend refreshtoken expires)
+            secure: true,
+            sameSite: 'strict'
+        })
+        Cookies.set("xxxxx3", xxxxx3, {
+            expires: 28, // 28 days (this is the same time backend refreshtoken expires)
+            secure: true,
+            sameSite: 'strict'
+        })
+    }
+
+    logout = (router) => {
+        router.push('/');
+        Cookies.remove('refreshtoken');
+        Cookies.remove('accesstoken')
+        Cookies.remove('xxxxx1')
+        Cookies.remove('xxxxx2')
+        Cookies.remove('xxxxx3')
+    }
+
+    isLoggedin = () => {
+        return Cookies.get('refreshtoken') ? true : false
+    }
+
+    hasAccess = () => {
+        return Cookies.get('accesstoken') ? true : false
+    }
+
+    isSupperAdmin = () => {
+        return Cookies.get('xxxxx1') ? true : false
+    }
+
+    isAdmin = () => {
+        return Cookies.get('xxxxx2') ? true : false
+    }
+
+    isAgent = () => {
+        return Cookies.get('xxxxx3') ? true : false
     }
 
     refreshToken = async () => {
@@ -43,14 +80,14 @@ class apiClass {
                 })
 
                 // log the user in
-                this.setCookies(data.accesstoken, data.refreshtoken)
+                this.setCookies(data.accesstoken, data.refreshtoken, data.xxxxx1, data.xxxxx2, data.xxxxx3)
             }
             catch (err) {
                 return
             }
         }
         else {
-            window.location.reload();
+            return;
         }
     }
 
@@ -86,6 +123,144 @@ class apiClass {
             }
 
             setResetingAdminPassword(false)
+        }
+    }
+
+    fetchProfile = async (
+        setFetchingProfile,
+        setFetchingProfileSuccess,
+        setProfile,
+        initial) => {
+        initial ? setFetchingProfile(true) : ''
+        try {
+            if (!this.hasAccess()) {
+                // refresh accesstoken
+                await this.refreshToken()
+
+                setTimeout(async () => {
+                    const { data } = await axios.get(`${BASE_URL}/auth/fetch-profile`, {
+                        headers: {
+                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`
+                        }
+                    })
+                    setProfile(data.data)
+                })
+
+            } else {
+                const { data } = await axios.get(`${BASE_URL}/auth/fetch-profile`, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    }
+                });
+                setProfile(data.data)
+            }
+
+            initial ? setFetchingProfile(false) : ''
+            setFetchingProfileSuccess(true)
+        }
+        catch (err) {
+            initial ? setFetchingProfile(false) : ''
+
+            if (err.response) {
+                setFetchingProfileSuccess(false)
+            }
+            else {
+                setFetchingProfileSuccess(false)
+            }
+        }
+    }
+
+    addUsername = async (
+        setEditProfileLoading,
+        setFetchingProfile,
+        setFetchingProfileSuccess,
+        setProfile,
+        data_) => {
+        setEditProfileLoading(true)
+        try {
+            if (!this.hasAccess()) {
+                // refresh accesstoken
+                await this.refreshToken()
+
+                setTimeout(async () => {
+                    const { data } = await axios.put(`${BASE_URL}/auth/update-username`, data_, {
+                        headers: {
+                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`
+                        }
+                    })
+                    this.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, false)
+                    toast(data.msg, { type: 'success' })
+                })
+
+            } else {
+                const { data } = await axios.put(`${BASE_URL}/auth/update-username`, data_, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    }
+                });
+                toast(data.msg, { type: 'success' })
+                this.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, false)
+            }
+
+            setEditProfileLoading(false);
+        }
+        catch (err) {
+            setEditProfileLoading(false)
+
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                toast(err.response.data.msg, { type: 'error' })
+            }
+        }
+    }
+
+    resetPassword = async (
+        setCurrentPassword,
+        setNewPassword,
+        setCPassword,
+        setSending,
+        data_) => {
+        setSending(true)
+        try {
+            console.log(data_)
+            if (!this.hasAccess()) {
+                // refresh accesstoken
+                await this.refreshToken()
+
+                setTimeout(async () => {
+                    const { data } = await axios.put(`${BASE_URL}/auth/reset-password`, data_, {
+                        headers: {
+                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`
+                        }
+                    })
+                    toast(data.msg, { type: 'success' })
+                })
+
+            } else {
+                const { data } = await axios.put(`${BASE_URL}/auth/reset-password`, data_, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    }
+                });
+                toast(data.msg, { type: 'success' })
+            }
+
+            setSending(false);
+            setCurrentPassword("")
+            setNewPassword("")
+            setCPassword("")
+        }
+        catch (err) {
+            setSending(false)
+
+            if (err.response) {
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                toast(err.response.data.msg, { type: 'error' })
+            }
         }
     }
 }

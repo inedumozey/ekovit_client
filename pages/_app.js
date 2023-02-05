@@ -1,22 +1,16 @@
 import ScrollToTop from "react-scroll-to-top";
 import NextProgress from 'nextjs-progressbar';
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { useToggle } from '@mozeyinedu/hooks-lab'
 import { ContextApi } from "../contextApi/ContextApi";
 import { ThemeProvider } from 'styled-components'
-import Cookies from 'js-cookie';
-import { useState, useEffect } from "react";
 import { GlobalStyle } from "../styles/globalStyles";
+import ToastContainer_ from "../utils/components/ToastContainer";
+
 
 function MyApp({ Component, pageProps }) {
   const { toggle, toggleState } = useToggle()
-  const router = useRouter()
-  const [loggedin, setLoggedin] = useState(false)
 
-  useEffect(() => {
-    Cookies.get('refreshtoken') ? setLoggedin(true) : setLoggedin(false)
-  }, [])
   const theme = {
     sm_screen: '600px',
     md_screen: '900px',
@@ -29,7 +23,8 @@ function MyApp({ Component, pageProps }) {
     pri: toggleState ? '#000;' : '#ccc',
     title: toggleState ? '#5d7c89' : '#c9b168',
     subtitle: toggleState ? '' : '',
-    bg: toggleState ? '#607d8b36' : 'linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)',
+    bg: toggleState ? '#d5d5d5' : 'linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)',
+    light_dark_btn_color: !toggleState ? '#d5d5d5' : '#000',
 
     border: toggleState ? "#777" : '#ccc',
 
@@ -60,20 +55,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <ScrollToTop smooth color="var(--major-color-purest)" style={{ background: 'rgba(0,0,0,.2)' }} />
-
+      <ToastContainer_ />
       <NextProgress options={{ showSpinner: false }} />
       <ThemeProvider theme={theme}>
 
-        <ContextApi>
-          <div onClick={toggle} style={{ cursor: 'pointer', zIndex: 1000000, position: 'fixed', top: '10px', right: '10px' }}>theme</div>
-          {
-            loggedin ?
-              <span style={{ border: '2px solid #666', display: 'inline-block', padding: '20px' }}>
-                <div onClick={() => { Cookies.remove('refreshtoken'); Cookies.remove('accesstoken'); router.push('/auth') }} style={{ cursor: 'pointer' }}>Logout</div>
-                <div onClick={() => router.push('/auth/reset-password')} style={{ cursor: 'pointer' }}>Reset Password</div>
-
-              </span> : ''
-          }
+        <ContextApi toggle={toggle} toggleState={toggleState}>
           <Component {...pageProps} />
         </ContextApi>
       </ThemeProvider>

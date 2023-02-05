@@ -2,15 +2,30 @@ import { useState, createContext, useEffect } from 'react';
 import Layout from '../layouts';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/router";
+import apiClass from '../utils/data/api';
+const api = new apiClass()
 
 const ContextData = createContext()
 
-function ContextApi({ children }) {
+function ContextApi({ children, toggleState, toggle }) {
+
     const router = useRouter()
+    const [isLoggedin, setIsLoggedin] = useState(false)
+    const [hasAccess, setHasAccess] = useState(false)
+    const [isSupperAdmin, setIsSupperAdmin] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
+    const [isAgent, setIsAgent] = useState(false)
 
-    // redirect
+    // profile
+
+    const [fetchingProfile, setFetchingProfile] = useState(false);
+    const [editProfileLoading, setEditProfileLoading] = useState(false);
+    const [fetchingProfileSuccess, setFetchingProfileSuccess] = useState(false);
+    const [profile, setProfile] = useState('');
+
+
     useEffect(() => {
-
+        // redirect
         if (router.pathname.includes('/pos')) {
             if (!Cookies.get('refreshtoken')) {
                 router.push('/auth')
@@ -26,18 +41,44 @@ function ContextApi({ children }) {
         //         router.push('/pos')
         //     }
         // }
-
     }, [])
+
+    // login
+    useEffect(() => {
+        api.isLoggedin() ? setIsLoggedin(true) : setIsLoggedin(false)
+        api.hasAccess() ? setHasAccess(true) : setHasAccess(false)
+        api.isSupperAdmin() ? setIsSupperAdmin(true) : setIsSupperAdmin(false)
+        api.isAdmin() ? setIsAdmin(true) : setIsAdmin(false)
+        api.isAgent() ? setIsAgent(true) : setIsAgent(false)
+
+    })
 
 
 
     const state = {
         // ...staticData
+        access: {
+            isLoggedin,
+            hasAccess,
+            isSupperAdmin,
+            isAdmin,
+            isAgent,
+        },
+        user: {
+            fetchingProfile,
+            setFetchingProfile,
+            fetchingProfileSuccess,
+            setFetchingProfileSuccess,
+            profile,
+            setProfile,
+            editProfileLoading,
+            setEditProfileLoading
+        }
     }
 
     return (
         <ContextData.Provider value={state}>
-            <Layout>
+            <Layout toggleState={toggleState} toggle={toggle}>
                 {children}
             </Layout>
         </ContextData.Provider>

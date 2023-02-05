@@ -40,13 +40,13 @@ export default function VerifyForgotPassword() {
 
             setMsg({ msg: data.msg, status: true })
 
-            api.setCookies(data.accesstoken, data.refreshtoken)
+            api.setCookies(data.accesstoken, data.refreshtoken, data.xxxxx1, data.xxxxx2, data.xxxxx3)
 
             setSending(false);
 
             // redirect
             setTimeout(() => {
-                router.push('/pos')
+                router.push('/')
             }, 2000)
 
             // clear input

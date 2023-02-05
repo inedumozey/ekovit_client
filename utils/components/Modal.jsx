@@ -75,7 +75,7 @@ const Wrapper = styled.div`
     opacity: ${({ show }) => show ? 1 : 0};
     visibility: ${({ show }) => show ? 'visible' : 'hidden'};
 
-    @media (min-width: 920px){
+    @media (min-width: 800px){
       display: ${({ drawal, disappearDrawalOnResize }) => drawal ? (disappearDrawalOnResize ? 'none' : 'block') : 'block'};
     }
 `

@@ -7,7 +7,7 @@ export default function Signup() {
     const router = useRouter()
     useEffect(() => {
         if (Cookies.get('refreshtoken')) {
-            router.push('/pos')
+            router.push('/')
         }
     }, [])
     return <Signup_ />
