@@ -130,7 +130,7 @@ export default function Signup() {
                     {
                         msg.msg ?
                             <div style={{ margin: '25px 0' }}>
-                                <Alart type={msg.status ? 'success' : 'error'}>{msg.msg}</Alart>
+                                <Alart onHide={setMsg} type={msg.status ? 'success' : 'error'}>{msg.msg}</Alart>
                             </div> : ''
                     }
 
