@@ -31,6 +31,8 @@ function MyApp({ Component, pageProps }) {
     subtitle: toggleState ? '' : '',
     bg: toggleState ? '#607d8b36' : 'linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)',
 
+    border: toggleState ? "#777" : '#ccc',
+
     lg_padding: '60px',
     md_padding: '25px',
     sm_padding: '15px',
