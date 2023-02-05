@@ -54,7 +54,7 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        <title>EKOVITE</title>
+        <title>EKOVIT</title>
       </Head>
       <GlobalStyle />
       <ScrollToTop smooth color="var(--major-color-purest)" style={{ background: 'rgba(0,0,0,.2)' }} />
