@@ -2,44 +2,25 @@ import { useContext, useEffect, useState } from 'react'
 import { ContextData } from '../../contextApi/ContextApi';
 import styled from 'styled-components'
 import Modal from '../../utils/components/Modal';
-import { useRouter } from 'next/router';
-import apiClass from '../../utils/data/api';
 import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import LightDarkBtn from '../../utils/components/LightDarkBtn';
-import { useSnap } from '@mozeyinedu/hooks-lab'
-
-
-const api = new apiClass()
+import NavLinks from '../utils/NavLinks';
+import Log from '../utils/Log';
+import Logo from '../utils/Logo';
 
 export default function Landing({ children, toggleState, toggle }) {
-    const { snap } = useSnap(.5)
-    const router = useRouter()
 
-    const { access } = useContext(ContextData)
     const [openSideDrawal, setOpenSideDeawal] = useState(false)
-
 
     return (
         <Wrapper>
             <Header>
                 <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
-                <Link className='logo' href="/" >
-                    {/* <img src={'/favicon.ico'} alt="" /> */}
-                    <h1>EKOVIT</h1>
-                </Link>
-                <div className="user">
-                    {
-                        access.isLoggedin ?
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <div onClick={() => api.logout(router)} className='logout'>Logout</div>
-                                <Link href='/profile' {...snap()} className='profile'><PersonOutlineIcon className='icon' /></Link>
-                            </div> :
-                            <Link href='/auth' className='login'>Login</Link>
-                    }
-                    <LightDarkBtn toggleState={toggleState} toggle={toggle} />
-                </div>
+                <Logo />
+
+                <NavLinks toggleState={toggleState} />
+
+                <Log toggleState={toggleState} toggle={toggle} />
 
             </Header>
             <Main>{children}</Main>
@@ -151,11 +132,32 @@ const Header = styled.div`
             border-radius: 50%;
         }
     }
+
+    .nav {
+        transition: 1s;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @media (max-width: 800px){
+            display: none
+        }
+
+        .link {
+            color: ${({ theme }) => theme.title};
+            text-decoration: none;
+            padding: 10px 4px;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
 `
 const Main = styled.div`
     width: 100%;
     min-height: calc(100vh - 63px);
-    // background: ${({ theme }) => theme.bg_image};
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;

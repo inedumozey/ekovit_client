@@ -2,9 +2,11 @@ import React, { useContext } from 'react'
 import styled from 'styled-components';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import NavLinks from '../../utils/NavLinks';
+import Log from '../../utils/Log';
+import Logo from '../../utils/Logo';
 
-
-export default function Header({ isExpanded, setExpanded, headerHeight }) {
+export default function Header({ isExpanded, setExpanded, headerHeight, toggleState, toggle }) {
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} >
             <div
@@ -28,7 +30,15 @@ export default function Header({ isExpanded, setExpanded, headerHeight }) {
                     <ArrowLeftIcon className='icon' />
                 </span>
             </div>
-            Header
+
+            <div className="logo">
+                <Logo />
+            </div>
+
+            <NavLinks toggleState={toggleState} />
+
+            <Log toggleState={toggleState} toggle={toggle} />
+
         </HeaderStyle>
     )
 }
@@ -39,12 +49,31 @@ const HeaderStyle = styled.div`
     font-weight: 600;
     position: fixed;
     background: inherit;
+    position: fixed;
+    display: flex;
+    transition: 1s;
+    justify-content: space-between;
+    aligin-items: center;
     left: 0;
     top: 0;
     right: 0;
     text-align: center;
     box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
     z-index: 1000;
+
+    padding: 10px ${({ theme }) => theme.lg_padding};
+    @media (max-width: ${({ theme }) => theme.md_screen}){
+        padding: 10px ${({ theme }) => theme.md_padding};
+    }
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        padding: 10px ${({ theme }) => theme.sm_padding};
+    }
+
+    @media (max-width: 800px){
+        .logo {
+            margin: auto
+        }
+    }
 
     .toggle {
         width: 10px;

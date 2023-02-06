@@ -7,7 +7,7 @@ export default function ProfileInfo({ data }) {
         <Wrapper>
             <SubWrapper>
                 <div className="img">
-                    <Image src={"/images/profile.jpg"} width="400" height="200" alt="" />
+                    <Image src={"/images/profile.png"} width="400" height="200" alt="" />
                 </div>
 
                 <div className="user">

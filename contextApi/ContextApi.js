@@ -3,7 +3,18 @@ import Layout from '../layouts';
 import Cookies from 'js-cookie';
 import { useRouter } from "next/router";
 import apiClass from '../utils/data/api';
+import HomeIcon from '@mui/icons-material/Home';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import SettingsIcon from '@mui/icons-material/Settings';
+import staticDataClass from '../utils/data/staticDataClass';
+
+
 const api = new apiClass()
+const staticData = new staticDataClass()
 
 const ContextData = createContext()
 
@@ -23,6 +34,16 @@ function ContextApi({ children, toggleState, toggle }) {
     const [fetchingProfileSuccess, setFetchingProfileSuccess] = useState(false);
     const [profile, setProfile] = useState('');
 
+    const links = [
+        { name: "Home", url: '/', icon: HomeIcon, show: true },
+        { name: "Contact", url: '/contact', icon: ContactPageIcon, show: true },
+        { name: "About Us", url: '/about-us', icon: Groups2Icon, show: true },
+
+        { name: "POS", url: '/pos', icon: WorkHistoryIcon, show: isAgent },
+        { name: "Admin", url: '/admin/users', icon: PersonOutlineIcon, show: isAdmin },
+        { name: "Config", url: '/admin/config', icon: SettingsIcon, show: isAdmin },
+        { name: "Inventory", url: '/admin/Inventory', icon: AddBusinessIcon, show: isSupperAdmin },
+    ]
 
     useEffect(() => {
         // redirect
@@ -56,7 +77,7 @@ function ContextApi({ children, toggleState, toggle }) {
 
 
     const state = {
-        // ...staticData
+        ...staticData,
         access: {
             isLoggedin,
             hasAccess,
@@ -73,7 +94,8 @@ function ContextApi({ children, toggleState, toggle }) {
             setProfile,
             editProfileLoading,
             setEditProfileLoading
-        }
+        },
+        links
     }
 
     return (

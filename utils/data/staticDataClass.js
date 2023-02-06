@@ -1,7 +1,9 @@
 
 class staticDataClass {
     constructor() { }
-    contact = {}
+    contact = {
+        name: 'EKOVIT'
+    }
 
 }
 
