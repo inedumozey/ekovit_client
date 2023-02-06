@@ -10,7 +10,7 @@ export default function Logo() {
         <LogoStyle>
             <Link href="/" >
                 {/* <img src={'/favicon.ico'} alt="" /> */}
-                <h1>{contact.name?.toUpperCase()}</h1>
+                <h2>{contact.name?.toUpperCase()}</h2>
             </Link>
         </LogoStyle>
 
@@ -24,7 +24,6 @@ const LogoStyle = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
         font-family: cursive;
         color: ${({ theme }) => theme.title};
         text-decoration: none;

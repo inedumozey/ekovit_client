@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 `
 
 const SideBar = styled.div`
-    width: 40vw;
+    width: 65vw;
     height: 100vh;
     background: ${({ theme }) => theme.bg};
     box-shadow: 1px 1px 7px 4px rgb(0 0 0 / 82%);
