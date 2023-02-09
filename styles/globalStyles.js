@@ -1,29 +1,66 @@
 import { style } from "@mui/system";
 import styled, { createGlobalStyle, css } from "styled-components";
 
+const pri_darktheme = "#ccc";
+const pri_lighttheme = "#000";
+const title_darktheme = "#ffc107";
+const title_lighttheme = "#673ab7";
+const subtitle_darktheme = "";
+const subtitle_lighttheme = "";
+const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)";
+const bg_lighttheme = "#f5f5f5";
+const theme_changer_btn_darktheme = "#fff";
+const theme_changer_btn_lighttheme = "#000";
+const border_darktheme = "#777";
+const border_lighttheme = "#ccc";
+const active_link_darktheme = "#fff";
+const active_link_lighttheme = "#0c50e9";
+const link_darktheme = "#9e9e9e";
+const link_lighttheme = "#000";
+
 const ScrollBar = () => css`
   &::-webkit-scrollbar-thumb {
-    background-color: #e5e3e3;
+    background-color: #333;
     border-radius: 50px;
   }
   &::-webkit-scrollbar-track {
-    background-color: #F0F4F5;
+    background-color: #555;
   }
+
   &::-webkit-scrollbar-corner {
-    background-color: #00415D30;
+    background-color: #555;
   }
   &::-webkit-scrollbar {
     width: .7rem;
-    height: .7rem;
+    height: .6rem;
   }
   & {
     -ms-overflow-style: auto;
-    scrollbar-color:#00415D30;
+    scrollbar-color:#555;
     scrollbar-width: thin;
   }
 `
 
 const GlobalStyle = createGlobalStyle`
+    :root{
+      --pri-darktheme: ${pri_darktheme};
+      --pri-lighttheme: ${pri_lighttheme};
+      --title-darktheme: ${title_darktheme};
+      --title-lighttheme: ${title_lighttheme};
+      --subtitle-darktheme: ${subtitle_darktheme};
+      --subtitle-lighttheme: ${subtitle_lighttheme};
+      --bg-darktheme: ${bg_darktheme};
+      --bg-lighttheme: ${bg_lighttheme};
+      --theme-changer-btn-darktheme: ${theme_changer_btn_darktheme};
+      --theme-changer-btn-lighttheme: ${theme_changer_btn_lighttheme};
+      --border-darktheme: ${border_darktheme};
+      --border-lighttheme: ${border_lighttheme};
+      --active-link-darktheme: ${active_link_darktheme};
+      --active-link-lighttheme: ${active_link_lighttheme};
+      --link-darktheme: ${link_darktheme};
+      --link-lighttheme: ${link_lighttheme};
+    }
+
     *{
         padding: 0;
         margin: 0;

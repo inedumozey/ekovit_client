@@ -1,13 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { ContextData } from '../../contextApi/ContextApi';
 import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import LightDarkBtn from '../../utils/components/LightDarkBtn';
 import { useSnap } from '@mozeyinedu/hooks-lab'
+import apiClass from '../../utils/data/api';
+const api = new apiClass()
 
-export default function Log({ toggleState, toggle }) {
+export default function UserLog({ toggleState, toggle }) {
 
     const { snap } = useSnap(.5)
     const router = useRouter();
@@ -15,20 +16,19 @@ export default function Log({ toggleState, toggle }) {
 
     return (
 
-        <LogStyle className="user">
+        <LogStyle>
             {
                 access.isLoggedin ?
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <div onClick={() => api.logout(router)} className='logout'>Logout</div>
                         <Link href='/profile' {...snap()} className='profile'>
                             <PersonOutlineIcon
-                                style={{}}
+                                style={{ color: router.pathname === '/profile' ? (toggleState ? 'var(--active-link-lighttheme)' : 'var(--active-link-darktheme)') : (toggleState ? 'var(--link-lighttheme)' : 'var(--link-darktheme)') }}
                                 className='icon' />
                         </Link>
+                        <div onClick={() => api.logout(router)} className='logout'>LOGOUT</div>
                     </div> :
-                    <Link href='/auth' className='login'>Login</Link>
+                    <Link href='/auth' className='login'>LOGIN</Link>
             }
-            <LightDarkBtn toggleState={toggleState} toggle={toggle} />
         </LogStyle>
     )
 }
@@ -39,17 +39,18 @@ const LogStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
     font-size: .9rem;
 
     .logout {
         color: red;
         cursor: pointer;
+        font-weight: bold;
     }
     .login {
-        color: ${({ theme }) => theme.title};
+        color: ${({ theme, }) => theme.title};
         padding: 10px 5px;
         cursor: pointer;
+        text-decoration: none;
     }
 
     .profile {
@@ -58,5 +59,12 @@ const LogStyle = styled.div`
         width: 40px;
         height: 40px;
         border-radius: 50%;
+    }
+
+    
+    @media (max-width: 800px){
+        .themeBtn {
+            display: none
+        }
     }
 `

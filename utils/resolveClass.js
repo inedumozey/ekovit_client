@@ -1,11 +1,13 @@
-const resolve = {
-    makeReactSelectOptions: (array) => {
+class ResolveClass {
+    constructor() { }
+
+    makeReactSelectOptions = (array) => {
         return array?.map(item => {
             return { value: item, label: item }
         })
-    },
+    }
 
-    resolveInvestmentLifespan: (percentage, sec) => {
+    resolveInvestmentLifespan = (percentage, sec) => {
 
         const lifeSpanInSecond = () => {
             return `${percentage}% in ${Math.floor(Number(sec))} Second${Math.floor(Number(sec)) > 1 ? 's' : ''}`
@@ -43,9 +45,9 @@ const resolve = {
         if (sec >= 60 * 60 * 24) {
             return lifeSpanInDay()
         }
-    },
+    }
 
-    position: (n) => {
+    position = (n) => {
         //get the last always
         const num = n.toString()
         const lastDigit = +(num[num.length - 1])
@@ -69,9 +71,9 @@ const resolve = {
         else {
             return 'th'
         }
-    },
+    }
 
-    resolveSeconds: (sec) => {
+    resolveSeconds = (sec) => {
 
         const lifeSpanInSecond = () => {
             return `${Math.floor(Number(sec))} Second${Math.floor(Number(sec)) > 1 ? 's' : ''}`
@@ -109,9 +111,9 @@ const resolve = {
         if (sec >= 60 * 60 * 24) {
             return lifeSpanInDay()
         }
-    },
+    }
 
-    elipsis: (text, len = 10) => {
+    elipsis = (text, len = 10) => {
         if (text.length > len) {
             return text.slice(0, len) + '...'
         } else {
@@ -119,6 +121,16 @@ const resolve = {
         }
     }
 
+    path = (router) => {
+        if (router.pathname === '/') {
+            return 'home'.toUpperCase()
+        }
+        else {
+            const path = router.pathname.split('/').slice(1).join(' > ')
+            return this.elipsis(path, 100).toUpperCase()
+        }
+    }
+
 }
 
-export default resolve;
+export default ResolveClass;

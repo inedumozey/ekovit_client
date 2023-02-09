@@ -36,13 +36,29 @@ function ContextApi({ children, toggleState, toggle }) {
 
     const links = [
         { name: "Home", url: '/', icon: HomeIcon, show: true },
-        { name: "Contact", url: '/contact', icon: ContactPageIcon, show: true },
-        { name: "About Us", url: '/about-us', icon: Groups2Icon, show: true },
 
+        // not seen in services
+        { name: "Services", url: '/services/drugs', icon: ContactPageIcon, show: true && !router.pathname.includes('/services') },
+
+        // only seen in services
+        { name: "Provisions", url: '/services/provisions', icon: ContactPageIcon, show: true && router.pathname.includes('/services') },
+        { name: "Drugs", url: '/services/drugs', icon: Groups2Icon, show: true && router.pathname.includes('/services') },
+
+        // not seen in pos
         { name: "POS", url: '/pos', icon: WorkHistoryIcon, show: isAgent },
-        { name: "Admin", url: '/admin/users', icon: PersonOutlineIcon, show: isAdmin },
-        { name: "Config", url: '/admin/config', icon: SettingsIcon, show: isAdmin },
-        { name: "Inventory", url: '/admin/Inventory', icon: AddBusinessIcon, show: isSupperAdmin },
+
+        // not seen in admin
+        { name: "Admin", url: '/admin/inventory', icon: PersonOutlineIcon, show: isAdmin && !router.pathname.includes('/admin') },
+
+        // only seen in admin
+        { name: "Config", url: '/admin/config', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
+        { name: "Users", url: '/admin/users', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
+
+        // not seen in inventory
+        { name: "Inventory", url: '/admin/inventory', icon: AddBusinessIcon, show: isAdmin && router.pathname.includes('/admin') },
+
+        // only seen in inventory
+        { name: "Add Inventory", url: '/admin/inventory/add', icon: AddBusinessIcon, show: isAdmin && router.pathname.includes('/admin/inventory') },
     ]
 
     useEffect(() => {

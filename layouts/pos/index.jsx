@@ -4,11 +4,11 @@ import Header from './header/Header';
 import Aside from './aside/Aside';
 import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
 
-const headerHeight = '63px'
+const headerHeight = '93px'
 const expandedAside = '200px'
-const shrinkedAside = '40px'
+const shrinkedAside = '50px'
 
-export default function User({ children }) {
+export default function User({ children, toggleState, toggle }) {
     const [isExpanded, setExpanded] = useState(false)
     const [isMobile, setIsMobile] = useState(false);
 
@@ -29,6 +29,8 @@ export default function User({ children }) {
                     headerHeight={headerHeight}
                     isExpanded={isExpanded}
                     setExpanded={setExpanded}
+                    toggleState={toggleState}
+                    toggle={toggle}
                 />
             </div>
 
@@ -37,6 +39,8 @@ export default function User({ children }) {
                 shrinkedAside={shrinkedAside}
                 headerHeight={headerHeight}
                 isExpanded={isExpanded}
+                toggleState={toggleState}
+                toggle={toggle}
                 setExpanded={setExpanded}
             />
 

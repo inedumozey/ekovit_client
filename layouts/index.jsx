@@ -2,7 +2,7 @@ import React, { } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Auth from './auth'
-import Pos from './user'
+import Pos from './pos'
 import Landing from './landing'
 
 

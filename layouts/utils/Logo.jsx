@@ -24,7 +24,6 @@ const LogoStyle = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: cursive;
         color: ${({ theme }) => theme.title};
         text-decoration: none;
     }

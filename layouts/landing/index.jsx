@@ -2,25 +2,40 @@ import { useContext, useEffect, useState } from 'react'
 import { ContextData } from '../../contextApi/ContextApi';
 import styled from 'styled-components'
 import Modal from '../../utils/components/Modal';
-import Link from 'next/link';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavLinks from '../utils/NavLinks';
-import Log from '../utils/Log';
+import UserLog from '../utils/UserLog';
 import Logo from '../utils/Logo';
+import SideBarLayoutLanding from '../utils/SideBarLayoutLanding';
+import SideLink from '../utils/SideLink';
+import LightDarkBtn from '../../utils/components/LightDarkBtn';
+import { useRouter } from 'next/router'
+import ResolveClass from '../../utils/resolveClass';
+const resolve = new ResolveClass()
 
 export default function Landing({ children, toggleState, toggle }) {
-
+    const router = useRouter()
     const [openSideDrawal, setOpenSideDeawal] = useState(false)
 
     return (
         <Wrapper>
-            <Header>
-                <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
-                <Logo />
+            <Header toggleState={toggleState}>
+                <div className="top">
+                    <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
+                    <Logo />
 
-                <NavLinks toggleState={toggleState} />
+                    <NavLinks toggleState={toggleState} />
 
-                <Log toggleState={toggleState} toggle={toggle} />
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <UserLog toggleState={toggleState} toggle={toggle} />
+                        <div className="theme-btn">
+                            <LightDarkBtn toggleState={toggleState} toggle={toggle} />
+                        </div>
+                    </div>
+                </div>
+                <div className="bottom">
+                    <div className="content">{resolve.path(router)}</div>
+                </div>
 
             </Header>
             <Main>{children}</Main>
@@ -30,7 +45,11 @@ export default function Landing({ children, toggleState, toggle }) {
                 show={openSideDrawal}
                 setShow={setOpenSideDeawal}
             >
-                <SideBar>side bar</SideBar>
+                <SideBar>
+                    <SideBarLayoutLanding toggleState={toggleState} toggle={toggle}>
+                        <SideLink toggleState={toggleState} toggle={toggle} type="landing" />
+                    </SideBarLayoutLanding>
+                </SideBar>
             </Modal>
         </Wrapper>
     )
@@ -41,6 +60,7 @@ const Wrapper = styled.div`
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    user-select: none;
 
     img {
         width: 100%;
@@ -49,7 +69,7 @@ const Wrapper = styled.div`
 `
 
 const SideBar = styled.div`
-    width: 65vw;
+    width: 50vw;
     height: 100vh;
     background: ${({ theme }) => theme.bg};
     box-shadow: 1px 1px 7px 4px rgb(0 0 0 / 82%);
@@ -57,13 +77,10 @@ const SideBar = styled.div`
 
 const Header = styled.div`
     width: 100%;
-    height: 63px;
+    height: 93px;
     font-weight: 600;
     position: fixed;
-    display: flex;
     transition: 1s;
-    justify-content: space-between;
-    aligin-items: center;
     z-index: 1000;
     background: ${({ theme }) => theme.bg};
     left: 0;
@@ -71,13 +88,43 @@ const Header = styled.div`
     right: 0;
     box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
 
-    padding: 10px ${({ theme }) => theme.lg_padding};
-    @media (max-width: ${({ theme }) => theme.md_screen}){
-        padding: 10px ${({ theme }) => theme.md_padding};
+    .top {
+        height: 63px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        aligin-items: center;
+
+
+        padding: 10px ${({ theme }) => theme.lg_padding};
+        @media (max-width: ${({ theme }) => theme.md_screen}){
+            padding: 10px ${({ theme }) => theme.md_padding};
+        }
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            padding: 10px ${({ theme }) => theme.sm_padding};
+        }
+
     }
-    @media (max-width: ${({ theme }) => theme.sm_screen}){
-        padding: 10px ${({ theme }) => theme.sm_padding};
+    .bottom {
+        height: 26px;
+        display: flex;
+        justify-content: center;
+        aligin-items: center;
+
+        .content {
+            padding: 0px 10px;
+            font-size: .9rem;
+            font-weight: bold;
+        }
     }
+
+    .theme-btn {
+        margin-left: 20px;
+        @media (max-width: 800px){
+            display: none;
+        }
+    }
+
     .toggle {
         height: 100%;
         min-width: 30px;
@@ -92,7 +139,7 @@ const Header = styled.div`
     }
 
     .icon {
-        color: ${({ theme }) => theme.title};
+        color: ${({ toggleState }) => toggleState ? 'var(--link-lighttheme)' : 'var(--active-link-darktheme)'};
     }
 
     .logo {
@@ -157,7 +204,7 @@ const Header = styled.div`
 `
 const Main = styled.div`
     width: 100%;
-    min-height: calc(100vh - 63px);
+    min-height: calc(100vh - 83px);
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;

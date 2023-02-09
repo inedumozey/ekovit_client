@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import SideBarLayout from '../../utils/SideBarLayout'
+import SideLink from '../../utils/SideLink'
 
-export default function Aside({ headerHeight, expandedAside, shrinkedAside, isExpanded, setExpanded }) {
+export default function Aside({ headerHeight, toggleState, toggle, expandedAside, shrinkedAside, isExpanded, setExpanded }) {
     return (
         <AsideStyle
             headerHeight={headerHeight}
@@ -10,7 +12,9 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
             isExpanded={isExpanded}
         >
             <div onClick={() => setExpanded(!isExpanded)} className="handle"></div>
-            Aside
+            <SideBarLayout isExpanded={isExpanded} toggleState={toggleState} toggle={toggle}>
+                <SideLink toggleState={toggleState} isExpanded={isExpanded} />
+            </SideBarLayout>
         </AsideStyle>
     )
 }
@@ -18,7 +22,6 @@ export default function Aside({ headerHeight, expandedAside, shrinkedAside, isEx
 
 const AsideStyle = styled.div`
     position: fixed;
-    padding: 20px 20px 20px 15px;
     top: ${({ headerHeight }) => headerHeight};
     transition: ${({ theme }) => theme.transition};
     width: ${({ shrinkedAside }) => shrinkedAside};

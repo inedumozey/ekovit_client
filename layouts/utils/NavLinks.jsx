@@ -3,13 +3,13 @@ import { ContextData } from '../../contextApi/ContextApi';
 import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import linkColor from './linkColor';
 
 
 export default function NavLinks({ toggleState }) {
     const router = useRouter()
 
     const { links } = useContext(ContextData);
-
     return (
         <Nav className="nav">
             {
@@ -19,7 +19,7 @@ export default function NavLinks({ toggleState }) {
                             className='link'
                             key={i}
                             href={link.url}
-                            style={{ color: router.pathname === link.url ? (toggleState ? '#795548' : '#fff') : '' }}
+                            style={linkColor(router, link, toggleState)}
                         >
                             {
                                 link.name?.toUpperCase()
@@ -40,7 +40,6 @@ const Nav = styled.div`
     align-items: center;
 
     .link {
-        color: ${({ theme }) => theme.title};
         text-decoration: none;
         padding: 10px 4px;
 
