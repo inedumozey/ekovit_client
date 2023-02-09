@@ -91,14 +91,14 @@ const HeaderStyle = styled.div`
     }
     .bottom {
         height: 26px;
-        display: flex;
-        justify-content: center;
-        aligin-items: center;
-
-        .content {
-            padding: 0px 10px;
-            font-size: .9rem;
-            font-weight: bold;
+        padding: 0px 10px;
+        font-weight: bold;
+        padding: 10px ${({ theme }) => theme.lg_padding};
+        @media (max-width: ${({ theme }) => theme.md_screen}){
+            padding: 10px ${({ theme }) => theme.md_padding};
+        }
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            padding: 10px ${({ theme }) => theme.sm_padding};
         }
     }
 

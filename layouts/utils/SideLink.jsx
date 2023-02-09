@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ScrollBar } from '../../styles/globalStyles';
 import linkColor from './linkColor';
 
-export default function SideLink({ toggleState, isExpanded, type }) {
+export default function SideLink({ toggleState, isExpanded, type, setOpenSideDeawal }) {
     const router = useRouter()
 
     const { links } = useContext(ContextData);
@@ -24,6 +24,7 @@ export default function SideLink({ toggleState, isExpanded, type }) {
                                     <Link
                                         className='link'
                                         key={i}
+                                        onClick={() => setOpenSideDeawal(false)}
                                         href={link.url}
                                         style={linkColor(router, link, toggleState)}
                                     >

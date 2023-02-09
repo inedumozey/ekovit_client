@@ -123,12 +123,16 @@ class ResolveClass {
 
     path = (router) => {
         if (router.pathname === '/') {
-            return 'home'.toUpperCase()
+            return 'home'
         }
         else {
-            const path = router.pathname.split('/').slice(1).join(' > ')
-            return this.elipsis(path, 100).toUpperCase()
+            const path = router.pathname.split('/').join(' > ')
+            return this.elipsis(path, 100)
         }
+        // else {
+        //     const path = router.pathname.split('/').slice(1).join(' > ')
+        //     return this.elipsis(path, 100).toUpperCase()
+        // }
     }
 
 }
