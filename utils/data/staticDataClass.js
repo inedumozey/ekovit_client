@@ -4,8 +4,7 @@ class staticDataClass {
     contact = {
         name: 'EKOVIT'
     }
-    num = 2
-
+    num = 10
 }
 
 export default staticDataClass

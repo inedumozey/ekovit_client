@@ -62,7 +62,7 @@ const HeaderStyle = styled.div`
     height: ${({ headerHeight }) => headerHeight};
     font-weight: 600;
     position: fixed;
-    background: inherit;
+    background:  ${({ theme }) => theme.bg};;
     position: fixed;
     transition: 1s;
     left: 0;

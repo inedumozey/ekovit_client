@@ -1,26 +1,404 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
 import FetchError from '../../../utils/components/FetchError';
 import Search from '../../../utils/components/Search';
 import filter from "@mozeyinedu/filter";
-import { useSnap } from '@mozeyinedu/hooks-lab';
-import Spinner from '../../../utils/components/Spinner';
-import { ViewMore } from '../../../styles/globalStyles';
+import { ThreeDots } from 'react-loader-spinner'
 
 const api = new apiClass()
 
+const users = [
+    {
+        email: 'hdgdg',
+        role: 'ADMIN',
+        isSupperAdmin: true
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+    {
+        email: 'hdgdg',
+        role: 'user',
+        isSupperAdmin: false
+    },
+]
 
 export default function Users() {
-    const { snap } = useSnap(.5)
     const { admin, num } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [observing, setObserving] = useState(false)
     const [inp, setInp] = useState('')
     const [count, setCount] = useState(num);
-    const [opening, setOpening] = useState(false);
-    const ref = useRef(null)
+    const pageEnd = useRef()
 
 
     const {
@@ -28,40 +406,40 @@ export default function Users() {
         setFetchingUsers,
         fetchingUsersSuccess,
         setFetchingUsersSuccess,
-        users,
+        // users,
         setUsers,
     } = admin;
 
     const [filteredData, setFilter] = useState(users);
 
-    console.log(filteredData)
-
     useEffect(() => {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) {
-                    setObserving(false)
-                }
-                else {
-                    setObserving(true)
-                    observer.unobserve(entry.target)
-                }
-            })
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setTimeout(() => {
+                    setCount(prevState => prevState + num)
+                }, 1000)
+            }
         }, {
-            threshold: 1,
-            rootMargin: "20px"
+            threshold: .5
         })
 
-        // ref.current.forEach(imgBox => {
-        //     observer.observe(imgBox)
-        // })
-    })
+        observer.observe(pageEnd.current)
+
+    }, [])
+
+    useEffect(() => {
+        if (count <= users.length || ready || !fetchingUsers) {
+            setObserving(true)
+        }
+    }, [count, fetchingUsers, ready])
 
     useEffect(() => {
         api.fetchUsers(setFetchingUsers, setFetchingUsersSuccess, setUsers, true)
     }, [])
 
     useEffect(() => {
+
         setTimeout(() => {
             setReady(true)
         }, 500)
@@ -78,19 +456,10 @@ export default function Users() {
 
     }, [inp, users])
 
-    const handleViewMore = () => {
-        setOpening(true)
-
-        setTimeout(() => {
-            setOpening(false)
-            setCount(prevState => prevState + num)
-        }, 1000)
-    }
-
     return (
         <Wrapper>
             {
-                !ready || fetchingUsers ? 'Loading...' :
+                !ready || fetchingUsers ? <div style={{ textAlign: 'center', padding: '20px' }}>Loading...</div> :
                     !fetchingUsersSuccess ? <FetchError /> :
                         <div className='container'>
                             <div className="header">
@@ -139,7 +508,7 @@ export default function Users() {
                                                                 return { color: 'inherit' }
                                                             }
                                                         }())
-                                                    }> {data.Role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                                                    }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
                                                     </span>
                                                 </div>
                                             </Card>
@@ -148,30 +517,44 @@ export default function Users() {
                                 }
                             </div>
 
-                            {
-                                count >= filteredData.length ? '' :
-
-                                    <ViewMore>
-                                        <div onClick={handleViewMore} className="more" {...snap()}>
-                                            {opening ? <div className='center'> <Spinner size="sm" /></div> : 'View more...'}
-                                        </div>
-                                    </ViewMore>
-                            }
                         </div>
             }
+
+            <div ref={pageEnd} style={{
+                height: '30px',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center'
+            }}
+            >
+                {
+                    observing ?
+                        <ThreeDots
+                            height="30"
+                            width="50"
+                            radius="9"
+                            color="#0988ed"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        /> : ''
+                }
+            </div> : ''
+
         </Wrapper>
     )
 }
 
 
 const Wrapper = styled.div`
-    height: 100%;
+    min-height: ;
+    position: relative;
 
     .container {
 
         .header {
             width: 100%;
-
             .header-content {
                 position: relative;
                 width: 100%;
@@ -206,6 +589,9 @@ const Wrapper = styled.div`
         }
     }
 `
+const animate = keyframes`
+    from { transform: scale(.5) }
+`
 
 const Card = styled.div`
     width: 100%;
@@ -218,18 +604,12 @@ const Card = styled.div`
     justify-content: space-between;
     align-items: center;
 
+    animation-name: ${animate};
+    animation-duration: .3s;
+    animation-iteration-count: linear;
+
     &:hover {
         opacity: .6;
         cursor: pointer;
     }
-
-    .left {
-        // border: 1px solid red;
-    }
-    .right {
-        min-width: 50px;
-        // border: 1px solid red;
-    }
 `
-
-
