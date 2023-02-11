@@ -1,20 +1,35 @@
-import React, { } from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Auth from './auth'
 import Pos from './pos'
 import Landing from './landing'
-
+import Cookies from 'js-cookie';
 
 
 export default function Layout({ children, toggleState, toggle }) {
     const router = useRouter()
 
+    useEffect(() => {
+        if (router.pathname.includes('/pos')) {
+            // xxxxx3 = agent
+            if (!Cookies.get('xxxxx3')) {
+                router.push('/')
+            }
+        }
+        else if (router.pathname.includes('/admin')) {
+            // xxxxx2 = admin 
+            if (!Cookies.get('xxxxx2')) {
+                router.push('/')
+            }
+        }
+    })
+
     return (
         <Body>
             {
                 (function () {
-                    if (router.pathname.includes('/pos')) {
+                    if (router.pathname.includes('/pos') || router.pathname.includes('/admin')) {
                         return <Pos children={children} toggleState={toggleState} toggle={toggle} />
                     }
                     else if (router.pathname.includes('/auth')) {
@@ -34,6 +49,7 @@ export default function Layout({ children, toggleState, toggle }) {
 
 
 const Body = styled.div`
+    overflow-y: auto;
     background: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.pri};
 `

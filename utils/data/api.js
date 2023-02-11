@@ -91,41 +91,6 @@ class apiClass {
         }
     }
 
-    adminResetPassword = async (
-        data_,
-        setCurrentPassword,
-        setNewPassword,
-        setCPassword,
-        setResetingAdminPassword
-    ) => {
-        try {
-            const { data } = await axios.put(`${BASE_URL}/auth/admin/reset-password`, { ...data_ }, {
-                headers: {
-                    'authorization': `Bearer ${Cookies.get('accesstoken')}`,
-                }
-            });
-
-            setResetingAdminPassword(false)
-            toast(data.msg, { type: 'success' });
-
-            // clear input
-            setCurrentPassword("");
-            setNewPassword("");
-            setCPassword("");
-
-        }
-        catch (err) {
-            if (err.response) {
-                toast(err.response.data.msg, { type: 'error' })
-            }
-            else {
-                toast(err.message, { type: 'error' })
-            }
-
-            setResetingAdminPassword(false)
-        }
-    }
-
     fetchProfile = async (
         setFetchingProfile,
         setFetchingProfileSuccess,
@@ -166,6 +131,53 @@ class apiClass {
             }
             else {
                 setFetchingProfileSuccess(false)
+            }
+        }
+    }
+
+    fetchUsers = async (
+        setFetchingUsers,
+        setFetchingUsersSuccess,
+        setUsers,
+        initial) => {
+
+        initial ? setFetchingUsers(true) : ''
+        try {
+            if (!this.hasAccess()) {
+                // refresh accesstoken
+                await this.refreshToken()
+
+                setTimeout(async () => {
+                    const { data } = await axios.get(`${BASE_URL}/auth/fetch-users`, {
+                        headers: {
+                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                            'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`
+                        }
+                    })
+                    setUsers(data.data)
+                })
+
+            } else {
+                const { data } = await axios.get(`${BASE_URL}/auth/fetch-users`, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                        'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                    }
+                });
+                setUsers(data.data)
+            }
+
+            initial ? setFetchingUsers(false) : ''
+            setFetchingUsersSuccess(true)
+        }
+        catch (err) {
+            initial ? setFetchingUsers(false) : ''
+
+            if (err.response) {
+                setFetchingUsersSuccess(false)
+            }
+            else {
+                setFetchingUsersSuccess(false)
             }
         }
     }

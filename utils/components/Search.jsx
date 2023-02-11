@@ -8,7 +8,6 @@ export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) 
 
     const handleChange = () => {
         onSearch(inp)
-        console.log(inp)
     }
 
     useEffect(() => {
@@ -20,7 +19,7 @@ export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) 
     return (
         <Wrapper minimizeAt={minimizeAt} showSearch={showSearch}>
             <div className='search'>
-                <SearchIcon onClick={() => setShowSearch(!showSearch)} style={{ fontSize: '2rem' }} />
+                <SearchIcon onClick={() => { setShowSearch(!showSearch); setInp("") }} style={{ fontSize: '2rem' }} />
                 <input
                     placeholder={placeholder}
                     value={inp || ''}
@@ -32,6 +31,7 @@ export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) 
 }
 
 const Wrapper = styled.div`
+    
     .search {
         height: 40px;
         width: 40vw;
@@ -40,17 +40,15 @@ const Wrapper = styled.div`
         align-items: center;
         border: 1px solid #Ccc;
         border-radius: 6px;
-        background: #fff;
         z-index: 2;
         position: absolute;
         right 0px;
-        top: 50%;
-        transform: translateY(-50%);
+        
 
         @media (max-width: ${({ minimizeAt }) => minimizeAt}){
             width: ${({ showSearch }) => showSearch ? '100%' : '25px'};
             border: 1px solid ${({ showSearch }) => showSearch ? '#ccc' : 'transparent'};
-            background: ${({ showSearch }) => showSearch ? '#fff' : 'transparent'};
+            background: ${({ showSearch, theme }) => showSearch ? theme.bg : 'transparent'};
         }
     }
 
@@ -60,6 +58,9 @@ const Wrapper = styled.div`
         padding: 0 10px 0 0;
         display: inline-block;
         font-size: 1rem;
+        background: ${({ theme }) => theme.bg};
+        border: none;
+        color: inherit;
         border: none;
         border-radius: 0 6px 6px 0;
 

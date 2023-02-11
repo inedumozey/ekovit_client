@@ -21,7 +21,7 @@ export default function SideBarLayou({ children, toggleState, toggle, isExpanded
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    background: ${({ theme }) => theme.bg};
+    // background: ${({ theme }) => theme.bg};
 
     .header {
         height: 63px;

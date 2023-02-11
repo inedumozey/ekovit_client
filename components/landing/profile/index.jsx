@@ -6,6 +6,7 @@ import ProfileInfo from './ProfileInfo';
 import Skeletons from './Skeletons';
 import EditableProfileInfo from './EditableProfileInfo';
 import ResetPassword from './ResetPassword';
+import FetchError from '../../../utils/components/FetchError';
 const api = new apiClass()
 
 export default function Profile() {
@@ -34,11 +35,12 @@ export default function Profile() {
         <Wrapper>
             {
                 !ready || fetchingProfile ? <Skeletons /> :
-                    <>
-                        <ProfileInfo data={profile} />
-                        <EditableProfileInfo initiastate={profile.username} />
-                        <ResetPassword />
-                    </>
+                    !fetchingProfileSuccess ? <FetchError /> :
+                        <>
+                            <ProfileInfo data={profile} />
+                            <EditableProfileInfo initiastate={profile.username} />
+                            <ResetPassword />
+                        </>
             }
         </Wrapper>
     )

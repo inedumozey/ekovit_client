@@ -61,10 +61,9 @@ export default function User({ children, toggleState, toggle }) {
 
 
 const Wrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100vh;
     position: relative;
-    overflow-x: hidden;
 `
 const MainStyle = styled.div`;
     position: absolute;
@@ -84,10 +83,10 @@ const MainStyle = styled.div`;
 
 const MainContent = styled.div`
     width: 100%;
-    background: ${({ theme }) => theme.bg_image};
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
+    // background: ${({ theme }) => theme.bg_image};
+    // background-size: 100%;
+    // background-repeat: no-repeat;
+    // background-position: center;
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight})`};
     
 `

@@ -99,6 +99,32 @@ const GlobalStyle = createGlobalStyle`
     }
 `
 
+const ViewMore = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+
+    .more{
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90px;
+        height: 30px;
+        -webkit-user-select: none;
+        font-size: .7rem;
+        cursor: pointer;
+        border: 1px solid;
+        border-radius: 5px;
+
+        &:hover{
+            opacity: .3
+        }
+    }
+`
+
 const Table = styled.div`
     width: 100%;
     // max-height: 63vh;
@@ -205,6 +231,7 @@ export {
   GlobalStyle,
   ScrollBar,
   Table,
+  ViewMore,
   Form,
   InputWrapper,
   InputIcon,

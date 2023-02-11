@@ -34,6 +34,11 @@ function ContextApi({ children, toggleState, toggle }) {
     const [fetchingProfileSuccess, setFetchingProfileSuccess] = useState(false);
     const [profile, setProfile] = useState('');
 
+    // users
+    const [fetchingUsers, setFetchingUsers] = useState(false)
+    const [fetchingUsersSuccess, setFetchingUsersSuccess] = useState(false)
+    const [users, setUsers] = useState([])
+
     const links = [
         { name: "Home", url: '/', icon: HomeIcon, show: true },
 
@@ -87,7 +92,6 @@ function ContextApi({ children, toggleState, toggle }) {
         api.isSupperAdmin() ? setIsSupperAdmin(true) : setIsSupperAdmin(false)
         api.isAdmin() ? setIsAdmin(true) : setIsAdmin(false)
         api.isAgent() ? setIsAgent(true) : setIsAgent(false)
-
     })
 
 
@@ -110,6 +114,14 @@ function ContextApi({ children, toggleState, toggle }) {
             setProfile,
             editProfileLoading,
             setEditProfileLoading
+        },
+        admin: {
+            fetchingUsers,
+            setFetchingUsers,
+            fetchingUsersSuccess,
+            setFetchingUsersSuccess,
+            users,
+            setUsers,
         },
         links
     }
