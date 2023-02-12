@@ -22,6 +22,7 @@ export default function SideLink({ toggleState, isExpanded, type, setOpenSideDea
 
                                     // wider view
                                     <Link
+                                        title={link.name}
                                         className='link'
                                         key={i}
                                         onClick={() => setOpenSideDeawal(false)}
@@ -37,6 +38,7 @@ export default function SideLink({ toggleState, isExpanded, type, setOpenSideDea
                                     isExpanded ?
                                         // wider view
                                         <Link
+                                            title={link.name}
                                             className='link'
                                             key={i}
                                             href={link.url}
@@ -51,6 +53,7 @@ export default function SideLink({ toggleState, isExpanded, type, setOpenSideDea
 
                                         // minimized view
                                         <Link
+                                            title={link.name}
                                             className='link-minimize'
                                             key={i}
                                             href={link.url}

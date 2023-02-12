@@ -3,15 +3,18 @@ import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
 import styled from 'styled-components';
 import ProfileInfo from './ProfileInfo';
-import Skeletons from './Skeletons';
 import EditableProfileInfo from './EditableProfileInfo';
 import ResetPassword from './ResetPassword';
 import FetchError from '../../../utils/components/FetchError';
+import Spinner from '../../../utils/components/Spinner';
+import { Animate } from '../../../styles/globalStyles'
+
 const api = new apiClass()
 
 export default function Profile() {
-    const { user } = useContext(ContextData)
+    const { user, access } = useContext(ContextData)
     const [ready, setReady] = useState(false)
+    const { hasAccess } = access
     const {
         fetchingProfile,
         setFetchingProfile,
@@ -22,24 +25,38 @@ export default function Profile() {
     } = user
 
     useEffect(() => {
-        api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+        if (!hasAccess) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+            }, 1000)
+        }
+        else {
+            api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+        }
     }, [])
 
     useEffect(() => {
         setTimeout(() => {
             setReady(true)
-        }, 500)
+        }, 1000)
     })
 
     return (
         <Wrapper>
             {
-                !ready || fetchingProfile ? <Skeletons /> :
+                !ready || fetchingProfile ? <Spinner type="dots" /> :
                     !fetchingProfileSuccess ? <FetchError /> :
                         <>
-                            <ProfileInfo data={profile} />
-                            <EditableProfileInfo initiastate={profile.username} />
-                            <ResetPassword />
+                            <Animate>
+                                <ProfileInfo data={profile} />
+                            </Animate>
+                            <Animate>
+                                <EditableProfileInfo initiastate={profile.username} />
+                            </Animate>
+                            <Animate>
+                                <ResetPassword />
+                            </Animate>
                         </>
             }
         </Wrapper>

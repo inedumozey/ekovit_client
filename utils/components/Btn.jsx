@@ -18,7 +18,7 @@ export default function Btn({
             disabled={disabled}
             className="btn"
             onClick={onClick}
-            // {...snap()}
+            {...snap()}
             bg={bg}
             focus={focus}
         >
@@ -28,7 +28,7 @@ export default function Btn({
 }
 
 const Wrapper = styled.button`
-    background: ${({ theme }) => theme.bg};
+    background: ${({ theme }) => theme.btn};
     border:  ${({ theme }) => `1px solid ${theme.border}`};
     color: #888;
     font-size: 15px;

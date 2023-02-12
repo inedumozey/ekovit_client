@@ -16,6 +16,7 @@ export default function NavLinks({ toggleState }) {
                 links?.map((link, i) => {
                     return link.show ?
                         <Link
+                            title={link.name}
                             className='link'
                             key={i}
                             href={link.url}

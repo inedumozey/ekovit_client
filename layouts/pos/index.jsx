@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
 import Aside from './aside/Aside';
 import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
+import { ScrollBar } from '../../styles/globalStyles';
 
 const headerHeight = '93px'
 const expandedAside = '200px'
@@ -24,6 +25,7 @@ export default function User({ children, toggleState, toggle }) {
 
     return (
         <Wrapper>
+
             <div onClick={minimize}>
                 <Header
                     headerHeight={headerHeight}
@@ -59,11 +61,10 @@ export default function User({ children, toggleState, toggle }) {
     )
 }
 
-
 const Wrapper = styled.div`
     width: 100%;
-    min-height: 100vh;
     position: relative;
+    height: 100vh;
 `
 const MainStyle = styled.div`;
     position: absolute;
@@ -74,19 +75,15 @@ const MainStyle = styled.div`;
     align-items: center;
     left: ${({ isExpanded }) => isExpanded ? `calc(${expandedAside})` : `calc(${shrinkedAside})`};
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight})`};
-
     @media (max-width: ${({ theme }) => theme.md_screen}){
         left: ${({ isExpanded }) => isExpanded ? `calc(${expandedAside})` : `0`};
         width: 100vw;
     }
+  
 `
 
 const MainContent = styled.div`
     width: 100%;
-    // background: ${({ theme }) => theme.bg_image};
-    // background-size: 100%;
-    // background-repeat: no-repeat;
-    // background-position: center;
     min-height: ${({ headerHeight }) => `calc(100vh - ${headerHeight} - ${headerHeight})`};
     
 `

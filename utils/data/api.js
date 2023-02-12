@@ -98,32 +98,18 @@ class apiClass {
         initial) => {
         initial ? setFetchingProfile(true) : ''
         try {
-            if (!this.hasAccess()) {
-                // refresh accesstoken
-                await this.refreshToken()
-
-                setTimeout(async () => {
-                    const { data } = await axios.get(`${BASE_URL}/auth/fetch-profile`, {
-                        headers: {
-                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`
-                        }
-                    })
-                    setProfile(data.data)
-                })
-
-            } else {
-                const { data } = await axios.get(`${BASE_URL}/auth/fetch-profile`, {
-                    headers: {
-                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
-                    }
-                });
-                setProfile(data.data)
-            }
-
+            const { data } = await axios.get(`${BASE_URL}/auth/fetch-profile`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                }
+            });
+            console.log(data)
+            setProfile(data.data);
             initial ? setFetchingProfile(false) : ''
             setFetchingProfileSuccess(true)
         }
         catch (err) {
+
             initial ? setFetchingProfile(false) : ''
 
             if (err.response) {
@@ -143,30 +129,13 @@ class apiClass {
 
         initial ? setFetchingUsers(true) : ''
         try {
-            if (!this.hasAccess()) {
-                // refresh accesstoken
-                await this.refreshToken()
-
-                setTimeout(async () => {
-                    const { data } = await axios.get(`${BASE_URL}/auth/fetch-users`, {
-                        headers: {
-                            'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
-                            'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`
-                        }
-                    })
-                    setUsers(data.data)
-                })
-
-            } else {
-                const { data } = await axios.get(`${BASE_URL}/auth/fetch-users`, {
-                    headers: {
-                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
-                        'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
-                    }
-                });
-                setUsers(data.data)
-            }
-
+            const { data } = await axios.get(`${BASE_URL}/auth/fetch-users`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            setUsers(data.data)
             initial ? setFetchingUsers(false) : ''
             setFetchingUsersSuccess(true)
         }
@@ -178,6 +147,38 @@ class apiClass {
             }
             else {
                 setFetchingUsersSuccess(false)
+            }
+        }
+    }
+
+    fetchUser = async (
+        setFetchingUser,
+        setFetchingUserSuccess,
+        setUser,
+        id,
+        initial) => {
+        initial ? setFetchingUser(true) : ''
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/fetch-user/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            setUser(data.data);
+            initial ? setFetchingUser(false) : ''
+            setFetchingUserSuccess(true)
+        }
+        catch (err) {
+
+            initial ? setFetchingUser(false) : ''
+
+            if (err.response) {
+                setFetchingUserSuccess(false)
+            }
+            else {
+                setFetchingUserSuccess(false)
             }
         }
     }

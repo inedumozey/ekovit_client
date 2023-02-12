@@ -15,6 +15,14 @@ const linkColor = (router, link, toggleState) => {
         }
     }
 
+    else if (router.pathname.includes('/admin/users') && link.url === '/admin/users') {
+        if (toggleState) {
+            return { color: 'var(--active-link-lighttheme)' }
+        } else {
+            return { color: 'var(--active-link-darktheme)' }
+        }
+    }
+
     else if (router.pathname.includes('/services/drugs') && link.url === '/services/drugs') {
         if (toggleState) {
             return { color: 'var(--active-link-lighttheme)' }
@@ -22,6 +30,7 @@ const linkColor = (router, link, toggleState) => {
             return { color: 'var(--active-link-darktheme)' }
         }
     }
+
 
     else if (router.pathname.includes('/services/provisions') && link.url === '/services/provisions') {
         if (toggleState) {

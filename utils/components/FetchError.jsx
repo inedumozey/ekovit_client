@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function FetchError() {
+export default function FetchError({ style }) {
     return (
-        <div style={{ color: 'red', textAlign: 'center' }}>Error occured! Please refresh</div>
+        <div style={{ color: 'red', textAlign: 'center', ...style }}>Error occured! Please refresh</div>
     )
 }

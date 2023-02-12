@@ -26,7 +26,7 @@ export default function Layout({ children, toggleState, toggle }) {
     })
 
     return (
-        <Body>
+        <div>
             {
                 (function () {
                     if (router.pathname.includes('/pos') || router.pathname.includes('/admin')) {
@@ -41,7 +41,7 @@ export default function Layout({ children, toggleState, toggle }) {
                 }())
             }
 
-        </Body>
+        </div>
     )
 
 
@@ -49,7 +49,6 @@ export default function Layout({ children, toggleState, toggle }) {
 
 
 const Body = styled.div`
-    overflow-y: auto;
     background: ${({ theme }) => theme.bg};
     color: ${({ theme }) => theme.pri};
 `

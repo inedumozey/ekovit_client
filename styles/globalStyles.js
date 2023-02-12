@@ -1,5 +1,5 @@
 import { style } from "@mui/system";
-import styled, { createGlobalStyle, css } from "styled-components";
+import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
 const pri_darktheme = "#ccc";
 const pri_lighttheme = "#000";
@@ -11,12 +11,16 @@ const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,
 const bg_lighttheme = "#f5f5f5";
 const theme_changer_btn_darktheme = "#fff";
 const theme_changer_btn_lighttheme = "#000";
-const border_darktheme = "#777";
-const border_lighttheme = "#ccc";
+const border_darktheme = "#202222";
+const border_lighttheme = "#dbe1e1";
 const active_link_darktheme = "#fff";
 const active_link_lighttheme = "#0c50e9";
 const link_darktheme = "#9e9e9e";
 const link_lighttheme = "#000";
+const card_darktheme = "#000";
+const card_lighttheme = "#fff";
+const btn_darktheme = "#2a2a2a";
+const btn_lighttheme = "#e3e3e3";
 
 const ScrollBar = () => css`
   &::-webkit-scrollbar-thumb {
@@ -59,6 +63,10 @@ const GlobalStyle = createGlobalStyle`
       --active-link-lighttheme: ${active_link_lighttheme};
       --link-darktheme: ${link_darktheme};
       --link-lighttheme: ${link_lighttheme};
+      --card-darktheme: ${card_darktheme};
+      --card-lighttheme: ${card_lighttheme};
+      --btn-darktheme: ${btn_darktheme};
+      --btn-lighttheme: ${btn_lighttheme};
     }
 
     *{
@@ -70,10 +78,12 @@ const GlobalStyle = createGlobalStyle`
     body{
         transition: background .3s ease-in;
         position: relative;
-        min-height: 100vh;
-        min-height: auto;
         overflow-x: hidden;
         font-size: .8rem;
+        background: ${({ theme }) => theme.bg};
+        color: ${({ theme }) => theme.pri};
+        
+
         
 
         .center {
@@ -227,6 +237,16 @@ const Title = styled.div`
   color: ${({ theme }) => theme.title};
 `
 
+const animate = keyframes`
+    from { transform: scale(.5) }
+`
+
+const Animate = styled.div`
+  animation-name: ${animate};
+  animation-duration: .3s;
+  animation-iteration-count: linear;
+`
+
 export {
   GlobalStyle,
   ScrollBar,
@@ -236,4 +256,5 @@ export {
   InputWrapper,
   InputIcon,
   Title,
+  Animate
 };

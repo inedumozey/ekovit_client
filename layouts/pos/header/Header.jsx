@@ -13,6 +13,8 @@ const resolve = new ResolveClass()
 export default function Header({ isExpanded, setExpanded, headerHeight, toggleState, toggle }) {
     const router = useRouter()
 
+    // console.log(resolve.path(router))
+
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} toggleState={toggleState} >
             <div className="top">
@@ -51,7 +53,11 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                 </div>
             </div>
             <div className="bottom">
-                <div className="content">{resolve.path(router)}</div>
+                <div
+                    className="content"
+                    style={{ cursor: 'pointer' }}>
+                    {resolve.path(router)}
+                </div>
             </div>
         </HeaderStyle>
     )

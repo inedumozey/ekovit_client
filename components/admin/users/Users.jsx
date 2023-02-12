@@ -1,449 +1,617 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
 import FetchError from '../../../utils/components/FetchError';
 import Search from '../../../utils/components/Search';
 import filter from "@mozeyinedu/filter";
-import { ThreeDots } from 'react-loader-spinner'
+import Spinner from '../../../utils/components/Spinner';
+import { useRouter } from 'next/router';
+import { Animate } from '../../../styles/globalStyles';
 
 const api = new apiClass()
 
-const users = [
+let users = [
     {
         email: 'hdgdg',
         role: 'ADMIN',
-        isSupperAdmin: true
+        isSupperAdmin: true,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    },
+    {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    },
+    {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    },
+    {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
+        email: 'hdgdg',
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
+    }, {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
     {
         email: 'hdgdg',
-        role: 'user',
-        isSupperAdmin: false
+        role: 'USER',
+        isSupperAdmin: false,
+        _id: '6bhcxur6568u57546f86ym'
     },
 ]
 
 export default function Users() {
-    const { admin, num } = useContext(ContextData);
+    const router = useRouter()
+    const { admin, num, access } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [observing, setObserving] = useState(false)
     const [inp, setInp] = useState('')
     const [count, setCount] = useState(num);
     const pageEnd = useRef()
-
+    const { hasAccess } = access
 
     const {
         fetchingUsers,
         setFetchingUsers,
         fetchingUsersSuccess,
         setFetchingUsersSuccess,
-        // users,
+        users,
         setUsers,
     } = admin;
 
     const [filteredData, setFilter] = useState(users);
 
     useEffect(() => {
+        if (count < users.length && observing) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setTimeout(() => {
+                        setCount(prevState => prevState + num)
+                    }, 500)
+                }
+            }, {
+                threshold: .5
+            })
 
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                setTimeout(() => {
-                    setCount(prevState => prevState + num)
-                }, 1000)
-            }
-        }, {
-            threshold: .5
-        })
-
-        observer.observe(pageEnd.current)
-
-    }, [])
-
-    useEffect(() => {
-        if (count <= users.length || ready || !fetchingUsers) {
-            setObserving(true)
+            pageEnd.current ? observer.observe(pageEnd.current) : ''
         }
-    }, [count, fetchingUsers, ready])
+    }, [observing, count])
 
     useEffect(() => {
-        api.fetchUsers(setFetchingUsers, setFetchingUsersSuccess, setUsers, true)
+        setObserving(true)
+    }, [])
+
+
+    useEffect(() => {
+        if (!hasAccess) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchUsers(setFetchingUsers, setFetchingUsersSuccess, setUsers, true)
+            }, 1000)
+        }
+        else {
+            api.fetchUsers(setFetchingUsers, setFetchingUsersSuccess, setUsers, true)
+        }
     }, [])
 
     useEffect(() => {
-
         setTimeout(() => {
             setReady(true)
-        }, 500)
-    })
+        }, 1000)
+    }, [])
 
     useEffect(() => {
         const newData = filter({
@@ -458,19 +626,20 @@ export default function Users() {
 
     return (
         <Wrapper>
+
             {
-                !ready || fetchingUsers ? <div style={{ textAlign: 'center', padding: '20px' }}>Loading...</div> :
-                    !fetchingUsersSuccess ? <FetchError /> :
+                !ready || fetchingUsers ? <div><Spinner type='dots' /></div> :
+                    !fetchingUsersSuccess ? <FetchError style={{ padding: '10px 0' }} /> :
                         <div className='container'>
                             <div className="header">
                                 <div className='header-content'>
                                     <div>
-                                        <div>Total Users: {users.length}</div>
+                                        <div>Total Users: <span style={{ color: 'red' }}>{users.length}</span></div>
                                         <div>
-                                            Admins: {(users.filter(user => user.role?.toLowerCase() === 'admin')).length}
+                                            Admins: <span style={{ color: 'red' }}>{(users.filter(user => user.role?.toLowerCase() === 'admin')).length}</span>
                                         </div>
                                         <div>
-                                            Supper Admins: {(users.filter(user => user.isSupperAdmin)).length} {`(${(users.filter(user => user.isSupperAdmin))[0].email})`}
+                                            Supper Admins: <span style={{ color: 'red' }}>{(users.filter(user => user.isSupperAdmin)).length} </span>{`=> (${(users.filter(user => user.isSupperAdmin))[0].email})`}
                                         </div>
                                     </div>
                                     <div>
@@ -485,33 +654,36 @@ export default function Users() {
                             <div className="main">
                                 {
                                     filteredData?.slice(0, count).map((data, i) => {
-                                        return (
-                                            <Card key={i}>
-                                                <div className="left">
-                                                    <div className="emai">Email: {data.email}</div>
-                                                    <div className="username">Username: {data.username}</div>
-                                                </div>
-                                                <div className="right">
-                                                    <span style={
-                                                        (function () {
 
-                                                            if (data.role == 'ADMIN' && !data.isSupperAdmin) {
-                                                                return { color: 'blue' }
-                                                            }
-                                                            else if (data.role == 'AGENT' && !data.isSupperAdmin) {
-                                                                return { color: 'purple' }
-                                                            }
-                                                            else if (data.role == 'ADMIN' && data.isSupperAdmin) {
-                                                                return { color: 'red' }
-                                                            }
-                                                            else {
-                                                                return { color: 'inherit' }
-                                                            }
-                                                        }())
-                                                    }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
-                                                    </span>
-                                                </div>
-                                            </Card>
+                                        return (
+                                            <Animate key={i}>
+                                                <Card onClick={() => router.push(`/admin/users/${data._id}`)}>
+                                                    <div className="left">
+                                                        <div className="emai">Email: {data.email}</div>
+                                                        <div className="username">Username: {data.username}</div>
+                                                    </div>
+                                                    <div className="right">
+                                                        <span style={
+                                                            (function () {
+
+                                                                if (data.role == 'ADMIN' && !data.isSupperAdmin) {
+                                                                    return { color: 'blue' }
+                                                                }
+                                                                else if (data.role == 'AGENT' && !data.isSupperAdmin) {
+                                                                    return { color: 'purple' }
+                                                                }
+                                                                else if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                                                    return { color: 'red' }
+                                                                }
+                                                                else {
+                                                                    return { color: 'inherit' }
+                                                                }
+                                                            }())
+                                                        }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                                                        </span>
+                                                    </div>
+                                                </Card>
+                                            </Animate>
                                         )
                                     })
                                 }
@@ -520,27 +692,11 @@ export default function Users() {
                         </div>
             }
 
-            <div ref={pageEnd} style={{
-                height: '30px',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center'
-            }}
-            >
+            <div ref={pageEnd}>
                 {
-                    observing ?
-                        <ThreeDots
-                            height="30"
-                            width="50"
-                            radius="9"
-                            color="#0988ed"
-                            ariaLabel="three-dots-loading"
-                            wrapperStyle={{}}
-                            wrapperClassName=""
-                            visible={true}
-                        /> : ''
+                    (observing || ready || !fetchingUsers) && fetchingUsersSuccess && count < users.length ? <Spinner type="dots" /> : ''
                 }
-            </div> : ''
+            </div>
 
         </Wrapper>
     )
@@ -548,11 +704,11 @@ export default function Users() {
 
 
 const Wrapper = styled.div`
-    min-height: ;
     position: relative;
+    line-height: 1.3rem;
 
     .container {
-
+        min-height: 100%;
         .header {
             width: 100%;
             .header-content {
@@ -562,12 +718,10 @@ const Wrapper = styled.div`
                 display: flex;
                 align-items: flex-start;
 
-                border-bottom: 1px solid #ccc;
-               
+                border-bottom: 1px solid #ccc;               
             }
             
             padding: 10px ${({ theme }) => theme.lg_padding};
-
             @media (max-width: ${({ theme }) => theme.md_screen}){
                 padding: 10px ${({ theme }) => theme.md_padding};
             }
@@ -589,24 +743,17 @@ const Wrapper = styled.div`
         }
     }
 `
-const animate = keyframes`
-    from { transform: scale(.5) }
-`
 
 const Card = styled.div`
     width: 100%;
     max-width: 700px;
-    border: 1px solid #ccc;
+    border: ${({ theme }) => `1px solid ${theme.border}`};
     padding: 10px;
     margin: auto;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    animation-name: ${animate};
-    animation-duration: .3s;
-    animation-iteration-count: linear;
 
     &:hover {
         opacity: .6;

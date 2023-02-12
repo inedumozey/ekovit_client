@@ -12,11 +12,12 @@ export default function ProfileInfo({ data }) {
 
                 <div className="user">
                     <div className="user-info">{data.email} {" "}
-                        <span className='verified'>
-                            <Image src={"/images/verified.png"} width="400" height="200" alt="" />
-                        </span>
+
                     </div>
                     <div className="user-info">{data.username}</div>
+                    <div className='verified'>
+                        <Image src={"/images/verified.png"} width="400" height="200" alt="" />
+                    </div>
                     <div className="user-info">
                         <span style={
                             (function () {
@@ -24,14 +25,17 @@ export default function ProfileInfo({ data }) {
                                 if (data.role == 'ADMIN' && !data.isSupperAdmin) {
                                     return { color: 'blue' }
                                 }
-                                if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                else if (data.role == 'AGENT' && !data.isSupperAdmin) {
+                                    return { color: 'purple' }
+                                }
+                                else if (data.role == 'ADMIN' && data.isSupperAdmin) {
                                     return { color: 'red' }
                                 }
                                 else {
                                     return { color: 'inherit' }
                                 }
                             }())
-                        }> {data.Role} {data.isSupperAdmin ? `(SUPPER ADMIN)` : `(${data.role})`}
+                        }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
                         </span>
                     </div>
                 </div>
@@ -45,6 +49,8 @@ export default function ProfileInfo({ data }) {
 const Wrapper = styled.div`
     width: 100%;
     transition: all 1s;
+    background: ${({ theme }) => theme.card};
+    padding: 20px 10px;
 
     img {
         width: 100%;
@@ -53,40 +59,28 @@ const Wrapper = styled.div`
 
     .user {
         .user-info {
-            margin-bottom: 5px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-
-            .verified {
-                width: 20px;
-                margin-left: 5px;
-                height: 20px;
-                display: inline-flex;
-                border-radius: 50%;
-            }
-        }
-        
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            margin: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
     }
 
+    .verified {
+        width: 20px;
+        margin: 10px auto;
+        height: 20px;
+        border-radius: 50%;
+    }
+
     .img {
         width: 100px;
         height: 100px;
         border-radius: 50%;
-        margin-bottom: 20px;
+        margin: 0 auto 20px auto;
 
         img {
             border-radius: 50%;
-        }
-
-        @media (max-width: ${({ theme }) => theme.sm_screen}){
-            margin: auto auto 20px auto;
         }
     }
 `

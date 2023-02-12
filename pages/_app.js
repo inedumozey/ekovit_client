@@ -6,6 +6,7 @@ import { ContextApi } from "../contextApi/ContextApi";
 import { ThemeProvider } from 'styled-components'
 import { GlobalStyle } from "../styles/globalStyles";
 import ToastContainer_ from "../utils/components/ToastContainer";
+import styled from 'styled-components'
 
 
 function MyApp({ Component, pageProps }) {
@@ -27,6 +28,8 @@ function MyApp({ Component, pageProps }) {
     bg: toggleState ? 'var(--bg-lighttheme)' : 'var(--bg-darktheme)',
     light_dark_btn_color: toggleState ? 'var(--theme-changer-btn-lighttheme)' : 'var(--theme-changer-btn-darktheme)',
     border: toggleState ? "var(--border-lighttheme)" : 'var(--border-darktheme)',
+    card: toggleState ? "var(--card-lighttheme)" : 'var(--card-darktheme)',
+    btn: toggleState ? "var(--btn-lighttheme)" : 'var(--btn-darktheme)',
 
     lg_padding: '60px',
     md_padding: '25px',
@@ -35,7 +38,7 @@ function MyApp({ Component, pageProps }) {
     transition: '.4s',
     opacity: '.5',
 
-    card: {
+    card_effect: {
       shadow: '1px 1px 17px 1px rgb(0 0 0 / 10%), -1px -1px 17px 1px rgb(0 0 0 / 10%)',
       hover: {
         bg: '#f7f6f6',
@@ -53,7 +56,7 @@ function MyApp({ Component, pageProps }) {
         />
         <title>EKOVIT</title>
       </Head>
-      <GlobalStyle />
+      <GlobalStyle theme={theme} />
       <ScrollToTop smooth color="var(--major-color-purest)" style={{ background: 'rgba(0,0,0,.2)' }} />
       <ToastContainer_ />
       <NextProgress options={{ showSpinner: false }} />

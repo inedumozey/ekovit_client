@@ -126,7 +126,24 @@ class ResolveClass {
             return 'home'
         }
         else {
+
             const path = router.pathname.split('/').join(' > ')
+
+            // const r = router.pathname.split('/')
+
+            // const rm = r.slice(1, r.length - 1)
+            // let url = []
+
+            // for (let i = 0; i < rm.length; i++) {
+            //     const first = `/` + rm[0]
+            //     const second = first + `/` + rm[1]
+            //     const third = second + `/` + rm[2]
+            //     const fourth = third + `/` + rm[3]
+            //     const fifth = fourth + `/` + rm[4]
+            //     url = [first, second, third, fourth, fifth]
+            // }
+
+            // console.log(url)
             return this.elipsis(path, 100)
         }
         // else {
