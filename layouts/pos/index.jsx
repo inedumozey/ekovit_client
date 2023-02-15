@@ -25,7 +25,7 @@ export default function User({ children, toggleState, toggle }) {
     }
 
     return (
-        isMobile ?
+        !isMobile ?
             <Wrapper>
 
                 <div onClick={minimize}>
