@@ -42,9 +42,9 @@ const linkColor = (router, link, toggleState) => {
 
     else {
         if (toggleState) {
-            return { color: 'var(--link-lighttheme)' }
+            return { color: 'var(--title-lighttheme)' }
         } else {
-            return { color: 'var(--link-darktheme)' }
+            return { color: 'var(--title-darktheme)' }
         }
     }
 }

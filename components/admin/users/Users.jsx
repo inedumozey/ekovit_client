@@ -8,6 +8,7 @@ import filter from "@mozeyinedu/filter";
 import Spinner from '../../../utils/components/Spinner';
 import { useRouter } from 'next/router';
 import { Animate } from '../../../styles/globalStyles';
+import { fontSize } from '@mui/system';
 
 const api = new apiClass()
 
@@ -659,11 +660,15 @@ export default function Users() {
                                             <Animate key={i}>
                                                 <Card onClick={() => router.push(`/admin/users/${data._id}`)}>
                                                     <div className="left">
-                                                        <div className="emai">Email: {data.email}</div>
-                                                        <div className="username">Username: {data.username}</div>
+                                                        <div className="emai el">Email: {data.email}</div>
+                                                        {
+                                                            data.username ? <div className="username el">Username: {data.username}</div> : ''
+                                                        }
+
                                                     </div>
                                                     <div className="right">
                                                         <span style={
+
                                                             (function () {
 
                                                                 if (data.role == 'ADMIN' && !data.isSupperAdmin) {
@@ -679,7 +684,7 @@ export default function Users() {
                                                                     return { color: 'inherit' }
                                                                 }
                                                             }())
-                                                        }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                                                        }> {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
                                                         </span>
                                                     </div>
                                                 </Card>
@@ -754,6 +759,17 @@ const Card = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .right {
+        font-size: .7rem;
+        width: 30%;
+        text-align: right;
+    }
+
+    .left {
+        width: 70%;
+        font-weight: bold;
+    }
 
     &:hover {
         opacity: .6;

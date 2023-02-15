@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { ContextData } from '../../contextApi/ContextApi'
-const currentYear = 2021
+const currentYear = 2023
 
 export default function Copyright({ name }) {
     const { contact } = useContext(ContextData)

@@ -1,13 +1,14 @@
-import styled from 'styled-components'
-import React, { useState, useEffect } from 'react';
 import Header from './header/Header';
 import Aside from './aside/Aside';
 import { mobileAndTabletCheck } from '../../utils/mobileAndTabletCheck';
-import { ScrollBar } from '../../styles/globalStyles';
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import MobileLinks from '../utils/MobileLinks';
 
 const headerHeight = '93px'
 const expandedAside = '200px'
 const shrinkedAside = '50px'
+const bottomLinkHeight = '50px'
 
 export default function User({ children, toggleState, toggle }) {
     const [isExpanded, setExpanded] = useState(false)
@@ -24,47 +25,50 @@ export default function User({ children, toggleState, toggle }) {
     }
 
     return (
-        <Wrapper>
+        isMobile ?
+            <Wrapper>
 
-            <div onClick={minimize}>
-                <Header
+                <div onClick={minimize}>
+                    <Header
+                        headerHeight={headerHeight}
+                        isExpanded={isExpanded}
+                        setExpanded={setExpanded}
+                        toggleState={toggleState}
+                        toggle={toggle}
+                    />
+                </div>
+
+                <Aside
+                    expandedAside={expandedAside}
+                    shrinkedAside={shrinkedAside}
                     headerHeight={headerHeight}
                     isExpanded={isExpanded}
-                    setExpanded={setExpanded}
                     toggleState={toggleState}
                     toggle={toggle}
+                    setExpanded={setExpanded}
                 />
-            </div>
 
-            <Aside
-                expandedAside={expandedAside}
-                shrinkedAside={shrinkedAside}
-                headerHeight={headerHeight}
-                isExpanded={isExpanded}
-                toggleState={toggleState}
-                toggle={toggle}
-                setExpanded={setExpanded}
-            />
-
-            <MainStyle
-                shrinkedAside={shrinkedAside}
-                headerHeight={headerHeight}
-                isExpanded={isExpanded}
-                onClick={minimize}
-            >
-                <MainContent headerHeight={headerHeight}>
-                    {children}
-                </MainContent>
-                <FooterStyle headerHeight={headerHeight}>Footer</FooterStyle>
-            </MainStyle>
-        </Wrapper>
+                <MainStyle
+                    shrinkedAside={shrinkedAside}
+                    headerHeight={headerHeight}
+                    isExpanded={isExpanded}
+                    onClick={minimize}
+                >
+                    <MainContent headerHeight={headerHeight}>
+                        {children}
+                    </MainContent>
+                    <FooterStyle headerHeight={headerHeight}>Footer</FooterStyle>
+                </MainStyle>
+            </Wrapper> :
+            <MobileWrapper>
+                <MobileHeader>header</MobileHeader>
+                <MobileMain> {children} </MobileMain>
+                <MobileLinks toggle={toggle} toggleState={toggleState} bottomLinkHeight={bottomLinkHeight} />
+            </MobileWrapper>
     )
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-    position: relative;
-    height: 100vh;
 `
 const MainStyle = styled.div`;
     position: absolute;
@@ -90,4 +94,15 @@ const MainContent = styled.div`
 const FooterStyle = styled.div`
     width: 100%;
     height: ${({ headerHeight }) => headerHeight};
+`
+
+const MobileWrapper = styled.div`
+    
+`
+const MobileHeader = styled.div`
+    height: 93px;
+`
+const MobileMain = styled.div`
+    min-height: calc(100vh - 93px);
+    padding-bottom: 70px;
 `

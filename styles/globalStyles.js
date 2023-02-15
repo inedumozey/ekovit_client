@@ -4,7 +4,7 @@ import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 const pri_darktheme = "#ccc";
 const pri_lighttheme = "#000";
 const title_darktheme = "#ffc107";
-const title_lighttheme = "#673ab7";
+const title_lighttheme = "teal";
 const subtitle_darktheme = "";
 const subtitle_lighttheme = "";
 const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)";
@@ -14,7 +14,7 @@ const theme_changer_btn_lighttheme = "#000";
 const border_darktheme = "#202222";
 const border_lighttheme = "#dbe1e1";
 const active_link_darktheme = "#fff";
-const active_link_lighttheme = "#0c50e9";
+const active_link_lighttheme = "red";
 const link_darktheme = "#9e9e9e";
 const link_lighttheme = "#000";
 const card_darktheme = "#000";
@@ -78,13 +78,22 @@ const GlobalStyle = createGlobalStyle`
     body{
         transition: background .3s ease-in;
         position: relative;
+        height: 100vh;
+        min-width: 100vw;
+        min-height: auto;
         overflow-x: hidden;
+        
         font-size: .8rem;
         background: ${({ theme }) => theme.bg};
         color: ${({ theme }) => theme.pri};
+        overflow-x: hidden;
         
-
-        
+        // ellipsis
+        .el {
+          white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         .center {
           display: flex;

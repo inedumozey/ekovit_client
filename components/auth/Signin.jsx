@@ -119,11 +119,8 @@ export default function Signin() {
                             {sending ? <Spinner size="sm" /> : "Sign In"}
                         </Btn>
                     </InputWrapper>
-
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span>
-                            Don&apos;t have an account? <Link href='/auth/signup' >Sign Up</Link>
-                        </span>
+                    <div style={{ textAlign: 'right' }}>
+                        Don&apos;t have an account? <Link href='/auth/signup' >Sign Up</Link>
                     </div>
                 </div>
             </Form>

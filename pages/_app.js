@@ -63,7 +63,9 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
 
         <ContextApi toggle={toggle} toggleState={toggleState}>
-          <Component {...pageProps} />
+          <div style={{ overflow: 'hidden' }}>
+            <Component {...pageProps} />
+          </div>
         </ContextApi>
       </ThemeProvider>
 

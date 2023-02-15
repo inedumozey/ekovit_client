@@ -18,12 +18,9 @@ export default function Logo() {
 }
 
 
-const LogoStyle = styled.div`
+const LogoStyle = styled.span`
     a {
         height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         color: ${({ theme }) => theme.title};
         text-decoration: none;
     }

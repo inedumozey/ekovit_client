@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Image from 'next/image'
+import Logout from '../../../layouts/utils/Logout'
 
 
 export default function ProfileInfo({ data }) {
@@ -35,13 +36,18 @@ export default function ProfileInfo({ data }) {
                                     return { color: 'inherit' }
                                 }
                             }())
-                        }> {data.role} {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                        }>{data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
                         </span>
                     </div>
+
+
                 </div>
 
             </SubWrapper>
 
+            <div className='logout'>
+                <Logout />
+            </div>
         </Wrapper>
     )
 }
@@ -51,6 +57,7 @@ const Wrapper = styled.div`
     transition: all 1s;
     background: ${({ theme }) => theme.card};
     padding: 20px 10px;
+    position: relative;
 
     img {
         width: 100%;
@@ -63,6 +70,8 @@ const Wrapper = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-size: .7rem;
+            word-break:break-all;
         }
     }
 
@@ -81,6 +90,16 @@ const Wrapper = styled.div`
 
         img {
             border-radius: 50%;
+        }
+    }
+
+    .logout {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;  
+        
+        &:hover {
+            opacity: .7
         }
     }
 `

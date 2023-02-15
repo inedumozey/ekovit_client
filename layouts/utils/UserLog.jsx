@@ -5,29 +5,37 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useSnap } from '@mozeyinedu/hooks-lab'
-import apiClass from '../../utils/data/api';
-const api = new apiClass()
 
 export default function UserLog({ toggleState, toggle }) {
 
     const { snap } = useSnap(.5)
     const router = useRouter();
-    const { access } = useContext(ContextData)
+    const { access, user } = useContext(ContextData)
 
     return (
 
         <LogStyle>
             {
                 access.isLoggedin ?
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <Link href='/profile' {...snap()} className='profile'>
-                            <PersonOutlineIcon
-                                style={{ color: router.pathname === '/profile' ? (toggleState ? 'var(--active-link-lighttheme)' : 'var(--active-link-darktheme)') : (toggleState ? 'var(--link-lighttheme)' : 'var(--link-darktheme)') }}
-                                className='icon' />
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        alignItems: 'center'
+                    }}>
+                        <Link
+                            href='/profile'
+                            {...snap()}
+                            style={{
+                                color: router.pathname === '/profile' ? (toggleState ? 'var(--active-link-lighttheme)' : 'var(--active-link-darktheme)') : (toggleState ? 'var(--link-lighttheme)' : 'var(--link-darktheme)'),
+                                textDecoration: 'none'
+                            }}
+                            className='profile'>
+                            <PersonOutlineIcon className='profile-icon' />
+
+                            <span className='profile-name el'>{user.profile ? (user.profile.username ? user.profile.username : user.profile.email) : ('')}</span>
                         </Link>
-                        <div onClick={() => api.logout(router)} className='logout'>LOGOUT</div>
-                    </div> :
-                    <Link href='/auth' className='login'>LOGIN</Link>
+
+                    </div> : <Link href='/auth' className='login'>LOGIN</Link>
             }
         </LogStyle>
     )
@@ -40,24 +48,37 @@ const LogStyle = styled.div`
     justify-content: center;
     align-items: center;
 
-    .logout {
-        color: red;
-        cursor: pointer;
-        font-weight: bold;
-    }
     .login {
         color: ${({ theme, }) => theme.title};
         padding: 10px 5px;
         cursor: pointer;
         text-decoration: none;
+        font-size: .75rem
     }
 
     .profile {
-        padding: 10px;
+        padding: 0px 5px;
         cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
+        display: flex;
+        aligh-items: center;
+        border-radius: 15px;
+        border: 3px solid ${({ theme }) => theme.border};
+        
+
+        &:hover {
+            border: 3px solid ${({ theme }) => theme.title};;
+        }
+
+        .profile-icon{
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .profile-name{
+            padding: 13px 0;
+            max-width: 60px;
+            height: 100%;
+        }
     }
 
     

@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import apiClass from '../utils/data/api';
 import link from './link';
 import staticDataClass from '../utils/data/staticDataClass';
+import mobileLinks from './mobileLinks';
 
 const api = new apiClass()
 const staticData = new staticDataClass()
@@ -104,7 +105,8 @@ function ContextApi({ children, toggleState, toggle }) {
             user,
             setUser,
         },
-        links
+        links,
+        mobileLinks
     }
 
     return (

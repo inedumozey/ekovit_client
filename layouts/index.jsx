@@ -26,29 +26,18 @@ export default function Layout({ children, toggleState, toggle }) {
     })
 
     return (
-        <div>
-            {
-                (function () {
-                    if (router.pathname.includes('/pos') || router.pathname.includes('/admin')) {
-                        return <Pos children={children} toggleState={toggleState} toggle={toggle} />
-                    }
-                    else if (router.pathname.includes('/auth')) {
-                        return <Auth children={children} toggleState={toggleState} toggle={toggle} />
-                    }
-                    else {
-                        return <Landing children={children} toggleState={toggleState} toggle={toggle} />
-                    }
-                }())
+        (function () {
+            if (router.pathname.includes('/pos') || router.pathname.includes('/admin')) {
+                return <Pos children={children} toggleState={toggleState} toggle={toggle} />
             }
-
-        </div>
+            else if (router.pathname.includes('/auth')) {
+                return <Auth children={children} toggleState={toggleState} toggle={toggle} />
+            }
+            else {
+                return <Landing children={children} toggleState={toggleState} toggle={toggle} />
+            }
+        }())
     )
 
 
 }
-
-
-const Body = styled.div`
-    background: ${({ theme }) => theme.bg};
-    color: ${({ theme }) => theme.pri};
-`

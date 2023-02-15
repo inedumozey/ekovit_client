@@ -221,11 +221,13 @@ export default function Signup() {
                         </Btn>
                     </InputWrapper>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span>
-                            Have an account? <Link href='/auth' >Sign In</Link>
-                        </span>
+                    <div style={{ textAlign: 'right' }}>
+                        Have an account? <Link href='/auth' >Sign In</Link>
                     </div>
+
+                    {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        
+                    </div> */}
                 </div>
             </Form>
         </Wrapper>

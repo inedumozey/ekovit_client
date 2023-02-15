@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
-import { ContextData } from '../../contextApi/ContextApi';
+import { useState } from 'react'
 import styled from 'styled-components'
 import Modal from '../../utils/components/Modal';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -22,7 +21,9 @@ export default function Landing({ children, toggleState, toggle }) {
             <Header toggleState={toggleState}>
                 <div className="top">
                     <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
-                    <Logo />
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Logo />
+                    </div>
 
                     <NavLinks toggleState={toggleState} />
 
