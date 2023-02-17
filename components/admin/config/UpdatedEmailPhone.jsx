@@ -51,7 +51,7 @@ export default function UpdatedEmailPhone({ initialState }) {
         })
     }
     return (
-        <Wrapper>
+        <Card>
             <InputWrapper>
                 <label>
                     Email:
@@ -95,13 +95,17 @@ export default function UpdatedEmailPhone({ initialState }) {
                     {updatingEmailPhone ? <Spinner type="dots" /> : "Update"}
                 </Btn>
             </InputWrapper>
-        </Wrapper>
+        </Card>
     )
 }
 
-const Wrapper = styled.div``
-
-
+const Card = styled.div`
+    width: 100%;
+    padding: 15px 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    background: ${({ theme }) => theme.card};
+`
 const InputWrapper = styled.div`
     width: 100%;
     min-height: 45px;
