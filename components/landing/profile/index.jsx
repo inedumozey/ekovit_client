@@ -50,6 +50,7 @@ export default function Profile() {
                         <>
                             <Animate>
                                 <ProfileInfo data={profile} />
+
                             </Animate>
                             <Animate>
                                 <EditableProfileInfo initiastate={profile.username} />

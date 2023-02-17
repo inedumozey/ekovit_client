@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import SideBarLayout from '../../utils/SideBarLayout'
 import SideLink from '../../utils/SideLink'
+import { ContextData } from '../../../contextApi/ContextApi'
 
 export default function Aside({ headerHeight, toggleState, toggle, expandedAside, shrinkedAside, isExpanded, setExpanded }) {
+    const { links } = useContext(ContextData)
+
     return (
         <AsideStyle
             headerHeight={headerHeight}
@@ -13,7 +16,7 @@ export default function Aside({ headerHeight, toggleState, toggle, expandedAside
         >
             <div onClick={() => setExpanded(!isExpanded)} className="handle"></div>
             <SideBarLayout isExpanded={isExpanded} toggleState={toggleState} toggle={toggle}>
-                <SideLink toggleState={toggleState} isExpanded={isExpanded} />
+                <SideLink toggleState={toggleState} isExpanded={isExpanded} links={links} />
             </SideBarLayout>
         </AsideStyle>
     )
@@ -52,7 +55,6 @@ const AsideStyle = styled.div`
         bottom: 0;
         box-shadow:  -3px 0px 3px 0px rgb(0 0 0 / 42%);
         right: 0;
-        // background: ${({ theme }) => theme.title};
 
         &:hover {
             cursor: e-resize

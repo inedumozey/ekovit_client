@@ -79,14 +79,13 @@ const GlobalStyle = createGlobalStyle`
         transition: background .3s ease-in;
         position: relative;
         height: 100vh;
-        min-width: 100vw;
-        min-height: auto;
+        width: 100vw;
         overflow-x: hidden;
+        line-height: 1.3rem;
         
         font-size: .8rem;
         background: ${({ theme }) => theme.bg};
         color: ${({ theme }) => theme.pri};
-        overflow-x: hidden;
         
         // ellipsis
         .el {
@@ -222,6 +221,15 @@ const InputWrapper = styled.div`
     }
 `
 
+const ReactSelectWrapper = styled.div`
+  padding: 12px 30px 12px 30px;
+  height: 100%;
+  width: 100%;
+  border-radius: 0 3px 3px 0;
+  font-size: .9rem;
+  background: transparent;
+  color: ${({ theme }) => theme.pri};
+`
 const InputIcon = styled.div`
     position: absolute;
     padding: 3px;
@@ -264,6 +272,7 @@ export {
   Form,
   InputWrapper,
   InputIcon,
+  ReactSelectWrapper,
   Title,
   Animate
 };

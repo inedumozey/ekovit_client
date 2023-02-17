@@ -47,6 +47,7 @@ const LogStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 15px;
 
     .login {
         color: ${({ theme, }) => theme.title};
@@ -62,6 +63,7 @@ const LogStyle = styled.div`
         display: flex;
         aligh-items: center;
         border-radius: 15px;
+        background: ${({ theme }) => theme.card};
         border: 3px solid ${({ theme }) => theme.border};
         
 

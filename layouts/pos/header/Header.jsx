@@ -8,12 +8,11 @@ import { useRouter } from 'next/router'
 import Logo from '../../utils/Logo';
 import LightDarkBtn from '../../../utils/components/LightDarkBtn';
 import ResolveClass from '../../../utils/resolveClass';
+import Search from '../../../utils/components/Search';
 const resolve = new ResolveClass()
 
 export default function Header({ isExpanded, setExpanded, headerHeight, toggleState, toggle }) {
     const router = useRouter()
-
-    // console.log(resolve.path(router))
 
     return (
         <HeaderStyle isExpanded={isExpanded} headerHeight={headerHeight} toggleState={toggleState} >
@@ -54,9 +53,12 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
             </div>
             <div className="bottom">
                 <div
-                    className="content"
+                    className="content el"
                     style={{ cursor: 'pointer' }}>
                     {resolve.path(router)}
+                </div>
+                <div className="search-wrapper">
+                    <Search />
                 </div>
             </div>
         </HeaderStyle>
@@ -78,8 +80,14 @@ const HeaderStyle = styled.div`
     z-index: 1000;
     user-select: none;
 
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .top {
-        height: 63px;
+        height: 60px;
         font-weight: 600;
         display: flex;
         justify-content: space-between;
@@ -96,26 +104,31 @@ const HeaderStyle = styled.div`
 
     }
     .bottom {
-        height: 26px;
+        height: calc(100% - 60px);
         padding: 0px 10px;
         font-weight: bold;
-        padding: 10px ${({ theme }) => theme.lg_padding};
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 5px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 10px ${({ theme }) => theme.md_padding};
+            padding: 5px ${({ theme }) => theme.md_padding};
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 10px ${({ theme }) => theme.sm_padding};
+            padding: 5px ${({ theme }) => theme.sm_padding};
+        };
+
+        .search-wrapper {
+            position: relative;
+            height: 100%;
+            width: 80%
         }
     }
 
     .theme-btn {
         margin-left: 20px;
-    }
-
-    .logo {
-        display: flex;
-        justify-content: center;
-        aligin-items: center;
     }
 
     @media (max-width: 800px){

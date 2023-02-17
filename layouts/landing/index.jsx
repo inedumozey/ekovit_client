@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import styled from 'styled-components'
 import Modal from '../../utils/components/Modal';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,18 +10,27 @@ import SideLink from '../utils/SideLink';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
 import { useRouter } from 'next/router'
 import ResolveClass from '../../utils/resolveClass';
+import Search from '../../utils/components/Search';
+import Copyright from '../../utils/components/Copyright';
+import { ContextData } from '../../contextApi/ContextApi';
+
+
 const resolve = new ResolveClass()
+
+const headerHeight = '100px'
+const footerHeight = '50px'
 
 export default function Landing({ children, toggleState, toggle }) {
     const router = useRouter()
-    const [openSideDrawal, setOpenSideDeawal] = useState(false)
+    const [openSideDrawal, setOpenSideDeawal] = useState(false);
+    const { links } = useContext(ContextData)
 
     return (
         <Wrapper>
             <Header toggleState={toggleState}>
                 <div className="top">
                     <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div className='logo'>
                         <Logo />
                     </div>
 
@@ -36,11 +45,16 @@ export default function Landing({ children, toggleState, toggle }) {
                 </div>
                 <div className="bottom">
                     <div className="content">{resolve.path(router)}</div>
+                    <div className="search-wrapper">
+                        <Search />
+                    </div>
                 </div>
 
             </Header>
             <Main>{children}</Main>
-            <Footer></Footer>
+            <Footer>
+                <Copyright />
+            </Footer>
             <Modal
                 drawal={true}
                 show={openSideDrawal}
@@ -48,7 +62,7 @@ export default function Landing({ children, toggleState, toggle }) {
             >
                 <SideBar>
                     <SideBarLayoutLanding toggleState={toggleState} toggle={toggle}>
-                        <SideLink setOpenSideDeawal={setOpenSideDeawal} toggleState={toggleState} toggle={toggle} type="landing" />
+                        <SideLink setOpenSideDeawal={setOpenSideDeawal} toggleState={toggleState} toggle={toggle} type="landing" links={links} />
                     </SideBarLayoutLanding>
                 </SideBar>
             </Modal>
@@ -76,7 +90,7 @@ const SideBar = styled.div`
 
 const Header = styled.div`
     width: 100%;
-    height: 93px;
+    height: ${headerHeight};
     font-weight: 600;
     user-select: none;
     position: fixed;
@@ -87,6 +101,12 @@ const Header = styled.div`
     top: 0;
     right: 0;
     box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
+
+    .logo {
+        display: flex;
+        justify-content: center;
+        aligin-items: center;
+    }
 
     .top {
         height: 63px;
@@ -105,19 +125,31 @@ const Header = styled.div`
         }
 
     }
+    
     .bottom {
-        height: 26px;
+        height: calc(100% - 60px);
         padding: 0px 10px;
         font-weight: bold;
-        padding: 10px ${({ theme }) => theme.lg_padding};
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 5px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
-            padding: 10px ${({ theme }) => theme.md_padding};
+            padding: 5px ${({ theme }) => theme.md_padding};
         }
         @media (max-width: ${({ theme }) => theme.sm_screen}){
-            padding: 10px ${({ theme }) => theme.sm_padding};
+            padding: 5px ${({ theme }) => theme.sm_padding};
+        };
+
+        .search-wrapper {
+            position: relative;
+            height: 100%;
+            width: 80%
         }
     }
-
+    
     .theme-btn {
         margin-left: 20px;
         @media (max-width: 800px){
@@ -204,10 +236,13 @@ const Header = styled.div`
 `
 const Main = styled.div`
     width: 100%;
-    min-height: calc(100vh - 83px);
-    padding-top: 93px;
+    min-height: calc(100vh - ${footerHeight});
+    padding-top: ${headerHeight};
 `
 const Footer = styled.div`
     width: 100%;
-    min-height: 63px;
+    min-height: ${footerHeight};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `

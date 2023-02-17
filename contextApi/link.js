@@ -25,7 +25,7 @@ const links = (router, isAdmin, isAgent) => {
 
         // only seen in admin
         { name: "Config", url: '/admin/config', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
-        { name: "Users", url: '/admin/users', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
+        { name: "Users", url: '/admin/users', icon: Groups2Icon, show: isAdmin && router.pathname.includes('/admin') },
 
         // not seen in inventory
         { name: "Inventory", url: '/admin/inventory', icon: AddBusinessIcon, show: isAdmin && router.pathname.includes('/admin') },

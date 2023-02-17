@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import apiClass from '../utils/data/api';
 import link from './link';
 import staticDataClass from '../utils/data/staticDataClass';
-import mobileLinks from './mobileLinks';
+import mobileLink from './mobileLinks';
 
 const api = new apiClass()
 const staticData = new staticDataClass()
@@ -20,12 +20,13 @@ function ContextApi({ children, toggleState, toggle }) {
     const [isSupperAdmin, setIsSupperAdmin] = useState(false)
     const [isAdmin, setIsAdmin] = useState(false)
     const [isAgent, setIsAgent] = useState(false)
+    const [searchedData, setSearchedData] = useState('')
 
     // links
     const links = link(router, isAdmin, isAgent)
+    const mobileLinks = mobileLink(router, isAdmin, isAgent)
 
     // profile
-
     const [fetchingProfile, setFetchingProfile] = useState(false);
     const [editProfileLoading, setEditProfileLoading] = useState(false);
     const [fetchingProfileSuccess, setFetchingProfileSuccess] = useState(false);
@@ -40,6 +41,12 @@ function ContextApi({ children, toggleState, toggle }) {
     const [fetchingUser, setFetchingUser] = useState(false)
     const [fetchingUserSuccess, setFetchingUserSuccess] = useState(false)
     const [user, setUser] = useState("")
+
+    //config
+    const [fetchingConfig, setFetchingConfig] = useState(false)
+    const [fetchingConfigSuccess, setFetchingConfigSuccess] = useState(false)
+    const [configData, setConfigData] = useState("")
+    const [updatingEmailPhone, setUpdatingEmailPhone] = useState(false)
 
     useEffect(() => {
         // redirect
@@ -106,7 +113,21 @@ function ContextApi({ children, toggleState, toggle }) {
             setUser,
         },
         links,
-        mobileLinks
+        mobileLinks,
+        search: {
+            searchedData,
+            setSearchedData
+        },
+        config: {
+            fetchingConfig,
+            setFetchingConfig,
+            fetchingConfigSuccess,
+            setFetchingConfigSuccess,
+            configData,
+            setConfigData,
+            updatingEmailPhone,
+            setUpdatingEmailPhone,
+        }
     }
 
     return (

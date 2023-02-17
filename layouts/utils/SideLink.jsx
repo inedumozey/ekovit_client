@@ -1,15 +1,11 @@
-import { useContext } from 'react'
-import { ContextData } from '../../contextApi/ContextApi';
 import styled from 'styled-components'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { ScrollBar } from '../../styles/globalStyles';
 import linkColor from './linkColor';
 
-export default function SideLink({ toggleState, isExpanded, type, setOpenSideDeawal }) {
+export default function SideLink({ toggleState, isExpanded, type, setOpenSideDeawal, links }) {
     const router = useRouter()
-
-    const { links } = useContext(ContextData);
 
     return (
         <Nav isExpanded={isExpanded} className="nav">

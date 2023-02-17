@@ -1,13 +1,16 @@
 import styled from 'styled-components'
 import UserLog from './UserLog';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
+import Logo from './Logo';
 
+const headerHeight = '100px'
+const footerHeight = '100px'
 
 export default function SideBarLayoutLanding({ children, toggleState, toggle }) {
     return (
         <Wrapper>
             <div className="header">
-                LOGO
+                <Logo />
             </div>
             <div className="main">
                 {children}
@@ -28,7 +31,7 @@ const Wrapper = styled.div`
     background: ${({ theme }) => theme.bg};
 
     .header {
-        height: 63px;
+        height: ${headerHeight};
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -37,11 +40,11 @@ const Wrapper = styled.div`
     }
 
     .main {
-        height: calc(100% - 63px - 63px);
+        height: calc(100% - ${headerHeight} - ${footerHeight});
     }
 
     .footer {
-        height: 63px;
+        height: ${footerHeight};
         position: relative;
 
         .themeBtn {

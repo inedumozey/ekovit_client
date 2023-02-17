@@ -12,7 +12,7 @@ export default function MobileLinks({ toggleState, toggle, bottomLinkHeight }) {
     return (
         <BottomNav bottomLinkHeight={bottomLinkHeight}>
             {
-                mobileLinks(router).main.map((link, i) => {
+                mobileLinks.main.map((link, i) => {
                     return <Link title={link.name}
                         className='mobile-link'
                         key={i}
@@ -20,14 +20,14 @@ export default function MobileLinks({ toggleState, toggle, bottomLinkHeight }) {
                     >
                         <div
                             className='mobile-link-icon'
-                            style={linkColor(router, link, toggleState)}>
+                            style={linkColor(router, link, toggleState, 'mobile')}>
                             {
                                 <link.icon />
                             }
                         </div>
                         <div
                             className='mobile-link-name'
-                            style={linkColor(router, link, toggleState)}>
+                            style={linkColor(router, link, toggleState, "mobile")}>
                             {
                                 link.name?.toUpperCase()
                             }
@@ -67,20 +67,15 @@ const BottomNav = styled.div`
         text-decoration: none;
 
         .mobile-link-icon {
-            height: 30px;
-            width: 30px;
             display: flex;
             flex-direction: column;
             border-radius: 50%;
             justify-content: space-around;
             align-items: center;
-            border: 1px solid;
-            margin: 0 3px;
         }
 
         .mobile-link-name {
-            font-size: .7rem;
-            margin-top: 3px;
+            font-size: .6rem;
         }
 
     }

@@ -3,12 +3,10 @@ import styled from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
 import FetchError from '../../../utils/components/FetchError';
-import Search from '../../../utils/components/Search';
 import filter from "@mozeyinedu/filter";
 import Spinner from '../../../utils/components/Spinner';
 import { useRouter } from 'next/router';
 import { Animate } from '../../../styles/globalStyles';
-import { fontSize } from '@mui/system';
 
 const api = new apiClass()
 
@@ -556,13 +554,13 @@ let users = [
 
 export default function Users() {
     const router = useRouter()
-    const { admin, num, access } = useContext(ContextData);
+    const { admin, num, access, search, user } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [observing, setObserving] = useState(false)
-    const [inp, setInp] = useState('')
     const [count, setCount] = useState(num);
     const pageEnd = useRef()
     const { hasAccess } = access
+    const { searchedData } = search
 
     const {
         fetchingUsers,
@@ -572,6 +570,15 @@ export default function Users() {
         users,
         setUsers,
     } = admin;
+
+    const {
+        fetchingProfile,
+        setFetchingProfile,
+        fetchingProfileSuccess,
+        setFetchingProfileSuccess,
+        profile,
+        setProfile,
+    } = user
 
     const [filteredData, setFilter] = useState(users);
 
@@ -609,6 +616,18 @@ export default function Users() {
     }, [])
 
     useEffect(() => {
+        if (!hasAccess) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+            }, 1000)
+        }
+        else {
+            api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+        }
+    }, [])
+
+    useEffect(() => {
         setTimeout(() => {
             setReady(true)
         }, 1000)
@@ -618,19 +637,19 @@ export default function Users() {
         const newData = filter({
             data: users,
             keys: ["username", "email", 'role'],
-            input: inp
+            input: searchedData
         })
 
         setFilter(newData)
 
-    }, [inp, users])
+    }, [searchedData, users])
 
     return (
         <Wrapper>
 
             {
-                !ready || fetchingUsers ? <div><Spinner type='dots' /></div> :
-                    !fetchingUsersSuccess ? <FetchError style={{ padding: '10px 0' }} /> :
+                !ready || fetchingUsers || fetchingProfile ? <div><Spinner type='dots' /></div> :
+                    !fetchingUsersSuccess || !fetchingProfileSuccess ? <FetchError style={{ padding: '10px 0' }} /> :
                         <div className='container'>
                             <div className="header">
                                 <div className='header-content'>
@@ -643,12 +662,6 @@ export default function Users() {
                                             Supper Admins: <span style={{ color: 'red' }}>{(users.filter(user => user.isSupperAdmin)).length} </span>{`=> (${(users.filter(user => user.isSupperAdmin))[0].email})`}
                                         </div>
                                     </div>
-                                    <div>
-                                        <Search
-                                            onSearch={(inp) => setInp(inp)}
-                                            placeholder={"Search with email, username, role"}
-                                        />
-                                    </div>
                                 </div>
 
                             </div>
@@ -658,36 +671,70 @@ export default function Users() {
 
                                         return (
                                             <Animate key={i}>
-                                                <Card onClick={() => router.push(`/admin/users/${data._id}`)}>
-                                                    <div className="left">
-                                                        <div className="emai el">Email: {data.email}</div>
-                                                        {
-                                                            data.username ? <div className="username el">Username: {data.username}</div> : ''
-                                                        }
+                                                {
+                                                    data._id === profile._id ?
+                                                        <CardActive>
+                                                            <div className="left">
+                                                                <div className="emai el">Email: {data.email}</div>
+                                                                {
+                                                                    data.username ? <div className="username el">Username: {data.username}</div> : ''
+                                                                }
 
-                                                    </div>
-                                                    <div className="right">
-                                                        <span style={
+                                                            </div>
+                                                            <div className="right">
+                                                                <span style={
 
-                                                            (function () {
+                                                                    (function () {
 
-                                                                if (data.role == 'ADMIN' && !data.isSupperAdmin) {
-                                                                    return { color: 'blue' }
+                                                                        if (data.role == 'ADMIN' && !data.isSupperAdmin) {
+                                                                            return { color: 'blue' }
+                                                                        }
+                                                                        else if (data.role == 'AGENT' && !data.isSupperAdmin) {
+                                                                            return { color: 'purple' }
+                                                                        }
+                                                                        else if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                                                            return { color: 'red' }
+                                                                        }
+                                                                        else {
+                                                                            return { color: 'inherit' }
+                                                                        }
+                                                                    }())
+                                                                }> {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                                                                </span>
+                                                            </div>
+                                                        </CardActive> :
+
+                                                        <Card onClick={() => router.push(`/admin/users/${data._id}`)}>
+                                                            <div className="left">
+                                                                <div className="emai el">Email: {data.email}</div>
+                                                                {
+                                                                    data.username ? <div className="username el">Username: {data.username}</div> : ''
                                                                 }
-                                                                else if (data.role == 'AGENT' && !data.isSupperAdmin) {
-                                                                    return { color: 'purple' }
-                                                                }
-                                                                else if (data.role == 'ADMIN' && data.isSupperAdmin) {
-                                                                    return { color: 'red' }
-                                                                }
-                                                                else {
-                                                                    return { color: 'inherit' }
-                                                                }
-                                                            }())
-                                                        }> {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
-                                                        </span>
-                                                    </div>
-                                                </Card>
+
+                                                            </div>
+                                                            <div className="right">
+                                                                <span style={
+
+                                                                    (function () {
+
+                                                                        if (data.role == 'ADMIN' && !data.isSupperAdmin) {
+                                                                            return { color: 'blue' }
+                                                                        }
+                                                                        else if (data.role == 'AGENT' && !data.isSupperAdmin) {
+                                                                            return { color: 'purple' }
+                                                                        }
+                                                                        else if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                                                            return { color: 'red' }
+                                                                        }
+                                                                        else {
+                                                                            return { color: 'inherit' }
+                                                                        }
+                                                                    }())
+                                                                }> {data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                                                                </span>
+                                                            </div>
+                                                        </Card>
+                                                }
                                             </Animate>
                                         )
                                     })
@@ -699,7 +746,7 @@ export default function Users() {
 
             <div ref={pageEnd}>
                 {
-                    (observing || ready || !fetchingUsers) && fetchingUsersSuccess && count < users.length ? <Spinner type="dots" /> : ''
+                    (observing || ready || !fetchingUsers || !fetchingProfile) && fetchingUsersSuccess && fetchingProfileSuccess && count < users.length ? <Spinner type="dots" /> : ''
                 }
             </div>
 
@@ -752,27 +799,51 @@ const Wrapper = styled.div`
 const Card = styled.div`
     width: 100%;
     max-width: 700px;
-    border: ${({ theme }) => `1px solid ${theme.border}`};
-    padding: 10px;
+    padding: 15px 10px;
     margin: auto;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: ${({ theme }) => theme.card};
+    cursor: pointer;
 
     .right {
         font-size: .7rem;
         width: 30%;
         text-align: right;
+        font-weight: bold;
     }
 
     .left {
         width: 70%;
-        font-weight: bold;
     }
 
     &:hover {
         opacity: .6;
-        cursor: pointer;
+    }
+`
+const CardActive = styled.div`
+    width: 100%;
+    max-width: 700px;
+    background: ${({ theme }) => theme.card};
+    padding: 15px 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: .4;
+    cursor: default;
+
+    .right {
+        font-size: .7rem;
+        width: 30%;
+        text-align: right;
+        font-weight: bold;
+    }
+
+    .left {
+        width: 70%;
     }
 `

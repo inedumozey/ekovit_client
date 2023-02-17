@@ -103,7 +103,6 @@ class apiClass {
                     'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
                 }
             });
-            console.log(data)
             setProfile(data.data);
             initial ? setFetchingProfile(false) : ''
             setFetchingProfileSuccess(true)
@@ -218,13 +217,14 @@ class apiClass {
             setEditProfileLoading(false);
         }
         catch (err) {
-            setEditProfileLoading(false)
 
             if (err.response) {
+                setEditProfileLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
             }
             else {
-                toast(err.response.data.msg, { type: 'error' })
+                setEditProfileLoading(false);
+                toast(err.message, { type: 'error' })
             }
         }
     }
@@ -272,11 +272,185 @@ class apiClass {
                 toast(err.response.data.msg, { type: 'error' })
             }
             else {
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    toggleAdmin = async (
+        setToggleAdminLoading,
+        setFetchingUser,
+        setFetchingUserSuccess,
+        setUser,
+        id
+    ) => {
+        setToggleAdminLoading(true);
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/toggle-admin/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-supperadmin': `Bearer ${Cookies.get('xxxxx1')}`,
+                }
+            });
+            this.fetchUser(setFetchingUser, setFetchingUserSuccess, setUser, id, false);
+
+            setToggleAdminLoading(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+
+            if (err.response) {
+                setToggleAdminLoading(false);
                 toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setToggleAdminLoading(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    toggleAgent = async (
+        setToggleAgentLoading,
+        setFetchingUser,
+        setFetchingUserSuccess,
+        setUser,
+        id
+    ) => {
+        setToggleAgentLoading(true);
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/auth/toggle-agent/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            this.fetchUser(setFetchingUser, setFetchingUserSuccess, setUser, id, false);
+
+            setToggleAgentLoading(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+
+            if (err.response) {
+                setToggleAgentLoading(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setToggleAgentLoading(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    deleteAccount = async (
+        setDeletinguser,
+        setUsers,
+        id,
+        setFetchingUsers,
+        setFetchingUsersSuccess,
+        router
+    ) => {
+        setDeletinguser(true);
+
+        try {
+            const { data } = await axios.delete(`${BASE_URL}/auth/delete-account/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-supperadmin': `Bearer ${Cookies.get('xxxxx1')}`,
+                }
+            });
+            this.fetchUsers(setFetchingUsers, setFetchingUsersSuccess, setUsers, false);
+
+            setDeletinguser(false);
+            toast(data.msg, { type: 'success' })
+
+            //redirect to user list
+            setTimeout(() => {
+                router.push('/admin/users')
+            }, 1000)
+        }
+        catch (err) {
+
+            if (err.response) {
+                setDeletinguser(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setDeletinguser(false);
+                toast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    fetchConfig = async (
+        setFetchingConfig,
+        setFetchingConfigSuccess,
+        setConfigData,
+        initial
+    ) => {
+        initial ? setFetchingConfig(true) : ''
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/config`);
+
+            initial ? setFetchingConfig(false) : ''
+            setFetchingConfigSuccess(true);
+
+            setConfigData(data.data)
+        }
+        catch (err) {
+
+            if (err.response) {
+                initial ? setFetchingConfig(false) : '';
+                setFetchingConfigSuccess(true)
+            }
+            else {
+                initial ? setFetchingConfig(false) : '';
+                setFetchingConfigSuccess(true)
+            }
+        }
+    }
+
+    updateEmailPhone = async (
+        setUpdatingEmailPhone,
+        setFetchingConfig,
+        setFetchingConfigSuccess,
+        setConfigData,
+        inp
+    ) => {
+        setUpdatingEmailPhone(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/config/update`, { ...inp }, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+
+            // refresh config
+            this.fetchConfig(setFetchingConfig, setFetchingConfigSuccess, setConfigData, false);
+
+            setUpdatingEmailPhone(false);
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+
+            if (err.response) {
+                setUpdatingEmailPhone(false);
+                toast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                setUpdatingEmailPhone(false);
+                toast(err.message, { type: 'error' })
             }
         }
     }
 }
+
 
 
 export default apiClass;

@@ -19,34 +19,36 @@ export default function ProfileInfo({ data }) {
                     <div className='verified'>
                         <Image src={"/images/verified.png"} width="400" height="200" alt="" />
                     </div>
-                    <div className="user-info">
-                        <span style={
-                            (function () {
-
-                                if (data.role == 'ADMIN' && !data.isSupperAdmin) {
-                                    return { color: 'blue' }
-                                }
-                                else if (data.role == 'AGENT' && !data.isSupperAdmin) {
-                                    return { color: 'purple' }
-                                }
-                                else if (data.role == 'ADMIN' && data.isSupperAdmin) {
-                                    return { color: 'red' }
-                                }
-                                else {
-                                    return { color: 'inherit' }
-                                }
-                            }())
-                        }>{data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
-                        </span>
-                    </div>
-
 
                 </div>
 
             </SubWrapper>
 
-            <div className='logout'>
-                <Logout />
+            <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '20px' }}>
+                <div>
+                    ROLE: <span style={
+                        (function () {
+
+                            if (data.role == 'ADMIN' && !data.isSupperAdmin) {
+                                return { color: 'blue' }
+                            }
+                            else if (data.role == 'AGENT' && !data.isSupperAdmin) {
+                                return { color: 'purple' }
+                            }
+                            else if (data.role == 'ADMIN' && data.isSupperAdmin) {
+                                return { color: 'red' }
+                            }
+                            else {
+                                return { color: 'inherit' }
+                            }
+                        }())
+                    }>{data.isSupperAdmin ? `SUPPER ADMIN` : data.role}
+                    </span>
+                </div>
+
+                <div style={{ margin: '0 30px' }}>
+                    <Logout />
+                </div>
             </div>
         </Wrapper>
     )
@@ -55,8 +57,6 @@ export default function ProfileInfo({ data }) {
 const Wrapper = styled.div`
     width: 100%;
     transition: all 1s;
-    background: ${({ theme }) => theme.card};
-    padding: 20px 10px;
     position: relative;
 
     img {
@@ -106,6 +106,7 @@ const Wrapper = styled.div`
 
 const SubWrapper = styled.div`
     min-height: 60px;
-    padding: 10px;
     width: 100%;
+    background: ${({ theme }) => theme.card};
+    padding: 20px 0;
 `

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
+import { ContextData } from '../../contextApi/ContextApi';
 
-export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) {
+export default function Search({ onSearch = () => { }, placeholder = "", minimizeAt = "600px" }) {
     const [showSearch, setShowSearch] = useState(false)
     const [inp, setInp] = useState('');
+    const { search } = useContext(ContextData)
+    const { setSearchedData } = search
 
     const handleChange = () => {
         onSearch(inp)
@@ -12,6 +15,7 @@ export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) 
 
     useEffect(() => {
         handleChange()
+        setSearchedData(inp)
     }, [inp])
 
 
@@ -31,9 +35,9 @@ export default function Search({ onSearch, placeholder, minimizeAt = "600px" }) 
 }
 
 const Wrapper = styled.div`
-    
+background: ${({ theme }) => theme.card};
     .search {
-        height: 40px;
+        height: 100%;
         width: 40vw;
         transition: .3s;
         display: flex;
@@ -43,6 +47,7 @@ const Wrapper = styled.div`
         z-index: 2;
         position: absolute;
         right 0px;
+        background: ${({ theme }) => theme.card};
         
 
         @media (max-width: ${({ minimizeAt }) => minimizeAt}){
@@ -58,7 +63,7 @@ const Wrapper = styled.div`
         padding: 0 10px 0 0;
         display: inline-block;
         font-size: 1rem;
-        background: ${({ theme }) => theme.bg};
+        background: ${({ theme }) => theme.card};
         border: none;
         color: inherit;
         border: none;

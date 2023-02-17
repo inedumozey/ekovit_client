@@ -7,7 +7,7 @@ export default function Copyright({ name }) {
     const { contact } = useContext(ContextData)
     return (
         <Wrapper>
-            &copy; {(new Date()).getFullYear() > currentYear ? `${currentYear} - ${(new Date()).getFullYear()}` : (new Date()).getFullYear()} &nbsp; <span style={{ color: 'var(--gold)' }}>{name} </span>.  &nbsp; All Right Reserved
+            &copy; {(new Date()).getFullYear() > currentYear ? `${currentYear} - ${(new Date()).getFullYear()}` : (new Date()).getFullYear()} &nbsp; <span style={{ color: 'var(--gold)' }}>{contact.name}. </span> &nbsp; All Right Reserved
         </Wrapper>
     )
 }

@@ -23,13 +23,9 @@ const mobileLinks = (router, isAdmin, isAgent) => {
 
         sub: [
 
-            // only seen in services
-            { name: "Provisions", url: '/services/provisions', icon: ContactPageIcon, show: true && router.pathname.includes('/services') },
-            { name: "Drugs", url: '/services/drugs', icon: Groups2Icon, show: true && router.pathname.includes('/services') },
-
             // only seen in admin
             { name: "Config", url: '/admin/config', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
-            { name: "Users", url: '/admin/users', icon: SettingsIcon, show: isAdmin && router.pathname.includes('/admin') },
+            { name: "Users", url: '/admin/users', icon: Groups2Icon, show: isAdmin && router.pathname.includes('/admin') },
 
             // not seen in inventory
             { name: "Inventory", url: '/admin/inventory', icon: AddBusinessIcon, show: isAdmin && router.pathname.includes('/admin') },

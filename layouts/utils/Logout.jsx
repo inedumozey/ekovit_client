@@ -12,28 +12,12 @@ export default function Logout({ toggleState }) {
 
     return (
 
-        <LogStyle>
+        <div>
             {
                 access.isLoggedin ?
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <div onClick={() => api.logout(router)} className='logout'>LOGOUT</div>
-                    </div> : ""
+                    <div onClick={() => api.logout(router)} style={{ color: 'red', cursor: 'pointer' }}>LOGOUT</div> : ""
             }
-        </LogStyle>
+        </div>
     )
 }
 
-
-const LogStyle = styled.div`
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .logout {
-        color: red;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: .75rem
-    }
-`
