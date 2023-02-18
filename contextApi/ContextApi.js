@@ -48,6 +48,9 @@ function ContextApi({ children, toggleState, toggle }) {
     const [configData, setConfigData] = useState("")
     const [updatingEmailPhone, setUpdatingEmailPhone] = useState(false)
 
+    // products
+
+
     useEffect(() => {
         // redirect
         if (router.pathname.includes('/pos')) {
@@ -75,8 +78,6 @@ function ContextApi({ children, toggleState, toggle }) {
         api.isAdmin() ? setIsAdmin(true) : setIsAdmin(false)
         api.isAgent() ? setIsAgent(true) : setIsAgent(false)
     })
-
-
 
     const state = {
         ...staticData,

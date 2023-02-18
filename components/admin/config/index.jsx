@@ -72,11 +72,3 @@ const Wrapper = styled.div`
         padding: 10px ${({ theme }) => theme.sm_padding};
     }
 `
-
-const Card = styled.div`
-    width: 100%;
-    padding: 10px;
-    margin: auto;
-    margin-bottom: 10px;
-    background: ${({ theme }) => theme.card};
-`
