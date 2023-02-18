@@ -17,8 +17,18 @@ const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 const api = new apiClass();
 
 export default function Add() {
-    const { access } = useContext(ContextData);
+    const { access, product } = useContext(ContextData);
     const { hasAccess } = access
+    const {
+        fetchingProduct,
+        setFetchingProduct,
+        fetchingProductSuccess,
+        setFetchingProductSuccess,
+        ProductData,
+        setProductData,
+        updatingproduct,
+        setUpdatingproduct,
+    } = product
 
     const [sending, setSending] = useState(false);
     const [msg, setMsg] = useState({ msg: '', status: false });
@@ -32,7 +42,9 @@ export default function Add() {
     const [wholesale_price, setWholesale_price] = useState("");
     const [retaile_price, setRetaile_price] = useState("");
     const [products_image, setProducts_image] = useState("");
-    const [expiration_date, setExpiration_date] = useState("");
+    const [expiry_date, setExpiry_date] = useState("");
+    const [form, setForm] = useState("");
+    const [quantity, setQuantity] = useState("");
     const [other_details, setOther_details] = useState("");
 
     const handleSubmit = async (e) => {
@@ -48,7 +60,7 @@ export default function Add() {
         formData.append('product_name', product_name)
         formData.append('wholesale_price', wholesale_price)
         formData.append('retaile_price', retaile_price)
-        formData.append('expiration_date', expiration_date)
+        formData.append('expiry_date', expiry_date)
         formData.append('other_details', other_details)
 
         try {
@@ -76,6 +88,8 @@ export default function Add() {
             setRetaile_price("");
             setProducts_image("");
             setExpiration_date("");
+            setForm("");
+            setQuantity("");
             setOther_details("");
         }
         catch (err) {
@@ -134,10 +148,8 @@ export default function Add() {
                                     />
                                 </div>
                                 <div style={{ width: '49%' }}>
-                                    <label>
-                                        Category:
-                                    </label>
                                     <input
+                                        placeholder="Category"
                                         autoFocus
                                         value={category || ''}
                                         onChange={(e) => setCategory(e.target.value)}
@@ -151,9 +163,6 @@ export default function Add() {
                                 type.toLowerCase() === 'drugs' ?
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
-                                            <label>
-                                                Generic Name:
-                                            </label>
                                             <input
                                                 placeholder="Generic Name"
                                                 value={generic_name || ''}
@@ -161,9 +170,6 @@ export default function Add() {
                                             />
                                         </div>
                                         <div style={{ width: '49%' }}>
-                                            <label>
-                                                Brand Name:
-                                            </label>
                                             <input
                                                 placeholder="Brand Name"
                                                 value={brand_name || ''}
@@ -171,52 +177,63 @@ export default function Add() {
                                             />
                                         </div>
                                     </div> :
-                                    <>
-                                        <label>
-                                            Product Name:
-                                        </label>
-                                        <input
-                                            placeholder="Product Name"
-                                            value={product_name || ''}
-                                            onChange={(e) => setProduct_name(e.target.value)}
-                                        />
-                                    </>
+
+                                    <div className='inp'>
+                                        <div style={{ width: '49%' }}>
+                                            <input
+                                                placeholder="Product Name"
+                                                value={product_name || ''}
+                                                onChange={(e) => setProduct_name(e.target.value)}
+                                            />
+                                        </div>
+                                        <div style={{ width: '49%' }}>
+                                            <input
+                                                type="number"
+                                                placeholder="Quantity"
+                                                value={quantity || ''}
+                                                onChange={(e) => setQuantity(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
                             }
                         </InputWrapper>
 
                         <InputWrapper>
-                            <div className='inp'>
-                                <div style={{ width: '49%' }}>
-                                    <label>
-                                        Product Image:
-                                    </label>
-                                    <input
-                                        type="file"
-                                        accept='image/*'
-                                        onChange={(e) => setProducts_image(e.target.files[0])}
-                                    />
-                                </div>
-                                <div style={{ width: '49%' }}>
-                                    <label>
-                                        Purchased Price:
-                                    </label>
-                                    <input
-                                        placeholder="Purchased Price"
-                                        type="number"
-                                        value={purchased_price || ''}
-                                        onChange={(e) => setPurchased_price(e.target.value)}
-                                    />
+                            {
+                                type.toLowerCase() === 'drugs' ?
+                                    <div className='inp'>
+                                        <div style={{ width: '49%' }}>
+                                            <input
+                                                placeholder="Form"
+                                                value={form || ''}
+                                                onChange={(e) => setForm(e.target.value)}
+                                            />
+                                        </div>
+                                        <div style={{ width: '49%' }}>
+                                            <input
+                                                type="number"
+                                                placeholder="Quantity"
+                                                value={quantity || ''}
+                                                onChange={(e) => setQuantity(e.target.value)}
+                                            />
+                                        </div>
+                                    </div> : ''
+                            }
+                        
+                        </InputWrapper>
 
-                                </div>
-                            </div>
+                        <InputWrapper>
+                            <input
+                                placeholder="Purchased Price"
+                                type="number"
+                                value={purchased_price || ''}
+                                onChange={(e) => setPurchased_price(e.target.value)}
+                            />
                         </InputWrapper>
 
                         <InputWrapper>
                             <div className='inp'>
                                 <div style={{ width: '49%' }}>
-                                    <label>
-                                        Wholesale Price:
-                                    </label>
                                     <input
                                         placeholder="Wholesale Price"
                                         type="number"
@@ -225,9 +242,6 @@ export default function Add() {
                                     />
                                 </div>
                                 <div style={{ width: '49%' }}>
-                                    <label>
-                                        Retail Price:
-                                    </label>
                                     <input
                                         placeholder="Retail Price"
                                         type="number"
@@ -239,20 +253,32 @@ export default function Add() {
                         </InputWrapper>
 
                         <InputWrapper>
-                            <label>
-                                Expiration Date:
-                            </label>
-                            <input
-                                type="date"
-                                value={expiration_date || ''}
-                                onChange={(e) => setExpiration_date(e.target.value)}
-                            />
+                            <div className='inp'>
+                                <div style={{ width: '49%' }}>
+                                <label>
+                                    Expiry Date:
+                                </label>
+                                <input
+                                    type="date"
+                                    placeholder="Expiry Date"
+                                    value={expiry_date || ''}
+                                    onChange={(e) => setExpiry_date(e.target.value)}
+                                />
+                            </div>
+                            <div style={{ width: '49%' }}>
+                                <label>
+                                    Product Image:
+                                </label>
+                                <input
+                                    type="file"
+                                    accept='image/*'
+                                    onChange={(e) => setProducts_image(e.target.files[0])}
+                                />
+                            </div>
+                            </div>
                         </InputWrapper>
 
                         <InputWrapper>
-                            <label>
-                                Other Details:
-                            </label>
                             <textarea
                                 placeholder="Other Details"
                                 value={other_details || ''}
@@ -292,8 +318,8 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
     width: 100%;
-    padding: 15px 10px;
-    margin: 5px auto;
+    padding: 10px;
+    margin: 3px auto;
     background: ${({ theme }) => theme.card};
 
     .inp {
@@ -310,12 +336,12 @@ const Form = styled.form`
 `
 const InputWrapper = styled.div`
     width: 100%;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     position: relative;
     
     input, textarea {
         border:  ${({ theme }) => `1px solid ${theme.border}`};
-        padding: 12px 5px;
+        padding: 8px 5px;
         height: 100%;
         width: 100%;
         border-radius: 3px;

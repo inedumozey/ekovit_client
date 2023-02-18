@@ -49,6 +49,10 @@ function ContextApi({ children, toggleState, toggle }) {
     const [updatingEmailPhone, setUpdatingEmailPhone] = useState(false)
 
     // products
+    const [fetchingProduct, setFetchingProduct] = useState(false)
+    const [fetchingProductSuccess, setFetchingProductSuccess] = useState(false)
+    const [ProductData, setProductData] = useState([])
+    const [updatingproduct, setUpdatingproduct] = useState(false)
 
 
     useEffect(() => {
@@ -128,6 +132,16 @@ function ContextApi({ children, toggleState, toggle }) {
             setConfigData,
             updatingEmailPhone,
             setUpdatingEmailPhone,
+        },
+        product: {
+            fetchingProduct,
+            setFetchingProduct,
+            fetchingProductSuccess,
+            setFetchingProductSuccess,
+            ProductData,
+            setProductData,
+            updatingproduct,
+            setUpdatingproduct,
         }
     }
 
