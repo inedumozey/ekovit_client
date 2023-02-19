@@ -44,7 +44,7 @@ export default function Landing({ children, toggleState, toggle }) {
                     </div>
                 </div>
                 <div className="bottom">
-                    <div className="content">{resolve.path(router)}</div>
+                    <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div>
                     <div className="search-wrapper">
                         <Search />
                     </div>

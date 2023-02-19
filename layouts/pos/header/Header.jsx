@@ -54,7 +54,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
             <div className="bottom">
                 <div
                     className="content el"
-                    style={{ cursor: 'pointer' }}>
+                    style={{ fontSize: '.6rem' }}>
                     {resolve.path(router)}
                 </div>
                 <div className="search-wrapper">
