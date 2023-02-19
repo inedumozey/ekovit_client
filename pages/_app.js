@@ -24,6 +24,7 @@ function MyApp({ Component, pageProps }) {
 
     pri: toggleState ? 'var(--pri-lighttheme);' : 'var(--pri-darktheme)',
     title: toggleState ? 'var(--title-lighttheme)' : 'var(--title-darktheme)',
+    title_faint: toggleState ? 'var(--title-lighttheme-faint)' : 'var(--title-darktheme-faint)',
     subtitle: toggleState ? 'var(--subtitle-lighttheme)' : 'var(--subtitle-darktheme)',
     bg: toggleState ? 'var(--bg-lighttheme)' : 'var(--bg-darktheme)',
     light_dark_btn_color: toggleState ? 'var(--theme-changer-btn-lighttheme)' : 'var(--theme-changer-btn-darktheme)',

@@ -20,14 +20,14 @@ export default function Add() {
     const { access, product } = useContext(ContextData);
     const { hasAccess } = access
     const {
-        fetchingProduct,
-        setFetchingProduct,
-        fetchingProductSuccess,
-        setFetchingProductSuccess,
-        ProductData,
-        setProductData,
-        updatingproduct,
-        setUpdatingproduct,
+        fetchingProducts,
+        setFetchingProducts,
+        fetchingProductsSuccess,
+        setFetchingProductsSuccess,
+        ProductsData,
+        setProductsData,
+        updatingproducts,
+        setUpdatingproducts,
     } = product
 
     const [sending, setSending] = useState(false);
@@ -61,10 +61,12 @@ export default function Add() {
         formData.append('wholesale_price', wholesale_price)
         formData.append('retaile_price', retaile_price)
         formData.append('expiry_date', expiry_date)
+        formData.append('form', form)
+        formData.append('quantity', quantity)
         formData.append('other_details', other_details)
 
         try {
-            const { data } = await axios.post(`${BASE_URL}/products/add`, formData, {
+            const { data } = await axios.post(`${BASE_URL}/products`, formData, {
                 headers: {
                     'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
                     'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
@@ -87,7 +89,7 @@ export default function Add() {
             setWholesale_price("");
             setRetaile_price("");
             setProducts_image("");
-            setExpiration_date("");
+            setExpiry_date("");
             setForm("");
             setQuantity("");
             setOther_details("");
@@ -131,7 +133,7 @@ export default function Add() {
             }
             <Animate>
                 <Card>
-                    <Form onSubmit={submit}>
+                    <Form onSubmit={submit} autocomplete="on">
                         <InputWrapper>
                             <div className='inp'>
                                 <div style={{ width: '49%' }}>
@@ -219,7 +221,7 @@ export default function Add() {
                                         </div>
                                     </div> : ''
                             }
-                        
+
                         </InputWrapper>
 
                         <InputWrapper>
@@ -255,26 +257,26 @@ export default function Add() {
                         <InputWrapper>
                             <div className='inp'>
                                 <div style={{ width: '49%' }}>
-                                <label>
-                                    Expiry Date:
-                                </label>
-                                <input
-                                    type="date"
-                                    placeholder="Expiry Date"
-                                    value={expiry_date || ''}
-                                    onChange={(e) => setExpiry_date(e.target.value)}
-                                />
-                            </div>
-                            <div style={{ width: '49%' }}>
-                                <label>
-                                    Product Image:
-                                </label>
-                                <input
-                                    type="file"
-                                    accept='image/*'
-                                    onChange={(e) => setProducts_image(e.target.files[0])}
-                                />
-                            </div>
+                                    <label>
+                                        Expiry Date:
+                                    </label>
+                                    <input
+                                        type="date"
+                                        placeholder="Expiry Date"
+                                        value={expiry_date || ''}
+                                        onChange={(e) => setExpiry_date(e.target.value)}
+                                    />
+                                </div>
+                                <div style={{ width: '49%' }}>
+                                    <label>
+                                        Product Image:
+                                    </label>
+                                    <input
+                                        type="file"
+                                        accept='image/*'
+                                        onChange={(e) => setProducts_image(e.target.files[0])}
+                                    />
+                                </div>
                             </div>
                         </InputWrapper>
 

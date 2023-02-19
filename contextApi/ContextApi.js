@@ -49,10 +49,18 @@ function ContextApi({ children, toggleState, toggle }) {
     const [updatingEmailPhone, setUpdatingEmailPhone] = useState(false)
 
     // products
+    const [fetchingProducts, setFetchingProducts] = useState(false)
+    const [fetchingProductsSuccess, setFetchingProductsSuccess] = useState(false)
+    const [productsData, setProductsData] = useState([])
+    const [updatingproducts, setUpdatingproducts] = useState(false)
+
+    // product
     const [fetchingProduct, setFetchingProduct] = useState(false)
     const [fetchingProductSuccess, setFetchingProductSuccess] = useState(false)
-    const [ProductData, setProductData] = useState([])
-    const [updatingproduct, setUpdatingproduct] = useState(false)
+    const [product, setProduct] = useState("")
+    const [deletingProduct, setDeletingProduct] = useState(false)
+    const [selectedProduct, setSelectedProduct] = useState("")
+    const [updatingProduct, setUpdatingProduct] = useState(false)
 
 
     useEffect(() => {
@@ -134,15 +142,30 @@ function ContextApi({ children, toggleState, toggle }) {
             setUpdatingEmailPhone,
         },
         product: {
+            fetchingProducts,
+            setFetchingProducts,
+            fetchingProductsSuccess,
+            setFetchingProductsSuccess,
+            productsData,
+            setProductsData,
+            updatingproducts,
+            setUpdatingproducts,
+
             fetchingProduct,
             setFetchingProduct,
             fetchingProductSuccess,
             setFetchingProductSuccess,
-            ProductData,
-            setProductData,
-            updatingproduct,
-            setUpdatingproduct,
-        }
+            product,
+            setProduct,
+
+            deletingProduct,
+            setDeletingProduct,
+            selectedProduct,
+            setSelectedProduct,
+            updatingProduct,
+            setUpdatingProduct,
+        },
+        exp_date_ref: 100 //seconds
     }
 
     return (

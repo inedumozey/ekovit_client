@@ -11,30 +11,32 @@ export default function MobileLinks({ toggleState, toggle, bottomLinkHeight }) {
 
     return (
         <BottomNav bottomLinkHeight={bottomLinkHeight}>
-            {
-                mobileLinks.main.map((link, i) => {
-                    return <Link title={link.name}
-                        className='mobile-link'
-                        key={i}
-                        href={link.url}
-                    >
-                        <div
-                            className='mobile-link-icon'
-                            style={linkColor(router, link, toggleState, 'mobile')}>
-                            {
-                                <link.icon />
-                            }
-                        </div>
-                        <div
-                            className='mobile-link-name'
-                            style={linkColor(router, link, toggleState, "mobile")}>
-                            {
-                                link.name?.toUpperCase()
-                            }
-                        </div>
-                    </Link>
-                })
-            }
+            <div className="box">
+                {
+                    mobileLinks.main.map((link, i) => {
+                        return <Link title={link.name}
+                            className='mobile-link'
+                            key={i}
+                            href={link.url}
+                        >
+                            <div
+                                className='mobile-link-icon'
+                                style={linkColor(router, link, toggleState, 'mobile')}>
+                                {
+                                    <link.icon />
+                                }
+                            </div>
+                            <div
+                                className='mobile-link-name'
+                                style={linkColor(router, link, toggleState, "mobile")}>
+                                {
+                                    link.name?.toUpperCase()
+                                }
+                            </div>
+                        </Link>
+                    })
+                }
+            </div>
         </BottomNav>
     )
 }
@@ -45,17 +47,24 @@ const BottomNav = styled.div`
     box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
     height: ${({ bottomLinkHeight }) => bottomLinkHeight};
     z-index: 10000;
-    display: flex;
     padding: 0 5px;
     background: ${({ theme }) => theme.bg};
     bottom: 0;
     left: 0;
     right: 0;
     position: fixed;
-    justify-content: center;
-    align-items: center;
     user-select: none;
     --webkit-user-select: none;
+
+    .box {
+        display: flex;
+        margin: auto;
+        width: 100%;
+        max-width: 500px;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+    }
 
     .mobile-link {
         display: flex;
@@ -68,14 +77,12 @@ const BottomNav = styled.div`
 
         .mobile-link-icon {
             display: flex;
-            flex-direction: column;
             border-radius: 50%;
-            justify-content: space-around;
             align-items: center;
         }
 
         .mobile-link-name {
-            font-size: .6rem;
+            font-size: .55rem;
         }
 
     }

@@ -152,6 +152,12 @@ class ResolveClass {
         // }
     }
 
+    capitalize = (data) => {
+        const firstL = data[0].toUpperCase();
+        const remainingL = data.substr(1)
+        return firstL + remainingL
+    }
+
 }
 
 export default ResolveClass;

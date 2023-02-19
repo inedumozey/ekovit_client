@@ -15,7 +15,7 @@ export default function Alart({ children, type = "success", hide = true, onHide 
     return show ?
         <div style={{
             width: '100%',
-            padding: '12px',
+            padding: '8px',
             position: 'relative',
             background: (function () {
                 if (type === 'warning') {
@@ -28,7 +28,7 @@ export default function Alart({ children, type = "success", hide = true, onHide 
                     return '#4caf504d'
                 }
             }()),
-            fontSize: '.8rem',
+            fontSize: '.7rem',
             color: (function () {
                 if (type === 'warning') {
                     return '#b1a411'
@@ -82,7 +82,7 @@ export default function Alart({ children, type = "success", hide = true, onHide 
             >
                 X
             </div>
-            <div style={{ marginRight: '5px' }}>
+            <div style={{ marginRight: '2px' }}>
                 {(function () {
                     if (type === 'warning') {
                         return <ReportGmailerrorredIcon />

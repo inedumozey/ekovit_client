@@ -4,7 +4,9 @@ import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 const pri_darktheme = "#ccc";
 const pri_lighttheme = "#000";
 const title_darktheme = "#ffc107";
+const title_darktheme_faint = "#ffc10742";
 const title_lighttheme = "teal";
+const title_lighttheme_faint = "#0080804f";
 const subtitle_darktheme = "";
 const subtitle_lighttheme = "";
 const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)";
@@ -50,7 +52,9 @@ const GlobalStyle = createGlobalStyle`
       --pri-darktheme: ${pri_darktheme};
       --pri-lighttheme: ${pri_lighttheme};
       --title-darktheme: ${title_darktheme};
+      --title-darktheme-faint: ${title_darktheme_faint};
       --title-lighttheme: ${title_lighttheme};
+      --title-lighttheme-faint: ${title_lighttheme_faint};
       --subtitle-darktheme: ${subtitle_darktheme};
       --subtitle-lighttheme: ${subtitle_lighttheme};
       --bg-darktheme: ${bg_darktheme};
@@ -83,7 +87,7 @@ const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
         line-height: 1.3rem;
         
-        font-size: .8rem;
+        font-size: .7rem;
         background: ${({ theme }) => theme.bg};
         color: ${({ theme }) => theme.pri};
         

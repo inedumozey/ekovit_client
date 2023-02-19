@@ -449,6 +449,137 @@ class apiClass {
             }
         }
     }
+
+    fetchProducts = async (
+        setFetchingProducts,
+        setFetchingProductsSuccess,
+        setProductsData,
+        initial) => {
+
+        initial ? setFetchingProducts(true) : ''
+        try {
+            const { data } = await axios.get(`${BASE_URL}/products`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            setProductsData(data.data)
+            initial ? setFetchingProducts(false) : ''
+            setFetchingProductsSuccess(true)
+        }
+        catch (err) {
+            initial ? setFetchingProducts(false) : ''
+
+            if (err.response) {
+                setFetchingProductsSuccess(false)
+            }
+            else {
+                setFetchingProductsSuccess(false)
+            }
+        }
+    }
+
+    fetchProduct = async (
+        setFetchingProduct,
+        setFetchingProductSuccess,
+        setProduct,
+        id,
+        initial) => {
+        initial ? setFetchingProduct(true) : ''
+
+        try {
+            const { data } = await axios.get(`${BASE_URL}/products/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            setProduct(data.data);
+            initial ? setFetchingProduct(false) : ''
+            setFetchingProductSuccess(true)
+        }
+        catch (err) {
+
+            initial ? setFetchingProduct(false) : ''
+
+            if (err.response) {
+                setFetchingProductSuccess(false)
+            }
+            else {
+                setFetchingProductSuccess(false)
+            }
+        }
+    }
+
+    updateProduct = async (
+        setFetchingProducts,
+        setFetchingProductsSuccess,
+        setProductsData,
+        setUpdatingProducts,
+        setSelectedProduct,
+        inp,
+        id) => {
+        setUpdatingProducts(true)
+
+        try {
+            const { data } = await axios.put(`${BASE_URL}/products/${id}`, { ...inp }, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            this.fetchProducts(setFetchingProducts, setFetchingProductsSuccess, setProductsData, false)
+            setUpdatingProducts(false)
+            toast(data.msg, { type: 'success' });
+            setSelectedProduct("")
+        }
+        catch (err) {
+
+            setUpdatingProducts(false)
+
+            if (err.response) {
+                stoast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                stoast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+    deleteProduct = async (
+        setFetchingProducts,
+        setFetchingProductsSuccess,
+        setProductsData,
+        setDeletingProducts,
+        id) => {
+        setDeletingProducts(true)
+
+        try {
+            const { data } = await axios.delete(`${BASE_URL}/products/${id}`, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                }
+            });
+            this.fetchProducts(setFetchingProducts, setFetchingProductsSuccess, setProductsData, false)
+            setDeletingProducts(false)
+            toast(data.msg, { type: 'success' })
+        }
+        catch (err) {
+
+            setDeletingProducts(false)
+
+            if (err.response) {
+                stoast(err.response.data.msg, { type: 'error' })
+            }
+            else {
+                stoast(err.message, { type: 'error' })
+            }
+        }
+    }
+
+
 }
 
 
