@@ -187,9 +187,9 @@ const CardComp = ({ data }) => {
                             <Image src={"https://res.cloudinary.com/drmo/image/upload/v1676757806/EKOVIT/drugs/1553454-1676757792467.jpg"} width="400" height="200" alt="" />
                         </div>
                         <div className="category-wrapper">
-                            <h3 className='data-title el' style={{ fontWeight: 'bold' }}>
+                            <h4 className='data-title el' style={{ fontWeight: 'bold' }}>
                                 {data.category?.toUpperCase()}
-                            </h3>
+                            </h4>
                             {
                                 data.type?.toLowerCase() === 'drugs' ?
                                     <>
@@ -269,7 +269,8 @@ const Card = styled.div`
 
     .date {
         height: 100%;
-        width: 50px;
+        width: 55px;
+        font-size: .6rem;
 
         .type {
             color: ${({ theme }) => theme.title};
@@ -322,8 +323,8 @@ const Card = styled.div`
 
     .container {
         height: 100%;
-        padding: 0 0 30px 10px;
-        width: calc(100% - 50px - 18px);
+        padding: 0 0 20px 10px;
+        width: calc(100% - 55px - 18px);
 
         .data {
             height: 100%;
@@ -359,11 +360,11 @@ const Card = styled.div`
 
                 .img {
                     width: 50px;
-                    height: 70px;
             
                     img {
                         width: 100%;
                         height: 100%;
+                        object-fit: contain;
                         
                     }
                 }
@@ -372,6 +373,7 @@ const Card = styled.div`
                     width: calc(100% - 50px);
                     height: 100%;
                     padding-left: 5px;
+                    font-size: .65rem;
 
                     .data-title {
                         color: ${({ theme }) => theme.title};
