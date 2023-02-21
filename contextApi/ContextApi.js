@@ -57,10 +57,11 @@ function ContextApi({ children, toggleState, toggle }) {
     // product
     const [fetchingProduct, setFetchingProduct] = useState(false)
     const [fetchingProductSuccess, setFetchingProductSuccess] = useState(false)
-    const [product, setProduct] = useState("")
+    const [productData, setProductData] = useState("")
     const [deletingProduct, setDeletingProduct] = useState(false)
     const [selectedProduct, setSelectedProduct] = useState("")
     const [updatingProduct, setUpdatingProduct] = useState(false)
+    const [openProductAction, setOpenProductAction] = useState(false)
 
 
     useEffect(() => {
@@ -155,8 +156,8 @@ function ContextApi({ children, toggleState, toggle }) {
             setFetchingProduct,
             fetchingProductSuccess,
             setFetchingProductSuccess,
-            product,
-            setProduct,
+            productData,
+            setProductData,
 
             deletingProduct,
             setDeletingProduct,
@@ -164,6 +165,8 @@ function ContextApi({ children, toggleState, toggle }) {
             setSelectedProduct,
             updatingProduct,
             setUpdatingProduct,
+            openProductAction,
+            setOpenProductAction,
         },
         exp_date_ref: 100 //seconds
     }

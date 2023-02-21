@@ -1,6 +1,6 @@
 import React from 'react'
-import Inventory_ from '../../../components/admin/inventory/Inventory'
+import Inventories_ from '../../../components/admin/inventory/Inventories'
 
 export default function Inventory() {
-    return <Inventory_ />
+    return <Inventories_ />
 }

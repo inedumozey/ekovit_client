@@ -7,550 +7,9 @@ import filter from "@mozeyinedu/filter";
 import Spinner from '../../../utils/components/Spinner';
 import { useRouter } from 'next/router';
 import { Animate } from '../../../styles/globalStyles';
+import Image from 'next/image'
 
 const api = new apiClass()
-
-let users = [
-    {
-        email: 'hdgdg',
-        role: 'ADMIN',
-        isSupperAdmin: true,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    }, {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-    {
-        email: 'hdgdg',
-        role: 'USER',
-        isSupperAdmin: false,
-        _id: '6bhcxur6568u57546f86ym'
-    },
-]
 
 export default function Users() {
     const router = useRouter()
@@ -558,6 +17,7 @@ export default function Users() {
     const [ready, setReady] = useState(false)
     const [observing, setObserving] = useState(false)
     const [count, setCount] = useState(num);
+    const [isScrolling, setIsScrolling] = useState(false)
     const pageEnd = useRef()
     const { hasAccess } = access
     const { searchedData } = search
@@ -585,6 +45,7 @@ export default function Users() {
     useEffect(() => {
         if (count < users.length && observing) {
             const observer = new IntersectionObserver((entries) => {
+                console.log(entries[0])
                 if (entries[0].isIntersecting) {
                     setTimeout(() => {
                         setCount(prevState => prevState + num)
@@ -596,12 +57,15 @@ export default function Users() {
 
             pageEnd.current ? observer.observe(pageEnd.current) : ''
         }
-    }, [observing, count])
+    }, [observing, count, isScrolling])
 
     useEffect(() => {
         setObserving(true)
-    }, [])
 
+        window.onscroll = (e) => {
+            setIsScrolling(true)
+        }
+    }, [])
 
     useEffect(() => {
         if (!hasAccess) {
@@ -668,13 +132,18 @@ export default function Users() {
                             <div className="main">
                                 {
                                     filteredData?.slice(0, count).map((data, i) => {
-
                                         return (
                                             <Animate key={i}>
                                                 {
                                                     data._id === profile._id ?
                                                         <CardActive>
                                                             <div className="left">
+                                                                <div className="img">
+                                                                    <Image src={"/images/profile.png"} width="400" height="200" alt="" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="mid">
                                                                 <div className="emai el">Email: {data.email}</div>
                                                                 {
                                                                     data.username ? <div className="username el">Username: {data.username}</div> : ''
@@ -706,6 +175,12 @@ export default function Users() {
 
                                                         <Card onClick={() => router.push(`/admin/users/${data._id}`)}>
                                                             <div className="left">
+                                                                <div className="img">
+                                                                    <Image src={"/images/profile.png"} width="400" height="200" alt="" />
+                                                                </div>
+
+                                                            </div>
+                                                            <div className="mid">
                                                                 <div className="emai el">Email: {data.email}</div>
                                                                 {
                                                                     data.username ? <div className="username el">Username: {data.username}</div> : ''
@@ -744,12 +219,12 @@ export default function Users() {
                         </div>
             }
 
-            <div ref={pageEnd}>
-                {
-                    (observing || ready || !fetchingUsers || !fetchingProfile) && fetchingUsersSuccess && fetchingProfileSuccess && count < users.length ? <Spinner type="dots" /> : ''
-                }
-            </div>
-
+            {
+                observing && ready && !fetchingUsers && !fetchingProfile && fetchingUsersSuccess && fetchingProfileSuccess && count < users.length ?
+                    <div style={{ height: '50px' }} ref={pageEnd}>
+                        <Spinner type="dots" />
+                    </div> : ''
+            }
         </Wrapper>
     )
 }
@@ -801,6 +276,7 @@ const Card = styled.div`
     max-width: 700px;
     padding: 15px 10px;
     margin: auto;
+    height: 
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
@@ -810,13 +286,29 @@ const Card = styled.div`
 
     .right {
         font-size: .7rem;
-        width: 30%;
+        width: 90px;
         text-align: right;
         font-weight: bold;
     }
 
     .left {
-        width: 70%;
+        width: 50px;
+
+        .img {
+            width: 100%;
+            height: 50px;
+    
+            img {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+            } 
+        }
+    }
+
+    .mid {
+        width: calc(100% - 40px - 40px);
+        padding: 0 5px;
     }
 
     &:hover {
@@ -838,12 +330,28 @@ const CardActive = styled.div`
 
     .right {
         font-size: .7rem;
-        width: 30%;
+        width: 90px;
         text-align: right;
         font-weight: bold;
     }
 
     .left {
-        width: 70%;
+        width: 50px;
+
+        .img {
+            width: 100%;
+            height: 50px;
+    
+            img {
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+            } 
+        }
+    }
+
+    .mid {
+        width: calc(100% - 40px - 40px);
+        padding: 0 5px;
     }
 `

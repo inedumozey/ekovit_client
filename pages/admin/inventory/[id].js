@@ -1,9 +1,6 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import Inventory from '../../../components/admin/inventory/Inventory'
 
 export default function Id() {
-    const router = useRouter()
-    return (
-        <div>Inventory Id: {router.query.id}</div>
-    )
+    return <Inventory />
 }

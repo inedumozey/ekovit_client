@@ -483,7 +483,7 @@ class apiClass {
     fetchProduct = async (
         setFetchingProduct,
         setFetchingProductSuccess,
-        setProduct,
+        setProductData,
         id,
         initial) => {
         initial ? setFetchingProduct(true) : ''
@@ -495,7 +495,7 @@ class apiClass {
                     'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
                 }
             });
-            setProduct(data.data);
+            setProductData(data.data);
             initial ? setFetchingProduct(false) : ''
             setFetchingProductSuccess(true)
         }
@@ -551,9 +551,11 @@ class apiClass {
         setFetchingProducts,
         setFetchingProductsSuccess,
         setProductsData,
-        setDeletingProducts,
-        id) => {
-        setDeletingProducts(true)
+        setDeletingProduct,
+        id,
+        setOpenProductAction,
+        router) => {
+        setDeletingProduct(true)
 
         try {
             const { data } = await axios.delete(`${BASE_URL}/products/${id}`, {
@@ -563,18 +565,24 @@ class apiClass {
                 }
             });
             this.fetchProducts(setFetchingProducts, setFetchingProductsSuccess, setProductsData, false)
-            setDeletingProducts(false)
+            setDeletingProduct(false)
             toast(data.msg, { type: 'success' })
+
+            setTimeout(() => {
+                router.push('/admin/inventory')
+            }, 1000);
+
+            setOpenProductAction(false)
         }
         catch (err) {
 
-            setDeletingProducts(false)
+            setDeletingProduct(false)
 
             if (err.response) {
-                stoast(err.response.data.msg, { type: 'error' })
+                toast(err.response.data.msg, { type: 'error' })
             }
             else {
-                stoast(err.message, { type: 'error' })
+                toast(err.message, { type: 'error' })
             }
         }
     }
