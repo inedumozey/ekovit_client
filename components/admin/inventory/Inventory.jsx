@@ -3,10 +3,13 @@ import styled from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
 import { useSnap } from '@mozeyinedu/hooks-lab'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import FetchError from '../../../utils/components/FetchError';
 import Spinner from '../../../utils/components/Spinner';
 import { useRouter } from 'next/router';
 import { Animate } from '../../../styles/globalStyles';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Image from 'next/image'
 import ResolveClass from '../../../utils/resolveClass';
 import Modal from '../../../utils/components/Modal';
@@ -103,11 +106,12 @@ export default function Inventory() {
                                                 onClick={isLoggedin ? () => handleAddToCart(productData._id) : () => router.push('/auth')}
                                                 style={{ color: 'rgb(253 71 12)' }}
                                                 {...snap()}
+                                                title={"Add to cart"}
                                             >
-                                                Add to Cart
+                                                <AddShoppingCartIcon />
                                             </div> :
                                             <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
-                                                000
+                                                <MoreHorizIcon />
                                             </div>
                                     }
                                     {

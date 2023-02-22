@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import { useSnap } from '@mozeyinedu/hooks-lab'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import ResolveClass from '../../../utils/resolveClass';
@@ -42,17 +45,18 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                             </div>
                             <div className="action">
                                 <div onClick={(e) => { setSelectedProduct(data); setOpenProductAction(!openProductAction) }} className="actions">
-                                    000
+                                    <MoreHorizIcon />
                                 </div>
                             </div>
                         </> :
                         <div className="action">
                             <div
-                                style={{ marginTop: '50px' }}
+                                style={{ marginTop: '50px', color: 'rgb(253 71 12)', cursor: 'pointer' }}
                                 onClick={isLoggedin ? () => handleAddToCart(productData._id) : () => router.push('/auth')}
                                 {...snap()}
+                                title={"Add to cart"}
                             >
-                                Cart
+                                <AddShoppingCartIcon />
                             </div>
                         </div>
                 }

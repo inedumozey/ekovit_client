@@ -89,11 +89,12 @@ function ContextApi({ children, toggleState, toggle }) {
                 router.push('/pos')
             }
         }
-        // else if (router.pathname.includes('/admin')) {
-        //     if (!Cookies.get('admintoken')) {
-        //         router.push('/pos')
-        //     }
-        // }
+
+        // refresh setSelectedProduct 
+        setSelectedProduct("")
+
+        // refresh setOpenProductAction
+        setOpenProductAction(false)
     }, [])
 
     // login

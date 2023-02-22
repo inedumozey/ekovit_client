@@ -7,5 +7,5 @@ export default function Signup() {
         router.push('/auth/signin')
     }, [])
 
-    return <>Redirecting...</>
+    return <div style={{ textAlign: 'center', padding: '20px' }}>Redirecting...</div>
 }
