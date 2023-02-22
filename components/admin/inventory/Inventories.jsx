@@ -231,7 +231,10 @@ const Wrapper = styled.div`
         }
 
         .main {
-
+            display: flex;
+            justify-content: center;
+            align-item: center;
+            flex-flow: wrap;
             padding: 10px ${({ theme }) => theme.lg_padding};
             @media (max-width: ${({ theme }) => theme.md_screen}){
                 padding: 10px ${({ theme }) => theme.md_padding};

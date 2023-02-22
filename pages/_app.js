@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }) {
     bg_image_auth: toggleState ? 'url(/images/5a.png)' : 'url(/images/5b.png)',
 
     pri: toggleState ? 'var(--pri-lighttheme);' : 'var(--pri-darktheme)',
+    sec: toggleState ? 'var(--sec-lighttheme);' : 'var(--sec-darktheme)',
     title: toggleState ? 'var(--title-lighttheme)' : 'var(--title-darktheme)',
     title_faint: toggleState ? 'var(--title-lighttheme-faint)' : 'var(--title-darktheme-faint)',
     subtitle: toggleState ? 'var(--subtitle-lighttheme)' : 'var(--subtitle-darktheme)',

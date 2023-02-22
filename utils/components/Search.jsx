@@ -47,7 +47,7 @@ background: ${({ theme }) => theme.card};
         z-index: 2;
         position: absolute;
         right 0px;
-        background: ${({ theme }) => theme.card};
+        background: ${({ theme }) => theme.sec};
         
 
         @media (max-width: ${({ minimizeAt }) => minimizeAt}){
@@ -63,7 +63,7 @@ background: ${({ theme }) => theme.card};
         padding: 0 10px 0 0;
         display: inline-block;
         font-size: 1rem;
-        background: ${({ theme }) => theme.card};
+        background: ${({ theme }) => theme.sec};
         border: none;
         color: inherit;
         border: none;

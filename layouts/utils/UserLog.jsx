@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useSnap } from '@mozeyinedu/hooks-lab'
+import Spinner from '../../utils/components/Spinner';
 
 export default function UserLog({ toggleState, toggle }) {
 
@@ -32,10 +33,19 @@ export default function UserLog({ toggleState, toggle }) {
                             className='profile'>
                             <PersonOutlineIcon className='profile-icon' />
 
-                            <span className='profile-name el'>{user.profile ? (user.profile.username ? user.profile.username : user.profile.email) : ('')}</span>
+                            <span className='profile-name el'>
+                                {
+                                    user.fetchingProfile ? <Spinner type="dots" /> :
+                                        user.profile ? (user.profile.username ? user.profile.username : user.profile.email) : ('')
+                                }
+
+                            </span>
                         </Link>
 
-                    </div> : <Link href='/auth' className='login'>LOGIN</Link>
+                    </div> :
+                    <div className='login'>
+                        <Link href='/auth'>LOGIN</Link>
+                    </div>
             }
         </LogStyle>
     )
@@ -43,47 +53,43 @@ export default function UserLog({ toggleState, toggle }) {
 
 
 const LogStyle = styled.div`
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
+    height: 40px;
+    width: 100px;
 
     .login {
-        color: ${({ theme, }) => theme.title};
-        padding: 10px 5px;
         cursor: pointer;
-        text-decoration: none;
         font-size: .75rem
+        display: flex;
+
+        a {
+            color: ${({ theme, }) => theme.title};
+            text-decoration: none;
+            display: flex;
+            width: 100%;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
     .profile {
-        padding: 0px 5px;
-        cursor: pointer;
         display: flex;
-        aligh-items: center;
-        border-radius: 15px;
-        background: ${({ theme }) => theme.card};
+        width: 100%;
+        height: 40px;
+        border-radius: 10px;
+        background: ${({ theme }) => theme.sec};
         border: 3px solid ${({ theme }) => theme.border};
-        
+        align-items: center;
+
+        .profile-name{
+            padding: 13px 0;
+        }
 
         &:hover {
             border: 3px solid ${({ theme }) => theme.title};;
         }
-
-        .profile-icon{
-            height: 100%;
-            padding: 10px 0;
-        }
-
-        .profile-name{
-            padding: 13px 0;
-            max-width: 60px;
-            height: 100%;
-        }
     }
 
-    
     @media (max-width: 800px){
         .themeBtn {
             display: none

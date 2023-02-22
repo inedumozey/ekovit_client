@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import UserLog from './UserLog';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
 import Logo from './Logo';
+import Logout from './Logout';
 
 const headerHeight = '100px'
 const footerHeight = '100px'
@@ -11,6 +12,7 @@ export default function SideBarLayoutLanding({ children, toggleState, toggle }) 
         <Wrapper>
             <div className="header">
                 <Logo />
+                <UserLog toggleState={toggleState} toggle={toggle} />
             </div>
             <div className="main">
                 {children}
@@ -18,7 +20,7 @@ export default function SideBarLayoutLanding({ children, toggleState, toggle }) 
             <div className="footer">
                 <div className="themeBtn">
                     <LightDarkBtn toggleState={toggleState} toggle={toggle} />
-                    <UserLog toggleState={toggleState} toggle={toggle} />
+                    <Logout />
                 </div>
             </div>
         </Wrapper>
@@ -46,10 +48,16 @@ const Wrapper = styled.div`
     .footer {
         height: ${footerHeight};
         position: relative;
+        padding: 0px ${({ theme }) => theme.lg_padding};
+        @media (max-width: ${({ theme }) => theme.md_screen}){
+            padding: 0px ${({ theme }) => theme.md_padding};
+        }
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            padding: 0px ${({ theme }) => theme.sm_padding};
+        }
 
         .themeBtn {
             display: flex;
-            padding: 0 20px;
             justify-content: space-between;
             align-items: center;
         }

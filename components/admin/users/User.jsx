@@ -196,7 +196,7 @@ const Wrapper = styled.div`
         padding: 15px;
         background: ${({ theme }) => theme.card};
         margin: 10px 0;
-    }
+        color: var(--pri-darktheme);
 
     .fn {
         cursor: pointer;

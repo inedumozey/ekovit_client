@@ -282,6 +282,7 @@ const Card = styled.div`
     justify-content: space-between;
     align-items: center;
     background: ${({ theme }) => theme.card};
+    color: var(--pri-darktheme);
     cursor: pointer;
 
     .right {
@@ -312,21 +313,22 @@ const Card = styled.div`
     }
 
     &:hover {
-        opacity: .6;
+        opacity: .7;
     }
 `
 const CardActive = styled.div`
     width: 100%;
     max-width: 700px;
     background: ${({ theme }) => theme.card};
+    color: var(--pri-darktheme);
     padding: 15px 10px;
     margin: auto;
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    opacity: .4;
     cursor: default;
+    opacity: .7;
 
     .right {
         font-size: .7rem;

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components'
+import { ContextData } from '../../../contextApi/ContextApi';
+import { useSnap } from '@mozeyinedu/hooks-lab'
 import Image from 'next/image'
 import { useRouter } from 'next/router';
 import ResolveClass from '../../../utils/resolveClass';
@@ -7,40 +9,67 @@ import ResolveClass from '../../../utils/resolveClass';
 const resolve = new ResolveClass()
 
 export default function Card({ data, openProductAction, setOpenProductAction, setSelectedProduct, selectedProduct }) {
-    const router = useRouter()
+    const { snap } = useSnap(.5)
+    const { addToCart, removeFromCart, access } = useContext(ContextData);
+    const router = useRouter();
+    const homePage = router.pathname === '/'
+
+    const { isLoggedin } = access
+
+    const handleAddToCart = (id) => {
+        addToCart(id)
+    }
+
+
+    const handleRemoveFromCart = (id) => {
+        removeFromCart(id)
+    }
 
     return (
         <Wrapper>
-            <div className="date">
-                <div className='type'>{resolve.capitalize(data.type)}</div>
-                <div className='expiry-date'>
-                    <div style={{ fontWeight: 'bold' }}>Exp Date</div>
-                    <div>{data.expiry_date}</div>
-                </div>
-                <div className="action">
-                    <div onClick={(e) => { setSelectedProduct(data); setOpenProductAction(!openProductAction) }} className="actions">
-                        000
-                    </div>
-                </div>
-            </div>
-
             <div className="line">
                 <div className="dot"></div>
                 <div className="dot-tail"></div>
             </div>
+            <div className="date">
+                <h2 className='type'>{resolve.capitalize(data.type)}</h2>
+                {
+                    !homePage ?
+                        <>
+                            <div className='expiry-date'>
+                                <div style={{ fontWeight: 'bold' }}>Exp Date</div>
+                                <div>{data.expiry_date}</div>
+                            </div>
+                            <div className="action">
+                                <div onClick={(e) => { setSelectedProduct(data); setOpenProductAction(!openProductAction) }} className="actions">
+                                    000
+                                </div>
+                            </div>
+                        </> :
+                        <div className="action">
+                            <div
+                                style={{ marginTop: '50px' }}
+                                onClick={isLoggedin ? () => handleAddToCart(productData._id) : () => router.push('/auth')}
+                                {...snap()}
+                            >
+                                Cart
+                            </div>
+                        </div>
+                }
+            </div>
             <div className="container">
                 <div
                     className="data"
-                    onClick={() => router.push(`/admin/inventory/${data._id}`)}
+                    onClick={homePage ? () => router.push(`/${data._id}`) : () => router.push(`/admin/inventory/${data._id}`)}
                 >
                     <div className="title">
                         <div className="img">
                             <Image src={"https://res.cloudinary.com/drmo/image/upload/v1676757806/EKOVIT/drugs/1553454-1676757792467.jpg"} width="400" height="200" alt="" />
                         </div>
                         <div className="category-wrapper">
-                            <h4 className='data-title el' style={{ fontWeight: 'bold' }}>
+                            <h2 className='data-title el' style={{ fontWeight: 'bold', textAlign: 'center' }}>
                                 {data.category?.toUpperCase()}
-                            </h4>
+                            </h2>
                             {
                                 data.type?.toLowerCase() === 'drugs' ?
                                     <>
@@ -51,17 +80,22 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                                         <div className='el'><span style={{ fontWeight: 'bold' }}>Form:</span> {data.form}</div>
                                     </> :
                                     <>
-                                        <div className='el'>{data.product_name}</div>
+                                        <div className='el'>{data.product_name ? `Product Name: ${data.product_name}` : ''}</div>
                                     </>
                             }
                         </div>
                     </div>
 
                     <div className="body">
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> {data.purchased_price}</div>
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>wholesale Price:</span> {data.wholesale_price}</div>
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>Retail Price:</span> {data.retaile_price}</div>
+                        {
+                            !homePage ?
+                                <>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{data.purchased_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
+                                </> : ''
+                        }
+                        <div className='el'><span style={{ fontWeight: 'bold' }}>wholesale Price:</span> #{data.wholesale_price}</div>
+                        <div className='el'><span style={{ fontWeight: 'bold' }}>Retail Price:</span> #{data.retaile_price}</div>
                     </div>
                 </div>
                 {data.createdAt && new Date(data.createdAt).toLocaleString()}
@@ -71,19 +105,31 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 }
 
 const Wrapper = styled.div`
-    width: 100%;
-    max-width: 700px;
+    width: 250px;
     height: 200px;
     min-height: 250px;
     position: relative;
-    margin: auto;
+    margin: 0 30px;
     display: flex;
     align-items: center;
+    flex-flow;
+    user-select: none;
+
+    @media (max-width: ${({ theme }) => theme.sm_screen}){
+        margin: 0 5px;
+    }
+  
+
+    &:hover {
+        .data {
+            opacity: .7   
+        }
+    }
 
     .date {
         height: 100%;
-        width: 55px;
         font-size: .6rem;
+        cursor: default;
 
         .type {
             color: ${({ theme }) => theme.title};
@@ -97,7 +143,6 @@ const Wrapper = styled.div`
             width: 30px;
             display: flex;
             justify-content: center;
-            user-select: none;
             align-items: center;
             cursor: pointer;
             height: 15px;
@@ -148,20 +193,17 @@ const Wrapper = styled.div`
     .container {
         height: 100%;
         padding: 0 0 20px 10px;
-        width: calc(100% - 55px - 18px);
+        width: calc(100% - 45px - 18px);
 
         .data {
             height: 90%;
             width: 100%;
             border-radius: 5px;
             background: ${({ theme }) => theme.card};
+            color: var(--pri-darktheme);
             position: relative;
             cursor: pointer;
             padding: 10px;
-
-            &:hover {
-                opacity: .7
-            }
 
             &:before {
                 content: '';
@@ -170,6 +212,7 @@ const Wrapper = styled.div`
                 top: 20px;
                 border-left: 8px solid transparent;
                 border-right: 8px solid ${({ theme }) => theme.card};
+                color: var(--pri-darktheme);
                 border-top: 8px solid transparent;
                 border-bottom: 8px solid transparent;
             };
@@ -200,7 +243,7 @@ const Wrapper = styled.div`
                     font-size: .65rem;
 
                     .data-title {
-                        color: ${({ theme }) => theme.title};
+                        color: var(--pri-darktheme);
                     }
                 }
             }

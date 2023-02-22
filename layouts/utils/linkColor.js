@@ -9,6 +9,15 @@ const linkColor = (router, link, toggleState, type = "") => {
         }
 
 
+        if (router.pathname.includes('/') && link.url.includes('/') && (!router.pathname.includes('/admin') || router.pathname.includes('/pos') || !router.pathname.includes('/services'))) {
+            if (toggleState) {
+                return { color: 'var(--active-link-lighttheme)' }
+            } else {
+                return { color: 'var(--active-link-darktheme)' }
+            }
+        }
+
+
         else if (router.pathname.includes('/pos') && link.url.includes('/pos')) {
             if (toggleState) {
                 return { color: 'var(--active-link-lighttheme)' }
@@ -61,6 +70,14 @@ const linkColor = (router, link, toggleState, type = "") => {
 
 
         else if (router.pathname.includes('/services/provisions') && link.url === '/services/provisions') {
+            if (toggleState) {
+                return { color: 'var(--active-link-lighttheme)' }
+            } else {
+                return { color: 'var(--active-link-darktheme)' }
+            }
+        }
+
+        else if (router.pathname.includes('/') && link.url.includes('/') && (!link.url.includes('/admin') && !link.url.includes('/pos') && !link.url.includes('/services')) && !router.pathname.includes('/admin') && !router.pathname.includes('/pos') && !router.pathname.includes('/services')) {
             if (toggleState) {
                 return { color: 'var(--active-link-lighttheme)' }
             } else {

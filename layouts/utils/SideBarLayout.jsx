@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
+import Logout from './Logout';
 
 
 export default function SideBarLayou({ children, toggleState, toggle, isExpanded }) {
@@ -13,6 +14,9 @@ export default function SideBarLayou({ children, toggleState, toggle, isExpanded
                 <div className="themeBtn">
                     <LightDarkBtn toggleState={toggleState} toggle={toggle} />
                 </div>
+                <div style={{ padding: '10px 3px' }}>
+                    <Logout />
+                </div>
             </div>
         </Wrapper>
     )
@@ -21,7 +25,6 @@ export default function SideBarLayou({ children, toggleState, toggle, isExpanded
 const Wrapper = styled.div`
     width: 100%;
     height: 100%;
-    // background: ${({ theme }) => theme.bg};
 
     .header {
         height: 63px;

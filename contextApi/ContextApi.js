@@ -32,6 +32,19 @@ function ContextApi({ children, toggleState, toggle }) {
     const [fetchingProfileSuccess, setFetchingProfileSuccess] = useState(false);
     const [profile, setProfile] = useState('');
 
+    useEffect(() => {
+        if (!hasAccess) {
+            api.refreshToken()
+            setTimeout(() => {
+                api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+            }, 1000)
+        }
+        else {
+            api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
+        }
+    }, [])
+
+
     // users
     const [fetchingUsers, setFetchingUsers] = useState(false)
     const [fetchingUsersSuccess, setFetchingUsersSuccess] = useState(false)
@@ -91,6 +104,16 @@ function ContextApi({ children, toggleState, toggle }) {
         api.isAdmin() ? setIsAdmin(true) : setIsAdmin(false)
         api.isAgent() ? setIsAgent(true) : setIsAgent(false)
     })
+
+    // add product to cart
+    const [cart, setCart] = useState([])
+    const addToCart = (id) => {
+        console.log(id)
+    }
+
+    const removeFromCart = (id) => {
+        console.log(id)
+    }
 
     const state = {
         ...staticData,
@@ -168,7 +191,9 @@ function ContextApi({ children, toggleState, toggle }) {
             openProductAction,
             setOpenProductAction,
         },
-        exp_date_ref: 100 //seconds
+        exp_date_ref: 100, //seconds
+        addToCart,
+        removeFromCart
     }
 
     return (

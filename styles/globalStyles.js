@@ -1,14 +1,20 @@
 import { style } from "@mui/system";
 import styled, { createGlobalStyle, css, keyframes } from "styled-components";
 
-const pri_darktheme = "#ccc";
+const pri_darktheme = "#fff";
 const pri_lighttheme = "#000";
-const title_darktheme = "#ffc107";
-const title_darktheme_faint = "#ffc10742";
-const title_lighttheme = "teal";
+const sec_darktheme = "#000";
+const sec_lighttheme = "#fff";
+
+const title_darktheme = "rgb(18, 154, 69)";
+// const title_darktheme = "#ffc107";
+const title_darktheme_faint = "rgb(0 82 46 / 25%)";
+const title_lighttheme = "rgb(18, 154, 69)";
+// const title_lighttheme = "teal";
 const title_lighttheme_faint = "#0080804f";
-const subtitle_darktheme = "";
-const subtitle_lighttheme = "";
+const subtitle_darktheme = "rgb(0, 82, 46)";
+const subtitle_lighttheme = " rgb(0, 82, 46)";
+
 const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,#20201f)";
 const bg_lighttheme = "#f5f5f5";
 const theme_changer_btn_darktheme = "#fff";
@@ -19,8 +25,9 @@ const active_link_darktheme = "#fff";
 const active_link_lighttheme = "red";
 const link_darktheme = "#9e9e9e";
 const link_lighttheme = "#000";
-const card_darktheme = "#000";
-const card_lighttheme = "#fff";
+const card_darktheme = "rgb(18, 154, 69)";
+// const card_darktheme = "rgb(0, 82, 46)";
+const card_lighttheme = "rgb(22 86 100)";
 const btn_darktheme = "#2a2a2a";
 const btn_lighttheme = "#e3e3e3";
 
@@ -51,6 +58,8 @@ const GlobalStyle = createGlobalStyle`
     :root{
       --pri-darktheme: ${pri_darktheme};
       --pri-lighttheme: ${pri_lighttheme};
+      --sec-darktheme: ${sec_darktheme};
+      --sec-lighttheme: ${sec_lighttheme};
       --title-darktheme: ${title_darktheme};
       --title-darktheme-faint: ${title_darktheme_faint};
       --title-lighttheme: ${title_lighttheme};

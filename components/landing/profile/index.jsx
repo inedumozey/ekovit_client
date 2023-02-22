@@ -25,18 +25,6 @@ export default function Profile() {
     } = user
 
     useEffect(() => {
-        if (!hasAccess) {
-            api.refreshToken()
-            setTimeout(() => {
-                api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
-            }, 1000)
-        }
-        else {
-            api.fetchProfile(setFetchingProfile, setFetchingProfileSuccess, setProfile, true)
-        }
-    }, [])
-
-    useEffect(() => {
         setTimeout(() => {
             setReady(true)
         }, 1000)

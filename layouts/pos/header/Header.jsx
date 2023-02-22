@@ -9,6 +9,7 @@ import Logo from '../../utils/Logo';
 import LightDarkBtn from '../../../utils/components/LightDarkBtn';
 import ResolveClass from '../../../utils/resolveClass';
 import Search from '../../../utils/components/Search';
+import Logout from '../../utils/Logout';
 const resolve = new ResolveClass()
 
 export default function Header({ isExpanded, setExpanded, headerHeight, toggleState, toggle }) {
@@ -47,6 +48,9 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <UserLog toggleState={toggleState} toggle={toggle} />
                     <div className="theme-btn">
+                        <div style={{ marginRight: '10px' }}>
+                            <Logout />
+                        </div>
                         <LightDarkBtn toggleState={toggleState} toggle={toggle} />
                     </div>
                 </div>
@@ -129,6 +133,9 @@ const HeaderStyle = styled.div`
 
     .theme-btn {
         margin-left: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     @media (max-width: 800px){
