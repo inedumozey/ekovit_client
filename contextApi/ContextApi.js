@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import apiClass from '../utils/data/api';
 import link from './link';
 import staticDataClass from '../utils/data/staticDataClass';
+import { toast } from 'react-toastify';
 import mobileLink from './mobileLinks';
 
 const api = new apiClass()
@@ -75,6 +76,7 @@ function ContextApi({ children, toggleState, toggle }) {
     const [selectedProduct, setSelectedProduct] = useState("")
     const [updatingProduct, setUpdatingProduct] = useState(false)
     const [openProductAction, setOpenProductAction] = useState(false)
+    const [cart, setCart] = useState([])
 
 
     useEffect(() => {
@@ -106,15 +108,38 @@ function ContextApi({ children, toggleState, toggle }) {
         api.isAgent() ? setIsAgent(true) : setIsAgent(false)
     })
 
-    // add product to cart
-    const [cart, setCart] = useState([])
+    // add product to cart in local storage
     const addToCart = (id) => {
-        console.log(id)
+        let cartIds = [];
+        if (localStorage.getItem("cart") != undefined) {
+            cartIds = JSON.parse(localStorage.getItem("cart"));
+        }
+        cartIds.push(id);
+        localStorage.setItem("cart", JSON.stringify(cartIds));
+        setCart(cartIds)
+
+        toast("Added to carts", { type: 'success' })
     }
 
+    // remove product from cart in local storage
     const removeFromCart = (id) => {
-        console.log(id)
+        // filter id from cart
+        const newCartId = cart.filter(data => {
+            return data !== id
+        })
+        localStorage.setItem("cart", JSON.stringify(newCartId));
+        setCart(newCartId)
+
+        toast("Removed from carts", { type: 'success' })
     }
+
+    // get carts from local storage
+    useEffect(() => {
+        if (localStorage.getItem("cart") != undefined) {
+            const id = JSON.parse(localStorage.getItem("cart"));
+            setCart(id)
+        }
+    }, [])
 
     const state = {
         ...staticData,
@@ -193,8 +218,12 @@ function ContextApi({ children, toggleState, toggle }) {
             setOpenProductAction,
         },
         exp_date_ref: 100, //seconds
-        addToCart,
-        removeFromCart
+        carts: {
+            cart,
+            setCart,
+            addToCart,
+            removeFromCart
+        }
     }
 
     return (

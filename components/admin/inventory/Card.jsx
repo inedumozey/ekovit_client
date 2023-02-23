@@ -13,16 +13,20 @@ const resolve = new ResolveClass()
 
 export default function Card({ data, openProductAction, setOpenProductAction, setSelectedProduct, selectedProduct }) {
     const { snap } = useSnap(.5)
-    const { addToCart, removeFromCart, access } = useContext(ContextData);
+    const { carts, access } = useContext(ContextData);
     const router = useRouter();
     const homePage = router.pathname === '/'
+    const {
+        addToCart,
+        cart,
+        removeFromCart
+    } = carts
 
     const { isLoggedin } = access
 
     const handleAddToCart = (id) => {
         addToCart(id)
     }
-
 
     const handleRemoveFromCart = (id) => {
         removeFromCart(id)
@@ -51,12 +55,16 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                         </> :
                         <div className="action">
                             <div
-                                style={{ marginTop: '50px', color: 'rgb(253 71 12)', cursor: 'pointer' }}
-                                onClick={isLoggedin ? () => handleAddToCart(productData._id) : () => router.push('/auth')}
+                                style={{ marginTop: '50px', cursor: 'pointer' }}
+                                onClick={isLoggedin ? () => { cart.includes(data._id) ? handleRemoveFromCart(data._id) : handleAddToCart(data._id) } : () => router.push('/auth')}
                                 {...snap()}
                                 title={"Add to cart"}
                             >
-                                <AddShoppingCartIcon />
+                                {
+                                    cart.includes(data._id) ?
+                                        <RemoveShoppingCartIcon style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='cart' />
+                                }
+
                             </div>
                         </div>
                 }
@@ -123,6 +131,9 @@ const Wrapper = styled.div`
         margin: 0 5px;
     }
   
+    .cartIcon{
+        color: ${({ theme }) => theme.title};       
+    }
 
     &:hover {
         .data {

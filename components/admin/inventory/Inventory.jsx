@@ -22,9 +22,15 @@ export default function Inventory() {
     const { snap } = useSnap(.5)
     const router = useRouter();
     const { id } = router.query
-    const { access, product, addToCart, removeFromCart } = useContext(ContextData);
+    const { access, product, carts } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [fetch, setFetch] = useState(false)
+
+    const {
+        addToCart,
+        cart,
+        removeFromCart
+    } = carts
 
     const homePage = !router.pathname.includes('admin/inventory')
 
@@ -103,12 +109,15 @@ export default function Inventory() {
                                     {
                                         homePage ?
                                             <div className="cart"
-                                                onClick={isLoggedin ? () => handleAddToCart(productData._id) : () => router.push('/auth')}
+                                                onClick={isLoggedin ? () => { cart.includes(productData._id) ? handleRemoveFromCart(productData._id) : handleAddToCart(productData._id) } : () => router.push('/auth')}
                                                 style={{ color: 'rgb(253 71 12)' }}
                                                 {...snap()}
                                                 title={"Add to cart"}
                                             >
-                                                <AddShoppingCartIcon />
+                                                {
+                                                    cart.includes(productData._id) ?
+                                                        <RemoveShoppingCartIcon style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='cartIcon' />
+                                                }
                                             </div> :
                                             <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
                                                 <MoreHorizIcon />
@@ -189,6 +198,10 @@ const Card = styled.div`
     color: var(--pri-darktheme);
     position: relative;
     padding: 10px;
+
+    .cartIcon{
+        color: ${({ theme }) => theme.title};       
+    }
 
     &:before {
         content: '';
