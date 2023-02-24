@@ -118,14 +118,14 @@ export default function User() {
                                                 (function () {
                                                     if (user.role.toLowerCase() !== 'admin') {
                                                         return <div
-                                                            onClick={toggleAdminLoading ? () => { } : () => handleToggleAdmin(user._id)} className='container fn'
+                                                            onClick={toggleAdminLoading || deletinguser || toggleAgentLoading ? () => { } : () => handleToggleAdmin(user._id)} className='container fn'
                                                         >
                                                             {toggleAdminLoading ? <Spinner type="dots" /> : "Make Admin"}
                                                         </div>
                                                     }
                                                     else if (user.role.toLowerCase() === 'admin') {
                                                         return <div
-                                                            onClick={toggleAdminLoading ? () => { } : () => handleToggleAdmin(user._id)} className='container fn'
+                                                            onClick={toggleAdminLoading || deletinguser || toggleAgentLoading ? () => { } : () => handleToggleAdmin(user._id)} className='container fn'
                                                         >
                                                             {toggleAdminLoading ? <Spinner type="dots" /> : "Remove Admin"}
                                                         </div>
@@ -139,7 +139,7 @@ export default function User() {
                                                 (function () {
                                                     if (user.role.toLowerCase() !== 'admin' && user.role.toLowerCase() === 'user') {
                                                         return <div
-                                                            onClick={toggleAgentLoading ? () => { } : () => handleToggleAgent(user._id)} className='container fn'
+                                                            onClick={toggleAgentLoading || deletinguser || toggleAdminLoading ? () => { } : () => handleToggleAgent(user._id)} className='container fn'
                                                         >
                                                             {toggleAgentLoading ? <Spinner type="dots" /> : "Make Agent"}
                                                         </div>
@@ -147,7 +147,7 @@ export default function User() {
 
                                                     if (user.role.toLowerCase() === 'agent') {
                                                         return <div
-                                                            onClick={toggleAgentLoading ? () => { } : () => handleToggleAgent(user._id)} className='container fn'
+                                                            onClick={toggleAgentLoading || deletinguser || toggleAdminLoading ? () => { } : () => handleToggleAgent(user._id)} className='container fn'
                                                         >
                                                             {toggleAgentLoading ? <Spinner type="dots" /> : "Remove Agent"}
                                                         </div>
@@ -162,7 +162,7 @@ export default function User() {
 
                                                 user.role.toLowerCase() === 'user' ?
                                                     <div
-                                                        onClick={deletinguser ? () => { } : () => handleDeleteAccount(user._id)}
+                                                        onClick={deletinguser || toggleAgentLoading || toggleAdminLoading ? () => { } : () => handleDeleteAccount(user._id)}
                                                         className='container fn'
                                                         style={{ color: 'red' }}
                                                     >
