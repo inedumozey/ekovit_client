@@ -181,7 +181,7 @@ export default function Add() {
 
                         <InputWrapper>
                             {
-                                type.toLowerCase() === 'drugs' ?
+                                type.toLowerCase() === 'drug' ?
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
                                             <label>
@@ -233,7 +233,7 @@ export default function Add() {
 
                         <InputWrapper>
                             {
-                                type.toLowerCase() === 'drugs' ?
+                                type.toLowerCase() === 'drug' ?
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
                                             <label>
