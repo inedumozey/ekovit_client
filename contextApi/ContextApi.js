@@ -117,8 +117,6 @@ function ContextApi({ children, toggleState, toggle }) {
         cartIds.push(id);
         localStorage.setItem("cart", JSON.stringify(cartIds));
         setCart(cartIds)
-
-        toast("Added to carts", { type: 'success' })
     }
 
     // remove product from cart in local storage
@@ -129,8 +127,6 @@ function ContextApi({ children, toggleState, toggle }) {
         })
         localStorage.setItem("cart", JSON.stringify(newCartId));
         setCart(newCartId)
-
-        toast("Removed from carts", { type: 'success' })
     }
 
     // get carts from local storage
@@ -139,6 +135,7 @@ function ContextApi({ children, toggleState, toggle }) {
             const id = JSON.parse(localStorage.getItem("cart"));
             setCart(id)
         }
+
     }, [])
 
     const state = {

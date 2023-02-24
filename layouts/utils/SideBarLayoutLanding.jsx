@@ -11,7 +11,6 @@ export default function SideBarLayoutLanding({ children, toggleState, toggle }) 
     return (
         <Wrapper>
             <div className="header">
-                <Logo />
                 <UserLog toggleState={toggleState} toggle={toggle} />
             </div>
             <div className="main">

@@ -87,7 +87,9 @@ export default function User({ children, toggleState, toggle }) {
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <UserLog toggleState={toggleState} toggle={toggle} />
+                            <div style={{ width: '100px' }}>
+                                <UserLog toggleState={toggleState} toggle={toggle} />
+                            </div>
                             <div className="theme-btn">
                                 <LightDarkBtn toggleState={toggleState} toggle={toggle} />
                             </div>

@@ -15,7 +15,6 @@ import Copyright from '../../utils/components/Copyright';
 import { ContextData } from '../../contextApi/ContextApi';
 import Logout from '../utils/Logout';
 
-
 const resolve = new ResolveClass()
 
 const headerHeight = '100px'
@@ -38,7 +37,9 @@ export default function Landing({ children, toggleState, toggle }) {
                     <NavLinks toggleState={toggleState} />
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
+                       <div style={{width: '100px'}}>
                         <UserLog toggleState={toggleState} toggle={toggle} />
+                       </div>
                         <div className="theme-btn">
                             <div style={{ marginRight: '10px' }}>
                                 <Logout />
@@ -49,9 +50,7 @@ export default function Landing({ children, toggleState, toggle }) {
                 </div>
                 <div className="bottom">
                     <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div>
-                    <div className="search-wrapper">
-                        <Search />
-                    </div>
+                    <div className="search-wrapper"> <Search /> </div>
                 </div>
 
             </Header>

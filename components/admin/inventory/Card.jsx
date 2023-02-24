@@ -38,8 +38,8 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                 <div className="dot"></div>
                 <div className="dot-tail"></div>
             </div>
-            <div className="date">
-                <h2 className='type'>{resolve.capitalize(data.type)}</h2>
+            <div className="el date">
+                <h3 className='type'>{resolve.capitalize(data.type)}</h3>
                 {
                     !homePage ?
                         <>
@@ -75,13 +75,17 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                     onClick={homePage ? () => router.push(`/${data._id}`) : () => router.push(`/admin/inventory/${data._id}`)}
                 >
                     <div className="title">
-                        <div className="img">
-                            <Image src={"https://res.cloudinary.com/drmo/image/upload/v1676757806/EKOVIT/drugs/1553454-1676757792467.jpg"} width="400" height="200" alt="" />
-                        </div>
+                        <h2 className='data-title el' style={{ fontWeight: 'bold', textAlign: 'center' }}>
+                            {data.category?.toUpperCase()}
+                        </h2>
+                        {
+                            data.product_image_url ?
+                                <div className="img">
+                                    <img src={data?.product_image_url} width="400" height="200" alt="" />
+                                </div> : ''
+                        }
+
                         <div className="category-wrapper">
-                            <h2 className='data-title el' style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                                {data.category?.toUpperCase()}
-                            </h2>
                             {
                                 data.type?.toLowerCase() === 'drugs' ?
                                     <>
@@ -91,26 +95,32 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 
                                         <div className='el'><span style={{ fontWeight: 'bold' }}>Form:</span> {data.form}</div>
                                     </> :
-                                    <>
-                                        <div className='el'>{data.product_name ? `Product Name: ${data.product_name}` : ''}</div>
-                                    </>
+                                    data.product_name ? <div className='el'><span style={{ fontWeight: 'bold' }}>Product Name:</span> {data.product_name}</div> : ''
                             }
                         </div>
                     </div>
 
                     <div className="body">
-                        {
-                            !homePage ?
-                                <>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{data.purchased_price}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
-                                </> : ''
-                        }
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>wholesale Price:</span> #{data.wholesale_price}</div>
-                        <div className='el'><span style={{ fontWeight: 'bold' }}>Retail Price:</span> #{data.retaile_price}</div>
+                        <div className='meta-data'>
+                            {
+                                !homePage ?
+                                    <>
+                                        <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{data.purchased_price}</div>
+                                        <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
+                                        <div className='el'><span style={{ fontWeight: 'bold' }}>wholesale Price:</span> #{data.wholesale_price}</div>
+                                        <div className='el'><span style={{ fontWeight: 'bold' }}>Retail Price:</span> #{data.retaile_price}</div>
+                                    </> : <h2 className='el'><span style={{ fontWeight: 'bold' }}>Price:</span> #{data.retaile_price}</h2>
+                            }
+                        </div>
+
+                        <br />
+                        <div className='el'>
+                            {data.other_details}
+                        </div>
+
                     </div>
                 </div>
-                {data.createdAt && new Date(data.createdAt).toLocaleString()}
+                {!homePage ? data.createdAt && new Date(data.createdAt).toLocaleString() : ''}
             </div>
         </Wrapper>
     )
@@ -118,7 +128,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 
 const Wrapper = styled.div`
     width: 250px;
-    height: 200px;
+    height: 300px;
     min-height: 250px;
     position: relative;
     margin: 0 30px;
@@ -144,6 +154,7 @@ const Wrapper = styled.div`
     .date {
         height: 100%;
         font-size: .6rem;
+        width: 50px;
         cursor: default;
 
         .type {
@@ -206,16 +217,14 @@ const Wrapper = styled.div`
     }
 
     .container {
-        height: 100%;
         padding: 0 0 20px 10px;
-        width: calc(100% - 45px - 18px);
+        width: calc(100% - 50px - 18px);
 
         .data {
             height: 90%;
             width: 100%;
             border-radius: 5px;
             background: ${({ theme }) => theme.card};
-            color: var(--pri-darktheme);
             position: relative;
             cursor: pointer;
             padding: 10px;
@@ -227,44 +236,42 @@ const Wrapper = styled.div`
                 top: 20px;
                 border-left: 8px solid transparent;
                 border-right: 8px solid ${({ theme }) => theme.card};
-                color: var(--pri-darktheme);
                 border-top: 8px solid transparent;
                 border-bottom: 8px solid transparent;
             };
 
             .title {
                 width: 100%;
-                height: 70px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                height: 60%;
 
+                .data-title {
+                    color: ${({ theme }) => theme.title};
+                    height: 20px;
+                }
 
                 .img {
-                    width: 50px;
+                    width: 100%;
+                    height: 60px;
             
                     img {
                         width: 100%;
                         height: 100%;
                         object-fit: contain;
-                        
                     }
                 }
 
                 .category-wrapper {
-                    width: calc(100% - 50px);
-                    height: 100%;
-                    padding-left: 5px;
+                    padding: 6px 5px;
                     font-size: .65rem;
-
-                    .data-title {
-                        color: var(--pri-darktheme);
-                    }
                 }
             }
 
             .body {
-                padding: 15px 10px;
+                padding:  5px;
+                height: 40%;
+                .meta-data {
+                    color: ${({ theme }) => theme.title};
+                }
             }
         }
     }

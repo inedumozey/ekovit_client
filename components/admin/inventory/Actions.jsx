@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components'
 import { ContextData } from '../../../contextApi/ContextApi';
 import apiClass from '../../../utils/data/api';
@@ -12,6 +12,7 @@ const api = new apiClass()
 export default function Actions() {
     const router = useRouter();
     const { access, product } = useContext(ContextData);
+    const [sending, setsending] = useState(false)
 
     const { hasAccess } = access
 
@@ -23,25 +24,15 @@ export default function Actions() {
         deletingProduct,
         setDeletingProduct,
         selectedProduct,
-        setSelectedProduct,
-        updatingProduct,
         setUpdatingProduct,
-        openProductAction,
         setOpenProductAction,
     } = product
 
 
     const handleUpdate = () => {
-        // console.log(selectedProduct)
-        if (!hasAccess) {
-            api.refreshToken()
-            setTimeout(() => {
-                // api.fetchProducts(setFetchingProducts, setFetchingProductsSuccess, setProductsData, true)
-            }, 1000)
-        }
-        else {
-            // api.fetchProducts(setFetchingProducts, setFetchingProductsSuccess, setProductsData, true)
-        }
+        setsending(true)
+        setUpdatingProduct(true)
+        router.push('/admin/inventory/add')
     }
 
     const handleDelete = () => {
@@ -77,7 +68,7 @@ export default function Actions() {
         <Wrapper className='action'>
             <div onClick={handleUpdate} style={{ color: 'blue' }} className='action-btn'>
                 {
-                    updatingProduct ? <Spinner type="dots" /> : "Update"
+                    sending ? <Spinner type="dots" /> : "Update"
                 }
             </div>
             <div onClick={handleDelete} style={{ color: 'red' }} className='action-btn'>

@@ -276,7 +276,6 @@ const Card = styled.div`
     max-width: 700px;
     padding: 15px 10px;
     margin: auto;
-    height: 
     margin-bottom: 10px;
     display: flex;
     justify-content: space-between;

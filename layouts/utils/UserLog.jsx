@@ -38,7 +38,6 @@ export default function UserLog({ toggleState, toggle }) {
                                     user.fetchingProfile ? <Spinner type="dots" /> :
                                         user.profile ? (user.profile.username ? user.profile.username : user.profile.email) : ('')
                                 }
-
                             </span>
                         </Link>
 
@@ -54,7 +53,7 @@ export default function UserLog({ toggleState, toggle }) {
 
 const LogStyle = styled.div`
     height: 40px;
-    width: 100px;
+    width: 100%;
 
     .login {
         cursor: pointer;
@@ -77,7 +76,7 @@ const LogStyle = styled.div`
         width: 100%;
         height: 40px;
         border-radius: 10px;
-        background: ${({ theme }) => theme.sec};
+        background: ${({ theme }) => theme.border};
         border: 3px solid ${({ theme }) => theme.border};
         align-items: center;
 
@@ -86,7 +85,7 @@ const LogStyle = styled.div`
         }
 
         &:hover {
-            border: 3px solid ${({ theme }) => theme.title};;
+            background: ${({ theme }) => theme.sec};
         }
     }
 

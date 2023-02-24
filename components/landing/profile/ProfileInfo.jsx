@@ -23,8 +23,9 @@ export default function ProfileInfo({ data }) {
                 </div>
 
             </SubWrapper>
-
+            {data.createdAt && <div>Member since {new Date(data.createdAt).toLocaleString()}</div>}
             <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '20px' }}>
+
                 <div>
                     ROLE: <span style={
                         (function () {

@@ -46,7 +46,9 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
 
                 <NavLinks toggleState={toggleState} />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <UserLog toggleState={toggleState} toggle={toggle} />
+                    <div style={{ width: '100px' }}>
+                        <UserLog toggleState={toggleState} toggle={toggle} />
+                    </div>
                     <div className="theme-btn">
                         <div style={{ marginRight: '10px' }}>
                             <Logout />
@@ -56,14 +58,8 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                 </div>
             </div>
             <div className="bottom">
-                <div
-                    className="content el"
-                    style={{ fontSize: '.6rem' }}>
-                    {resolve.path(router)}
-                </div>
-                <div className="search-wrapper">
-                    <Search />
-                </div>
+                <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div>
+                <div className="search-wrapper"> <Search /> </div>
             </div>
         </HeaderStyle>
     )

@@ -17,35 +17,34 @@ const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_BASE_URL;
 const api = new apiClass();
 
 export default function Add() {
+    const router = useRouter()
     const { access, product } = useContext(ContextData);
-    const { hasAccess } = access
+
+    const { hasAccess } = access;
+
     const {
-        fetchingProducts,
-        setFetchingProducts,
-        fetchingProductsSuccess,
-        setFetchingProductsSuccess,
-        ProductsData,
-        setProductsData,
-        updatingproducts,
-        setUpdatingproducts,
+        selectedProduct,
+        setSelectedProduct,
+        updatingProduct,
+        setUpdatingProduct,
     } = product
 
     const [sending, setSending] = useState(false);
     const [msg, setMsg] = useState({ msg: '', status: false });
 
-    const [type, setType] = useState("drugs");
-    const [category, setCategory] = useState("");
-    const [generic_name, setGeneric_name] = useState("");
-    const [brand_name, setBrand_name] = useState("");
-    const [product_name, setProduct_name] = useState("");
-    const [purchased_price, setPurchased_price] = useState("");
-    const [wholesale_price, setWholesale_price] = useState("");
-    const [retaile_price, setRetaile_price] = useState("");
-    const [products_image, setProducts_image] = useState("");
-    const [expiry_date, setExpiry_date] = useState("");
-    const [form, setForm] = useState("");
-    const [quantity, setQuantity] = useState("");
-    const [other_details, setOther_details] = useState("");
+    const [type, setType] = useState(selectedProduct.type ? selectedProduct.type : "drug");
+    const [category, setCategory] = useState(selectedProduct.category ? selectedProduct.category : "");
+    const [generic_name, setGeneric_name] = useState(selectedProduct.generic_name ? selectedProduct.generic_name : "");
+    const [brand_name, setBrand_name] = useState(selectedProduct.brand_name ? selectedProduct.brand_name : "");
+    const [product_name, setProduct_name] = useState(selectedProduct.product_name ? selectedProduct.product_name : "");
+    const [purchased_price, setPurchased_price] = useState(selectedProduct.purchased_price ? selectedProduct.purchased_price : "");
+    const [wholesale_price, setWholesale_price] = useState(selectedProduct.wholesale_price ? selectedProduct.wholesale_price : "");
+    const [retaile_price, setRetaile_price] = useState(selectedProduct.retaile_price ? selectedProduct.retaile_price : "");
+    const [products_image, setProducts_image] = useState(selectedProduct.products_image ? selectedProduct.products_image : "");
+    const [expiry_date, setExpiry_date] = useState(selectedProduct.expiry_date ? selectedProduct.expiry_date : "");
+    const [form, setForm] = useState(selectedProduct.form ? selectedProduct.form : "");
+    const [quantity, setQuantity] = useState(selectedProduct.quantity ? selectedProduct.quantity : "");
+    const [other_details, setOther_details] = useState(selectedProduct.other_details ? selectedProduct.other_details : "");
 
     const handleSubmit = async (e) => {
         setSending(true);
@@ -66,19 +65,31 @@ export default function Add() {
         formData.append('other_details', other_details)
 
         try {
-            const { data } = await axios.post(`${BASE_URL}/products`, formData, {
-                headers: {
-                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
-                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
-                }
-            });
+            if (updatingProduct) {
+                const { data } = await axios.put(`${BASE_URL}/products/${selectedProduct._id}`, formData, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                        'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                    }
+                })
+                setMsg({ msg: data.msg, status: true });
+
+                setUpdatingProduct(false)
+                router.push('/admin/inventory/')
+            }
+            else {
+                const { data } = await axios.post(`${BASE_URL}/products`, formData, {
+                    headers: {
+                        'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
+                        'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
+                    }
+                });
+                setMsg({ msg: data.msg, status: true })
+            }
+
+
 
             setSending(false);
-
-            if (data.token) {
-                setToken(data.token)
-            }
-            setMsg({ msg: data.msg, status: true })
 
             // clear input
             setCategory("");
@@ -111,20 +122,16 @@ export default function Add() {
         e.preventDefault();
         setSending(true);
 
-        if (!hasAccess) {
-            api.refreshToken()
-            setTimeout(() => {
-                handleSubmit()
-            }, 1000)
-        }
-        else {
+        api.refreshToken();
+
+        setTimeout(() => {
             handleSubmit()
-        }
+        }, 1000)
     }
 
     return (
         <Wrapper>
-            <Title> Add a product</Title>
+            <h2 className='title'>{updatingProduct ? 'Update' : 'Add a product'}</h2>
             {
                 msg.msg ?
                     <div style={{ margin: '25px 0' }}>
@@ -140,16 +147,28 @@ export default function Add() {
                                     <label>
                                         Product Type:
                                     </label>
-                                    <Select
-                                        options={[
-                                            { value: 'drugs', label: 'Drugs' },
-                                            { value: 'provisions', label: 'Provisions' },
-                                        ]}
-                                        defaultValue={{ value: 'drugs', label: "Drugs" }}
-                                        onChange={(selectedOption) => setType(selectedOption.value)}
-                                    />
+                                    {
+                                        !updatingProduct ?
+                                            <Select
+                                                options={[
+                                                    { value: 'drug', label: 'Drug' },
+                                                    { value: 'provision', label: 'Provision' },
+                                                ]}
+                                                defaultValue={{ value: 'drug', label: "Drug" }}
+                                                onChange={(selectedOption) => setType(selectedOption.value)}
+                                            /> :
+                                            <InputWrapper>
+                                                <input
+                                                    value={selectedProduct.type || ''}
+                                                    disabled
+                                                />
+                                            </InputWrapper>
+                                    }
                                 </div>
                                 <div style={{ width: '49%' }}>
+                                    <label>
+                                        Category:
+                                    </label>
                                     <input
                                         placeholder="Category"
                                         autoFocus
@@ -165,6 +184,9 @@ export default function Add() {
                                 type.toLowerCase() === 'drugs' ?
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Generic Name:
+                                            </label>
                                             <input
                                                 placeholder="Generic Name"
                                                 value={generic_name || ''}
@@ -172,6 +194,9 @@ export default function Add() {
                                             />
                                         </div>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Brand Name:
+                                            </label>
                                             <input
                                                 placeholder="Brand Name"
                                                 value={brand_name || ''}
@@ -182,6 +207,9 @@ export default function Add() {
 
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Product Name:
+                                            </label>
                                             <input
                                                 placeholder="Product Name"
                                                 value={product_name || ''}
@@ -189,6 +217,9 @@ export default function Add() {
                                             />
                                         </div>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Quantity:
+                                            </label>
                                             <input
                                                 type="number"
                                                 placeholder="Quantity"
@@ -205,6 +236,9 @@ export default function Add() {
                                 type.toLowerCase() === 'drugs' ?
                                     <div className='inp'>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Form
+                                            </label>
                                             <input
                                                 placeholder="Form"
                                                 value={form || ''}
@@ -212,6 +246,9 @@ export default function Add() {
                                             />
                                         </div>
                                         <div style={{ width: '49%' }}>
+                                            <label>
+                                                Quantity
+                                            </label>
                                             <input
                                                 type="number"
                                                 placeholder="Quantity"
@@ -225,6 +262,9 @@ export default function Add() {
                         </InputWrapper>
 
                         <InputWrapper>
+                            <label>
+                                Purchased Price
+                            </label>
                             <input
                                 placeholder="Purchased Price"
                                 type="number"
@@ -236,6 +276,9 @@ export default function Add() {
                         <InputWrapper>
                             <div className='inp'>
                                 <div style={{ width: '49%' }}>
+                                    <label>
+                                        Wholesale Price
+                                    </label>
                                     <input
                                         placeholder="Wholesale Price"
                                         type="number"
@@ -244,6 +287,9 @@ export default function Add() {
                                     />
                                 </div>
                                 <div style={{ width: '49%' }}>
+                                    <label>
+                                        Retail Price
+                                    </label>
                                     <input
                                         placeholder="Retail Price"
                                         type="number"
@@ -281,6 +327,9 @@ export default function Add() {
                         </InputWrapper>
 
                         <InputWrapper>
+                            <label>
+                                Other Details
+                            </label>
                             <textarea
                                 placeholder="Other Details"
                                 value={other_details || ''}
@@ -293,7 +342,7 @@ export default function Add() {
                                 style={{ width: '100%' }}
                                 disabled={sending}
                                 color="var(--blue)">
-                                {sending ? <Spinner type="dots" /> : "Save Product"}
+                                {sending ? <Spinner type="dots" /> : updatingProduct ? "Upate Product" : `Save Product`}
                             </Btn>
                         </InputWrapper>
                     </Form>
@@ -303,7 +352,6 @@ export default function Add() {
         </Wrapper>
     )
 }
-
 
 const Wrapper = styled.div`
     position: relative;
@@ -315,6 +363,11 @@ const Wrapper = styled.div`
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 10px ${({ theme }) => theme.sm_padding};
+    }
+
+    .title {
+        color:  ${({ theme }) => theme.title};
+        padding: 20px 0;
     }
 `
 

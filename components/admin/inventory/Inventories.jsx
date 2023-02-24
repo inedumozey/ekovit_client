@@ -11,10 +11,12 @@ import Actions from './Actions';
 
 import Select from 'react-select'
 import Card from './Card';
+import { useRouter } from 'next/router';
 
 const api = new apiClass()
 
 export default function Inventories() {
+    const router = useRouter
     const { num, access, search, product } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [observing, setObserving] = useState(false)
@@ -34,9 +36,17 @@ export default function Inventories() {
         setProductsData,
         openProductAction,
         setOpenProductAction,
+        setUpdatingProduct,
         selectedProduct,
         setSelectedProduct,
     } = product;
+
+    useEffect(() => {
+        setSelectedProduct('');
+        setUpdatingProduct(false);
+        setOpenProductAction(false)
+    }, [])
+
 
     const [filteredData, setFilter] = useState(productsData);
 

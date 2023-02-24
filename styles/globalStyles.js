@@ -19,15 +19,15 @@ const bg_darktheme = "linear-gradient(#20201f,#20201f,#101010, #101010, #20201f,
 const bg_lighttheme = "#f5f5f5";
 const theme_changer_btn_darktheme = "#fff";
 const theme_changer_btn_lighttheme = "#000";
-const border_darktheme = "#202222";
+const border_darktheme = "#333";
+// const border_darktheme = "#202222";
 const border_lighttheme = "#dbe1e1";
 const active_link_darktheme = "#fff";
 const active_link_lighttheme = "red";
 const link_darktheme = "#9e9e9e";
 const link_lighttheme = "#000";
-const card_darktheme = "rgb(18, 154, 69)";
-// const card_darktheme = "rgb(0, 82, 46)";
-const card_lighttheme = "rgb(22 86 100)";
+const card_darktheme = "#222";
+const card_lighttheme = "#fff";
 const btn_darktheme = "#2a2a2a";
 const btn_lighttheme = "#e3e3e3";
 
@@ -92,8 +92,7 @@ const GlobalStyle = createGlobalStyle`
         transition: background .3s ease-in;
         position: relative;
         height: 100vh;
-        width: 100vw;
-        overflow-x: hidden;
+        width: 100vw; 
         line-height: 1.3rem;
         
         font-size: .7rem;

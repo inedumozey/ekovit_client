@@ -5,10 +5,11 @@ import Auth from './auth'
 import Pos from './pos'
 import Landing from './landing'
 import Cookies from 'js-cookie';
+import { ScrollBar } from '../styles/globalStyles'
 
 
 export default function Layout({ children, toggleState, toggle }) {
-    const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
         if (router.pathname.includes('/pos')) {
@@ -23,6 +24,8 @@ export default function Layout({ children, toggleState, toggle }) {
                 router.push('/')
             }
         }
+
+        document.body.style.overflowX = 'hidden'
     })
 
     return (
