@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import ResolveClass from '../../utils/resolveClass';
 import Search from '../../utils/components/Search';
 import Copyright from '../../utils/components/Copyright';
+import Carts from '../../utils/components/Carts';
 import { ContextData } from '../../contextApi/ContextApi';
 import Logout from '../utils/Logout';
 
@@ -37,9 +38,10 @@ export default function Landing({ children, toggleState, toggle }) {
                     <NavLinks toggleState={toggleState} />
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                       <div style={{width: '100px'}}>
-                        <UserLog toggleState={toggleState} toggle={toggle} />
-                       </div>
+                        <div className='carts'><Carts /></div>
+                        <div style={{ width: '100px' }}>
+                            <UserLog toggleState={toggleState} toggle={toggle} />
+                        </div>
                         <div className="theme-btn">
                             <div style={{ marginRight: '10px' }}>
                                 <Logout />
@@ -118,6 +120,14 @@ const Header = styled.div`
         justify-content: space-between;
         aligin-items: center;
 
+        .carts {
+            padding: 0 10px;
+
+            @media (max-width: ${({ theme }) => theme.sm_screen}){
+                display: none
+            };
+        }
+
 
         padding: 10px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
@@ -128,6 +138,7 @@ const Header = styled.div`
         }
 
     }
+    
     
     .bottom {
         height: calc(100% - 60px);

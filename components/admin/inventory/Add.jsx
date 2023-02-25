@@ -27,6 +27,7 @@ export default function Add() {
         setSelectedProduct,
         updatingProduct,
         setUpdatingProduct,
+        setOpenProductAction
     } = product
 
     const [sending, setSending] = useState(false);
@@ -127,6 +128,13 @@ export default function Add() {
         setTimeout(() => {
             handleSubmit()
         }, 1000)
+    }
+
+    const cancel = () => {
+        setSelectedProduct('');
+        setUpdatingProduct(false);
+        setOpenProductAction(false)
+        router.push('/admin/inventory/')
     }
 
     return (
@@ -345,6 +353,14 @@ export default function Add() {
                                 {sending ? <Spinner type="dots" /> : updatingProduct ? "Upate Product" : `Save Product`}
                             </Btn>
                         </InputWrapper>
+
+                        {
+                            updatingProduct ?
+                                <InputWrapper>
+                                    <div onClick={cancel} style={{ color: '#c30', cursor: 'pointer' }}>Cancel</div>
+                                </InputWrapper> : ''
+                        }
+
                     </Form>
 
                 </Card>

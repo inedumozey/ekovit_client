@@ -68,6 +68,11 @@ function ContextApi({ children, toggleState, toggle }) {
     const [productsData, setProductsData] = useState([])
     const [updatingproducts, setUpdatingproducts] = useState(false)
 
+    // carts products
+    const [fetchingCartsProducts, setFetchingCartsProducts] = useState(false)
+    const [fetchingCartsProductsSuccess, setFetchingCartsProductsSuccess] = useState(false)
+    const [cartsProductsData, setCartsProductsData] = useState([])
+
     // product
     const [fetchingProduct, setFetchingProduct] = useState(false)
     const [fetchingProductSuccess, setFetchingProductSuccess] = useState(false)
@@ -197,6 +202,13 @@ function ContextApi({ children, toggleState, toggle }) {
             setProductsData,
             updatingproducts,
             setUpdatingproducts,
+
+            fetchingCartsProducts,
+            setFetchingCartsProducts,
+            fetchingCartsProductsSuccess,
+            setFetchingCartsProductsSuccess,
+            cartsProductsData,
+            setCartsProductsData,
 
             fetchingProduct,
             setFetchingProduct,

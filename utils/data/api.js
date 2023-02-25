@@ -480,6 +480,35 @@ class apiClass {
         }
     }
 
+    fetchCartsProducts = async (
+        setFetchingCartsProducts,
+        setFetchingCartsProductsSuccess,
+        setCartsProductsData,
+        cart) => {
+
+        setFetchingCartsProducts(true)
+        try {
+            const { data } = await axios.post(`${BASE_URL}/products/carts`, { cart }, {
+                headers: {
+                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`
+                }
+            });
+            setCartsProductsData(data.data)
+            setFetchingCartsProducts(false)
+            setFetchingCartsProductsSuccess(true)
+        }
+        catch (err) {
+            setFetchingCartsProducts(false)
+
+            if (err.response) {
+                setFetchingCartsProductsSuccess(false)
+            }
+            else {
+                setFetchingCartsProductsSuccess(false)
+            }
+        }
+    }
+
     fetchProduct = async (
         setFetchingProduct,
         setFetchingProductSuccess,
@@ -498,6 +527,8 @@ class apiClass {
             setProductData(data.data);
             initial ? setFetchingProduct(false) : ''
             setFetchingProductSuccess(true)
+
+            console.log(data.data)
         }
         catch (err) {
 
@@ -586,8 +617,6 @@ class apiClass {
             }
         }
     }
-
-
 }
 
 

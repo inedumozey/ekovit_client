@@ -62,7 +62,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                             >
                                 {
                                     cart.includes(data._id) ?
-                                        <RemoveShoppingCartIcon style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='cart' />
+                                        <RemoveShoppingCartIcon style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='add-to-cart' />
                                 }
 
                             </div>
@@ -141,9 +141,9 @@ const Wrapper = styled.div`
         margin: 0 5px;
     }
   
-    .cartIcon{
-        color: ${({ theme }) => theme.title};       
-    }
+    .add-to-cart {
+        color:  ${({ theme }) => theme.pri};
+    } 
 
     &:hover {
         .data {

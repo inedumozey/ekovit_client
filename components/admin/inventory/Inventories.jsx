@@ -133,8 +133,8 @@ export default function Inventories() {
                                         <Select
                                             options={[
                                                 { value: 'all', label: 'All' },
-                                                { value: 'drugs', label: 'Drugs' },
-                                                { value: 'provisions', label: 'Provisions' },
+                                                { value: 'drug', label: 'Drug' },
+                                                { value: 'provision', label: 'Provision' },
                                             ]}
                                             defaultValue={{ value: 'all', label: "All" }}
                                             onChange={(selectedOption) => setType(selectedOption.value)}
@@ -160,8 +160,8 @@ export default function Inventories() {
                                                                 setSelectedProduct={setSelectedProduct}
                                                             />
                                                         }
-                                                        else if (type.toLowerCase() === 'drugs') {
-                                                            if (data.type === 'drugs') {
+                                                        else if (type.toLowerCase() === 'drug') {
+                                                            if (data.type === 'drug') {
                                                                 return <Card
                                                                     data={data}
                                                                     openProductAction={openProductAction}
@@ -172,8 +172,8 @@ export default function Inventories() {
                                                             }
 
                                                         }
-                                                        else if (type.toLowerCase() === 'provisions') {
-                                                            if (data.type === 'provisions') {
+                                                        else if (type.toLowerCase() === 'provision') {
+                                                            if (data.type === 'provision') {
                                                                 return <Card
                                                                     data={data}
                                                                     openProductAction={openProductAction}

@@ -110,11 +110,10 @@ export default function Inventory() {
                                             onClick={isLoggedin ? () => { cart.includes(productData._id) ? handleRemoveFromCart(productData._id) : handleAddToCart(productData._id) } : () => router.push('/auth')}
                                             style={{ color: 'rgb(253 71 12)' }}
                                             {...snap()}
-                                            title={"Add to cart"}
                                         >
                                             {
                                                 cart.includes(productData._id) ?
-                                                    <RemoveShoppingCartIcon style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='cartIcon' />
+                                                    <RemoveShoppingCartIcon title="Remove from Cart" style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='add-to-cart' title="Add to Cart" />
                                             }
                                         </div> :
                                         <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
@@ -203,10 +202,6 @@ const Card = styled.div`
     position: relative;
     padding: 10px;
 
-    .cartIcon{
-        color: ${({ theme }) => theme.title};       
-    }
-
     &:before {
         content: '';
         position: absolute;
@@ -220,8 +215,8 @@ const Card = styled.div`
     
     .cart {
         position: absolute;
-        top: 0px;
-        right: 0px;
+        top: 10px;
+        right: 10px;
         padding: 0 5px;
         display: flex;
         justify-content: center;
@@ -230,6 +225,10 @@ const Card = styled.div`
         cursor: pointer;
         height: 15px;
         border-radius: 7px;
+
+        .add-to-cart {
+            color:  ${({ theme }) => theme.pri};
+        }
     }
 
     .actions {
