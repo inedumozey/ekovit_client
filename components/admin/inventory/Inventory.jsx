@@ -32,8 +32,6 @@ export default function Inventory() {
         removeFromCart
     } = carts
 
-    const homePage = !router.pathname.includes('admin/inventory')
-
     const { hasAccess, isLoggedin } = access
 
     const {
@@ -101,70 +99,33 @@ export default function Inventory() {
                     !fetchingProductSuccess ? <FetchError style={{ padding: '10px 0' }} /> :
                         <Animate>
                             <Card>
-                                <h1 className='data-title'>
-                                    {productData.category?.toUpperCase()}
-                                </h1>
-                                {
-                                    homePage ?
-                                        <div className="cart"
-                                            onClick={isLoggedin ? () => { cart.includes(productData._id) ? handleRemoveFromCart(productData._id) : handleAddToCart(productData._id) } : () => router.push('/auth')}
-                                            style={{ color: 'rgb(253 71 12)' }}
-                                            {...snap()}
-                                        >
-                                            {
-                                                cart.includes(productData._id) ?
-                                                    <RemoveShoppingCartIcon title="Remove from Cart" style={{ color: 'rgb(253 71 12)' }} /> : <AddShoppingCartIcon className='add-to-cart' title="Add to Cart" />
-                                            }
-                                        </div> :
-                                        <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
-                                            <MoreHorizIcon />
-                                        </div>
-                                }
-                                {
-                                    !homePage ?
-                                        (productData.expiry_date ? <div style={{ textAlign: 'center' }}>Exp Date: {productData.expiry_date}</div> : '') : ''
-                                }
-                                {
-                                    productData.product_image_url ?
-                                        <div className="img">
-                                            <img src={productData?.product_image_url} width="400" height="200" alt="" />
-                                        </div> : ''
-                                }
-
-                                <div className="category-wrapper">
+                                <div className="image">
+                                    <img src={productData?.product_image_url} width="400" height="200" alt="" />
+                                </div>
+                                <div className="name">
                                     {
-                                        productData.type?.toLowerCase() === 'drugs' ?
+                                        productData.type?.toLowerCase() === 'drug' ?
                                             <>
-                                                <div ><span style={{ fontWeight: 'bold' }}>Generic Name:</span> {productData.generic_name}</div>
-
-                                                <div ><span style={{ fontWeight: 'bold' }}>Brand Name:</span> {productData.brand_name}</div>
-
-                                                <div ><span style={{ fontWeight: 'bold' }}>Form:</span> {productData.form}</div>
+                                                <div style={{ fontWeight: 'bold' }} className='el'>{productData.generic_name}</div>
+                                                <div className='el'>{productData.brand_name}</div>
                                             </> :
-                                            <>
-                                                <div className='el'>{productData.product_name ? `Product Name: ${productData.product_name}` : ''}</div>
-                                            </>
+                                            <div className='el'>{productData.product_name}</div>
                                     }
                                 </div>
-
-                                <div className="body">
-                                    <div className="meta-data">
-                                        {
-                                            !homePage ?
-                                                <>
-                                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{productData.purchased_price}</div>
-                                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {productData.quantity}</div>
-                                                    <div className='el'><span style={{ fontWeight: 'bold' }}>wholesale Price:</span> #{productData.wholesale_price}</div>
-
-                                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Retail Price:</span> #{productData.retaile_price}</div>
-                                                </> : <div className='el'><span style={{ fontWeight: 'bold' }}>Price:</span> #{productData.retaile_price}</div>
-                                        }
-                                    </div>
-                                    <br />
-                                    <div>
-                                        {productData.other_details}
+                                <div className="price">
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{productData.purchased_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {productData.quantity}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> #{productData.wholesale_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> #{productData.retaile_price}</div>
+                                </div>
+                                <div className="action" {...snap()}>
+                                    <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
+                                        <MoreHorizIcon />
                                     </div>
                                 </div>
+                                {
+                                    productData.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{productData.form}</div> : ''
+                                }
                             </Card>
                         </Animate>
             }
@@ -193,91 +154,66 @@ const Wrapper = styled.div`
 
 const Card = styled.div`
     width: 100%;
-    max-width: 700px;
-    min-height: 200px;
-    margin: auto;
-    line-height: 2rem;
-    border-radius: 5px;
-    background: ${({ theme }) => theme.card};
+    max-width: 600px;
+    min-height: 320px;
     position: relative;
-    padding: 10px;
+    margin: 10px auto;
+    user-select: none;
+    background: ${({ theme }) => theme.card};
+    transition: transform .09s;
+    font-size: 1.2rem;
+    line-height: 2rem;    
 
-    &:before {
-        content: '';
-        position: absolute;
-        left: -15px;
-        top: 20px;
-        border-left: 8px solid transparent;
-        border-right: 8px solid ${({ theme }) => theme.card};
-        border-top: 8px solid transparent;
-        border-bottom: 8px solid transparent;
-    };
-    
-    .cart {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 0 5px;
-        display: flex;
-        justify-content: center;
-        user-select: none;
-        align-items: center;
-        cursor: pointer;
-        height: 15px;
-        border-radius: 7px;
-
-        .add-to-cart {
-            color:  ${({ theme }) => theme.pri};
-        }
-    }
-
-    .actions {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 0 5px;
-        display: flex;
-        justify-content: center;
-        user-select: none;
-        align-items: center;
-        cursor: pointer;
-        height: 15px;
-        border-radius: 7px;
-        border: 1px solid ${({ theme }) => theme.border};
-    }
-
-    .data-title {
-        color: ${({ theme }) => theme.title};
-        text-align: center;
-        padding: 10px;
-    }
-
-    .img {
+    .image {
         width: 100%;
-        margin: 5px 0;
-
+        height: 300px;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            
         }
     }
+    .name {
+        padding: 10px;
+    }
+    .price {
+        padding: 10px;
+    };
 
-    .category-wrapper {
-        width: calc(100% - 50px);
-        height: 100%;
-        font-size: 1rem;
+    .detail {
+        padding: 10px;
+        color: #ccc;
+    };
+
+    .action {
+        position: absolute;
+        right: 2px;
+        top: 3px;
+        padding: 6px 2px 0 2px;
+        cursor: default;
+        width: 25px;
+        display: flex;
+        z-index: 2;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        height: 10px;
+        border-radius: 7px;
+        color: #000;
+        background: gold;
     }
 
-    .body {
-        font-size: 1rem;
-        margin-top: 10px;
-
-        .meta-data {
-            color: ${({ theme }) => theme.title};
-        }
+    .form {
+        position: absolute;
+        left: 2px;
+        top: 3px;
+        max-width: 70%;
+        padding: 5px;
+        cursor: default;
+        display: flex;
+        z-index: 2;
+        background: ${({ theme }) => theme.card};
     }
-
 `
+

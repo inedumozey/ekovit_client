@@ -8,7 +8,6 @@ import axios from "axios";
 import Btn from '../../../utils/components/Btn';
 import Cookies from 'js-cookie';
 import Select from 'react-select'
-import { Title } from '../../../styles/globalStyles';
 import Alart from '../../../utils/components/Alart';
 import { ContextData } from '../../../contextApi/ContextApi';
 
@@ -18,9 +17,7 @@ const api = new apiClass();
 
 export default function Add() {
     const router = useRouter()
-    const { access, product } = useContext(ContextData);
-
-    const { hasAccess } = access;
+    const { product } = useContext(ContextData);
 
     const {
         selectedProduct,
@@ -39,9 +36,10 @@ export default function Add() {
     const [brand_name, setBrand_name] = useState(selectedProduct.brand_name ? selectedProduct.brand_name : "");
     const [product_name, setProduct_name] = useState(selectedProduct.product_name ? selectedProduct.product_name : "");
     const [purchased_price, setPurchased_price] = useState(selectedProduct.purchased_price ? selectedProduct.purchased_price : "");
-    const [wholesale_price, setWholesale_price] = useState(selectedProduct.wholesale_price ? selectedProduct.wholesale_price : "");
-    const [retaile_price, setRetaile_price] = useState(selectedProduct.retaile_price ? selectedProduct.retaile_price : "");
+    const [selling_price, setSelling_price] = useState(selectedProduct.selling_price ? selectedProduct.selling_price : "");
+    const [market_price, setMarket_price] = useState(selectedProduct.market_price ? selectedProduct.market_price : "");
     const [products_image, setProducts_image] = useState(selectedProduct.products_image ? selectedProduct.products_image : "");
+    const [hero, setHero] = useState(selectedProduct.hero ? selectedProduct.hero : "");
     const [expiry_date, setExpiry_date] = useState(selectedProduct.expiry_date ? selectedProduct.expiry_date : "");
     const [form, setForm] = useState(selectedProduct.form ? selectedProduct.form : "");
     const [quantity, setQuantity] = useState(selectedProduct.quantity ? selectedProduct.quantity : "");
@@ -58,8 +56,9 @@ export default function Add() {
         formData.append('generic_name', generic_name)
         formData.append('brand_name', brand_name)
         formData.append('product_name', product_name)
-        formData.append('wholesale_price', wholesale_price)
-        formData.append('retaile_price', retaile_price)
+        formData.append('selling_price', selling_price)
+        formData.append('market_price', market_price)
+        formData.append('hero', hero)
         formData.append('expiry_date', expiry_date)
         formData.append('form', form)
         formData.append('quantity', quantity)
@@ -98,9 +97,10 @@ export default function Add() {
             setBrand_name("");
             setProduct_name("");
             setPurchased_price("");
-            setWholesale_price("");
-            setRetaile_price("");
+            setSelling_price("");
+            setMarket_price("");
             setProducts_image("");
+            setHero("");
             setExpiry_date("");
             setForm("");
             setQuantity("");
@@ -157,14 +157,16 @@ export default function Add() {
                                     </label>
                                     {
                                         !updatingProduct ?
-                                            <Select
-                                                options={[
-                                                    { value: 'drug', label: 'Drug' },
-                                                    { value: 'provision', label: 'Provision' },
-                                                ]}
-                                                defaultValue={{ value: 'drug', label: "Drug" }}
-                                                onChange={(selectedOption) => setType(selectedOption.value)}
-                                            /> :
+                                            <div style={{ color: '#000' }}>
+                                                <Select
+                                                    options={[
+                                                        { value: 'drug', label: 'Drug' },
+                                                        { value: 'provision', label: 'Provision' },
+                                                    ]}
+                                                    defaultValue={{ value: 'drug', label: "Drug" }}
+                                                    onChange={(selectedOption) => setType(selectedOption.value)}
+                                                />
+                                            </div> :
                                             <InputWrapper>
                                                 <input
                                                     value={selectedProduct.type || ''}
@@ -285,24 +287,24 @@ export default function Add() {
                             <div className='inp'>
                                 <div style={{ width: '49%' }}>
                                     <label>
-                                        Wholesale Price
+                                        Selling Price
                                     </label>
                                     <input
-                                        placeholder="Wholesale Price"
+                                        placeholder="Selling Price"
                                         type="number"
-                                        value={wholesale_price || ''}
-                                        onChange={(e) => setWholesale_price(e.target.value)}
+                                        value={selling_price || ''}
+                                        onChange={(e) => setSelling_price(e.target.value)}
                                     />
                                 </div>
                                 <div style={{ width: '49%' }}>
                                     <label>
-                                        Retail Price
+                                        Market Price
                                     </label>
                                     <input
-                                        placeholder="Retail Price"
+                                        placeholder="Market Price"
                                         type="number"
-                                        value={retaile_price || ''}
-                                        onChange={(e) => setRetaile_price(e.target.value)}
+                                        value={market_price || ''}
+                                        onChange={(e) => setMarket_price(e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -331,6 +333,22 @@ export default function Add() {
                                         onChange={(e) => setProducts_image(e.target.files[0])}
                                     />
                                 </div>
+                            </div>
+                        </InputWrapper>
+
+                        <InputWrapper>
+                            <label>
+                                Hero:
+                            </label>
+                            <div style={{ color: '#000' }}>
+                                <Select
+                                    options={[
+                                        { value: "false", label: 'False' },
+                                        { value: "true", label: "True" },
+                                    ]}
+                                    defaultValue={{ value: selectedProduct.hero, label: selectedProduct.hero ? 'True' : 'False' }}
+                                    onChange={(selectedOption) => setHero(selectedOption.value)}
+                                />
                             </div>
                         </InputWrapper>
 

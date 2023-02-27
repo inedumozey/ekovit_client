@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import styled from 'styled-components'
 import filter from "@mozeyinedu/filter";
-
 import Spinner from '../../utils/components/Spinner';
 import { Animate } from '../../styles/globalStyles';
 import { ContextData } from '../../contextApi/ContextApi';
@@ -9,7 +8,7 @@ import apiClass from '../../utils/data/api';
 import FetchError from '../../utils/components/FetchError';
 
 import Select from 'react-select'
-import Card from '../admin/inventory/Card';
+import Card from './Card';
 
 const api = new apiClass()
 
@@ -118,7 +117,7 @@ export default function Landing() {
                         <div className='container'>
                             <div className="header">
                                 <div className='header-content'>
-                                    <div>
+                                    <div style={{ color: '#000' }}>
                                         <Select
                                             options={[
                                                 { value: 'all', label: 'All' },
@@ -132,7 +131,7 @@ export default function Landing() {
                                 </div>
 
                             </div>
-                            <div className="main">
+                            <div className="main1">
                                 {
                                     filteredData?.slice(0, count).map((data, i) => {
 
@@ -221,7 +220,7 @@ const Wrapper = styled.div`
             }
         }
 
-        .main {
+        .main1 {
             display: flex;
             justify-content: center;
             align-item: center;
@@ -233,7 +232,6 @@ const Wrapper = styled.div`
             @media (max-width: ${({ theme }) => theme.sm_screen}){
                 padding: 10px ${({ theme }) => theme.sm_padding};
             }
-
         }
     }
 `

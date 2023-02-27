@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import UserLog from './UserLog';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
-import Logo from './Logo';
 import Logout from './Logout';
 import Carts from '../../utils/components/Carts';
 

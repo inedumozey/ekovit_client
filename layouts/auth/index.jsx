@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components'
-import Logo from '../utils/Logo';
+import Link from 'next/link'
+import Logo from '../../utils/components/MasterLogo';
 
 export default function Auth({ children }) {
     return (
         <>
             <Header>
-                <Logo />
+                <Link href="/" className='logo'>
+                    <Logo />
+                </Link>
             </Header>
             <Main>{children}</Main>
         </>
@@ -26,6 +29,14 @@ const Header = styled.div`
     }
     @media (max-width: ${({ theme }) => theme.sm_screen}){
         padding: 10px ${({ theme }) => theme.sm_padding};
+    }
+
+    .logo {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
     }
 `
 const Main = styled.div`

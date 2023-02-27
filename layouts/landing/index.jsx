@@ -4,7 +4,6 @@ import Modal from '../../utils/components/Modal';
 import MenuIcon from '@mui/icons-material/Menu';
 import NavLinks from '../utils/NavLinks';
 import UserLog from '../utils/UserLog';
-import Logo from '../utils/Logo';
 import SideBarLayoutLanding from '../utils/SideBarLayoutLanding';
 import SideLink from '../utils/SideLink';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
@@ -14,6 +13,8 @@ import Search from '../../utils/components/Search';
 import Copyright from '../../utils/components/Copyright';
 import Carts from '../../utils/components/Carts';
 import { ContextData } from '../../contextApi/ContextApi';
+import Link from 'next/link'
+import Logo from '../../utils/components/MasterLogo';
 import Logout from '../utils/Logout';
 
 const resolve = new ResolveClass()
@@ -31,9 +32,9 @@ export default function Landing({ children, toggleState, toggle }) {
             <Header toggleState={toggleState}>
                 <div className="top">
                     <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div>
-                    <div className='logo'>
+                    <Link href="/" className='logo'>
                         <Logo />
-                    </div>
+                    </Link>
 
                     <NavLinks toggleState={toggleState} />
 
@@ -51,7 +52,8 @@ export default function Landing({ children, toggleState, toggle }) {
                     </div>
                 </div>
                 <div className="bottom">
-                    <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div>
+                    {/* <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div> */}
+
                     <div className="search-wrapper"> <Search /> </div>
                 </div>
 
@@ -107,12 +109,6 @@ const Header = styled.div`
     right: 0;
     box-shadow: -1px -1px 7px 4px rgb(0 0 0 / 82%);
 
-    .logo {
-        display: flex;
-        justify-content: center;
-        aligin-items: center;
-    }
-
     .top {
         height: 63px;
         font-weight: 600;
@@ -146,7 +142,7 @@ const Header = styled.div`
         font-weight: bold;
         position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
 
         padding: 5px ${({ theme }) => theme.lg_padding};
@@ -196,9 +192,6 @@ const Header = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        cursor: pointer;
-        font-family: cursive;
-        color: ${({ theme }) => theme.title};
         text-decoration: none;
     }
 

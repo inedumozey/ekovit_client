@@ -5,9 +5,10 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import NavLinks from '../../utils/NavLinks';
 import UserLog from '../../utils/UserLog';
 import { useRouter } from 'next/router'
-import Logo from '../../utils/Logo';
+import Logo from '../../../utils/components/MasterLogo';
 import LightDarkBtn from '../../../utils/components/LightDarkBtn';
 import ResolveClass from '../../../utils/resolveClass';
+import Link from 'next/link'
 import Search from '../../../utils/components/Search';
 import Logout from '../../utils/Logout';
 const resolve = new ResolveClass()
@@ -40,9 +41,9 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                     </span>
                 </div>
 
-                <div className="logo">
+                <Link href="/" className='logo'>
                     <Logo />
-                </div>
+                </Link>
 
                 <NavLinks toggleState={toggleState} />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -58,7 +59,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                 </div>
             </div>
             <div className="bottom">
-                <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div>
+                {/* <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div> */}
                 <div className="search-wrapper"> <Search /> </div>
             </div>
         </HeaderStyle>
@@ -88,10 +89,10 @@ const HeaderStyle = styled.div`
 
     .top {
         height: 60px;
-        font-weight: 600;
         display: flex;
         justify-content: space-between;
         aligin-items: center;
+        text-decoration: none;
 
 
         padding: 10px ${({ theme }) => theme.lg_padding};
@@ -109,7 +110,7 @@ const HeaderStyle = styled.div`
         font-weight: bold;
         position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
 
         padding: 5px ${({ theme }) => theme.lg_padding};

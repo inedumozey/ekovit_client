@@ -129,7 +129,7 @@ export default function Inventories() {
                         <div className='container'>
                             <div className="header">
                                 <div className='header-content'>
-                                    <div>
+                                    <div style={{ color: '#000' }}>
                                         <Select
                                             options={[
                                                 { value: 'all', label: 'All' },
@@ -245,14 +245,6 @@ const Wrapper = styled.div`
             justify-content: center;
             align-item: center;
             flex-flow: wrap;
-            padding: 10px ${({ theme }) => theme.lg_padding};
-            @media (max-width: ${({ theme }) => theme.md_screen}){
-                padding: 10px ${({ theme }) => theme.md_padding};
-            }
-            @media (max-width: ${({ theme }) => theme.sm_screen}){
-                padding: 10px ${({ theme }) => theme.sm_padding};
-            }
-
         }
     }
 `

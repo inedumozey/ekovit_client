@@ -9,7 +9,8 @@ import SideBarLayoutLanding from '../utils/SideBarLayoutLanding';
 import SideLink from '../utils/SideLink';
 import MenuIcon from '@mui/icons-material/Menu';
 import UserLog from '../utils/UserLog';
-import Logo from '../utils/Logo';
+import Logo from '../../utils/components/MasterLogo';
+import Link from 'next/link'
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
 import { useRouter } from 'next/router'
 import ResolveClass from '../../utils/resolveClass';
@@ -82,9 +83,9 @@ export default function User({ children, toggleState, toggle }) {
                         {
                             router.pathname.includes('/admin') ? <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div> : ''
                         }
-                        <div className='logo'>
+                        <Link href="/" className='logo'>
                             <Logo />
-                        </div>
+                        </Link>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <div style={{ width: '100px' }}>
@@ -167,6 +168,7 @@ const MobileHeader = styled.div`
         display: flex;
         justify-content: center;
         aligin-items: center;
+        text-decoration: none;
     }
 
     .top {
