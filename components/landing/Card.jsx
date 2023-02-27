@@ -107,7 +107,6 @@ const Wrapper = styled.div`
     .price {
         height: 17%;
         font-weight: bold;
-        text-align: center;
         font-size: 1rem;
         line-height: .9rem;
         padding: 5px 5px 10px 5px;
