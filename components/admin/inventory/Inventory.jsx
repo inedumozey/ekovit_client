@@ -190,7 +190,7 @@ const Card = styled.div`
         position: absolute;
         right: 2px;
         top: 3px;
-        padding: 6px 2px 0 2px;
+        padding: 8px 2px 0 2px;
         cursor: default;
         width: 25px;
         display: flex;
