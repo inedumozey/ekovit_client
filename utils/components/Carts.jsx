@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import styled from 'styled-components'
 import { ContextData } from '../../contextApi/ContextApi';
 import { useRouter } from 'next/router';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+// import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export default function Carts() {
     const { carts } = useContext(ContextData);
@@ -14,7 +15,7 @@ export default function Carts() {
 
     return (
         <Wrapper onClick={() => router.push('/products/carts')} title="Open Carts" cart={cart}>
-            <ShoppingCartCheckoutIcon className='cart-icon' />
+            <ShoppingCartIcon className='cart-icon' />
         </Wrapper>
     )
 }

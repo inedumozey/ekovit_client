@@ -53,6 +53,7 @@ export default function Landing({ children, toggleState, toggle }) {
                 </div>
                 <div className="bottom">
                     {/* <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div> */}
+                    <div className='carts-small-screen '><Carts /></div>
 
                     <div className="search-wrapper"> <Search /> </div>
                 </div>
@@ -124,7 +125,6 @@ const Header = styled.div`
             };
         }
 
-
         padding: 10px ${({ theme }) => theme.lg_padding};
         @media (max-width: ${({ theme }) => theme.md_screen}){
             padding: 10px ${({ theme }) => theme.md_padding};
@@ -142,7 +142,7 @@ const Header = styled.div`
         font-weight: bold;
         position: relative;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
 
         padding: 5px ${({ theme }) => theme.lg_padding};
@@ -158,6 +158,19 @@ const Header = styled.div`
             height: 100%;
             width: 80%
         }
+
+        .carts-small-screen {
+            padding: 0 10px;
+            display: none;
+
+            @media (max-width: ${({ theme }) => theme.sm_screen}){
+                display: block
+            };
+        }
+
+        @media (min-width: ${({ theme }) => theme.sm_screen}){
+            justify-content: flex-end;
+        };
     }
     
     .theme-btn {
