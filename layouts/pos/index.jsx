@@ -84,7 +84,8 @@ export default function User({ children, toggleState, toggle }) {
                             router.pathname.includes('/admin') ? <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div> : ''
                         }
                         <Link href="/" className='logo'>
-                            <Logo />
+                            HELLO
+                            {/* <Logo /> */}
                         </Link>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -97,7 +98,7 @@ export default function User({ children, toggleState, toggle }) {
                         </div>
                     </div>
                     <div className="bottom">
-                        <div className="content">{resolve.path(router)}</div>
+                        {/* <div className="content">{resolve.path(router)}</div> */}
                         <div className="search-wrapper">
                             <Search />
                         </div>
@@ -195,7 +196,7 @@ const MobileHeader = styled.div`
         font-weight: bold;
         position: relative;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         align-items: center;
 
         padding: 5px ${({ theme }) => theme.lg_padding};

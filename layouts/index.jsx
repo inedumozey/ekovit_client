@@ -6,6 +6,7 @@ import Pos from './pos'
 import Landing from './landing'
 import Cookies from 'js-cookie';
 import { ScrollBar } from '../styles/globalStyles'
+import { mobileAndTabletCheck } from '../utils/mobileAndTabletCheck';
 
 
 export default function Layout({ children, toggleState, toggle }) {
@@ -25,7 +26,7 @@ export default function Layout({ children, toggleState, toggle }) {
             }
         }
 
-        // document.body.style.overflowX = 'hidden'
+        mobileAndTabletCheck ? document.body.style.overflowX = 'hidden' : ''
     })
 
     return (
