@@ -47,10 +47,10 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 }
 
 const Wrapper = styled.div`
-    width: 140px;
+    width: 160px;
     height: 240px;
     position: relative;
-    margin: 10px 2px;
+    margin: 10px 4px;
     user-select: none;
     cursor: pointer;
     background: ${({ theme }) => theme.card};
