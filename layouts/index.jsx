@@ -25,7 +25,7 @@ export default function Layout({ children, toggleState, toggle }) {
             }
         }
 
-        document.body.style.overflowX = 'hidden'
+        // document.body.style.overflowX = 'hidden'
     })
 
     return (
