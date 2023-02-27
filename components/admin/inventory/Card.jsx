@@ -67,14 +67,16 @@ const Wrapper = styled.div`
         }
     }
     .name {
-        height: 18%;
+        height: 14%;
         padding: 5px;
         line-height: .9rem;
+        border: 1px solid red;
     }
     .price {
-        height: 27%;
+        height: 30%;
         line-height: 1.1rem;
         padding: 5px 5px 10px 5px;
+        border: 1px solid red;
     };
 
     &:hover {

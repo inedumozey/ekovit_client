@@ -50,7 +50,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                     data.wholesale_price < data.retaile_price ?
                         <div>
                             <div># {data.wholesale_price}</div>
-                            <small style={{ fontSize: '.85rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {data.retaile_price}</small>
+                            <small style={{ fontSize: '.7rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {data.retaile_price}</small>
                         </div> :
                         <div># {data.retaile_price}</div>
                 }
@@ -100,14 +100,14 @@ const Wrapper = styled.div`
         }
     }
     .name {
-        height: 18%;
+        height: 17%;
         padding: 5px;
         line-height: .9rem;
     }
     .price {
-        height: 17%;
+        height: 18%;
         font-weight: bold;
-        font-size: 1rem;
+        font-size: .8rem;
         line-height: .9rem;
         padding: 5px 5px 10px 5px;
     };
