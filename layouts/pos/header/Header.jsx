@@ -41,7 +41,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                     </span>
                 </div>
 
-                <Link href="/" className='logo'>
+                <Link href="/" className='logo_'>
                     <Logo />
                 </Link>
 
@@ -81,7 +81,7 @@ const HeaderStyle = styled.div`
     z-index: 1000;
     user-select: none;
 
-    .logo {
+    .logo_ {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -136,7 +136,7 @@ const HeaderStyle = styled.div`
     }
 
     @media (max-width: 800px){
-        .logo {
+        .logo_ {
             margin: auto
         }
         .theme-btn {
