@@ -47,7 +47,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 }
 
 const Wrapper = styled.div`
-    width: 120px;
+    width: 140px;
     height: 240px;
     position: relative;
     margin: 10px 2px;
