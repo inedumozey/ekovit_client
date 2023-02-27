@@ -84,8 +84,7 @@ export default function User({ children, toggleState, toggle }) {
                             router.pathname.includes('/admin') ? <div className='toggle' onClick={() => setOpenSideDeawal(!openSideDrawal)}><MenuIcon className='icon' /></div> : ''
                         }
                         <Link href="/" className='logo'>
-                            HELLO
-                            {/* <Logo /> */}
+                            <Logo />
                         </Link>
 
                         <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -168,7 +167,7 @@ const MobileHeader = styled.div`
     .logo {
         display: flex;
         justify-content: center;
-        aligin-items: center;
+        align-items: center;
         text-decoration: none;
     }
 
