@@ -12,9 +12,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
     const { snap } = useSnap(.5)
     const router = useRouter();
     return (
-        <Wrapper
-            onClick={() => router.push(`/admin/inventory/${data._id}`)}
-        >
+        <Wrapper>
             <div className="image">
                 <img src={data?.product_image_url} width="400" height="200" alt="" />
             </div>
@@ -29,10 +27,10 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                 }
             </div>
             <div className="price">
-                <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{data.purchased_price}</div>
+                <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> # {data.purchased_price}</div>
                 <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
-                <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> #{data.wholesale_price}</div>
-                <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> #{data.retaile_price}</div>
+                <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {data.market_price}</div>
+                <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> # {data.selling_price}</div>
             </div>
             <div className="action" {...snap()}>
                 <div onClick={(e) => { setSelectedProduct(data); setOpenProductAction(!openProductAction) }} className="actions">
@@ -42,6 +40,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
             {
                 data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
             }
+            <div onClick={() => router.push(`/admin/inventory/${data._id}`)} className="overlay"></div>
         </Wrapper>
     )
 }
@@ -55,6 +54,17 @@ const Wrapper = styled.div`
     cursor: pointer;
     background: ${({ theme }) => theme.card};
     transition: transform .09s;
+    padding: 10px;
+
+    .overlay{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        background: transparent;
+        z-index: 2;
+    }
 
     .image {
         width: 100%;
@@ -68,15 +78,13 @@ const Wrapper = styled.div`
     }
     .name {
         height: 14%;
-        padding: 5px;
+        padding: 5px 0;
         line-height: .9rem;
-        border: 1px solid red;
     }
     .price {
         height: 30%;
         line-height: 1.1rem;
-        padding: 5px 5px 10px 5px;
-        border: 1px solid red;
+        padding: 5px 0 10px 0;
     };
 
     &:hover {
@@ -92,7 +100,7 @@ const Wrapper = styled.div`
         cursor: default;
         width: 25px;
         display: flex;
-        z-index: 2;
+        z-index: 3;
         justify-content: center;
         align-items: center;
         cursor: pointer;
@@ -105,7 +113,7 @@ const Wrapper = styled.div`
     .form {
         position: absolute;
         left: 2px;
-        top: 3px;
+        top: 10px;
         max-width: 70%;
         padding: 5px;
         cursor: default;

@@ -28,10 +28,9 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
         removeFromCart(id)
     }
 
+
     return (
-        <Wrapper
-            onClick={() => router.push(`/${data._id}`)}
-        >
+        <Wrapper>
             <div className="img">
                 <img src={data?.product_image_url} width="400" height="200" alt="" />
             </div>
@@ -47,15 +46,15 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
             </div>
             <div className="price">
                 {
-                    data.wholesale_price < data.retaile_price ?
+                    data.market_price > data.selling_price ?
                         <div>
-                            <div># {data.wholesale_price}</div>
-                            <small style={{ fontSize: '.7rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {data.retaile_price}</small>
+                            <div># {data.selling_price}</div>
+                            <small style={{ fontSize: '.7rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {data.market_price}</small>
                         </div> :
-                        <div># {data.retaile_price}</div>
+                        <div># {data.selling_price}</div>
                 }
             </div>
-            <div className="action"
+            <div className="h action"
                 onClick={() => cart.includes(data._id) ? handleRemoveFromCart(data._id) : handleAddToCart(data._id)}
                 {...snap()}
                 title={cart.includes(data._id) ? "Remove from cart" : "Add to cart"}
@@ -75,6 +74,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                 data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span> {data.form}</div> : ''
             }
 
+            <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div>
         </Wrapper>
     )
 }
@@ -88,6 +88,17 @@ const Wrapper = styled.div`
     cursor: pointer;
     background: ${({ theme }) => theme.card};
     transition: transform .09s;
+    padding: 10px;
+
+    .overlay{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        background: transparent;
+        z-index: 2;
+    }
 
     .img {
         width: 100%;
@@ -101,7 +112,7 @@ const Wrapper = styled.div`
     }
     .name {
         height: 17%;
-        padding: 5px;
+        padding: 5px 0;
         line-height: .9rem;
     }
     .price {
@@ -109,7 +120,7 @@ const Wrapper = styled.div`
         font-weight: bold;
         font-size: .8rem;
         line-height: .9rem;
-        padding: 5px 5px 10px 5px;
+        padding: 5px 0 10px 0;
     };
 
     &:hover {
@@ -124,13 +135,13 @@ const Wrapper = styled.div`
         padding: 2px 2px 0 2px;
         cursor: default;
         background: gold;
-        z-index: 2;
+        z-index: 3;
     }
 
     .form {
         position: absolute;
         left: 2px;
-        top: 3px;
+        top: 10px;
         padding: 5px;
         cursor: default;
         display: flex;

@@ -518,17 +518,10 @@ class apiClass {
         initial ? setFetchingProduct(true) : ''
 
         try {
-            const { data } = await axios.get(`${BASE_URL}/products/${id}`, {
-                headers: {
-                    'authorization-access': `Bearer ${Cookies.get('accesstoken')}`,
-                    'authorization-admin': `Bearer ${Cookies.get('xxxxx2')}`,
-                }
-            });
+            const { data } = await axios.get(`${BASE_URL}/products/${id}`);
             setProductData(data.data);
             initial ? setFetchingProduct(false) : ''
             setFetchingProductSuccess(true)
-
-            console.log(data.data)
         }
         catch (err) {
 
@@ -539,6 +532,32 @@ class apiClass {
             }
             else {
                 setFetchingProductSuccess(false)
+            }
+        }
+    }
+
+    fetchSimilarProdutcs = async (
+        setFetchingProductsSimilar,
+        setFetchingProductsSimilarSuccess,
+        setProductsSimilarData,
+        keyword) => {
+        setFetchingProductsSimilar(true)
+
+        try {
+            const { data } = await axios.post(`${BASE_URL}/products/similar/`, { ...keyword });
+            setFetchingProductsSimilar(false)
+            setFetchingProductsSimilarSuccess(true);
+            setProductsSimilarData(data.data);
+        }
+        catch (err) {
+
+            setFetchingProductsSimilar(false)
+
+            if (err.response) {
+                setFetchingProductsSimilarSuccess(false)
+            }
+            else {
+                setFetchingProductsSimilarSuccess(false)
             }
         }
     }

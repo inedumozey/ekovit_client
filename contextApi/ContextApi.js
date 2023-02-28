@@ -83,6 +83,11 @@ function ContextApi({ children, toggleState, toggle }) {
     const [openProductAction, setOpenProductAction] = useState(false)
     const [cart, setCart] = useState([])
 
+    // search products
+    const [fetchingProductsSimilar, setFetchingProductsSimilar] = useState(false)
+    const [fetchingProductsSimilarSuccess, setFetchingProductsSimilarSuccess] = useState(false)
+    const [productsSimilarData, setProductsSimilarData] = useState([])
+
 
     useEffect(() => {
         // redirect
@@ -225,6 +230,13 @@ function ContextApi({ children, toggleState, toggle }) {
             setUpdatingProduct,
             openProductAction,
             setOpenProductAction,
+
+            fetchingProductsSimilar,
+            setFetchingProductsSimilar,
+            fetchingProductsSimilarSuccess,
+            setFetchingProductsSimilarSuccess,
+            productsSimilarData,
+            setProductsSimilarData,
         },
         exp_date_ref: 100, //seconds
         carts: {

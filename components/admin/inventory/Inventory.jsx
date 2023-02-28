@@ -56,7 +56,7 @@ export default function Inventory() {
 
 
     useEffect(() => {
-        if (fetch) {
+        if (ready) {
             if (!hasAccess) {
                 api.refreshToken()
                 setTimeout(() => {
@@ -83,13 +83,6 @@ export default function Inventory() {
         }
     }, [fetch])
 
-    const handleAddToCart = (id) => {
-        addToCart(id)
-    }
-
-    const handleRemoveFromCart = (id) => {
-        removeFromCart(id)
-    }
 
     return (
         <Wrapper>
@@ -113,10 +106,10 @@ export default function Inventory() {
                                     }
                                 </div>
                                 <div className="price">
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> #{productData.purchased_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> # {productData.purchased_price}</div>
                                     <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {productData.quantity}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> #{productData.wholesale_price}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> #{productData.retaile_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {productData.market_price}</div>
+                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> # {productData.selling_price}</div>
                                 </div>
                                 <div className="action" {...snap()}>
                                     <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
@@ -162,7 +155,8 @@ const Card = styled.div`
     background: ${({ theme }) => theme.card};
     transition: transform .09s;
     font-size: 1.2rem;
-    line-height: 2rem;    
+    line-height: 2rem;   
+    padding: 10px; 
 
     .image {
         width: 100%;
@@ -175,14 +169,14 @@ const Card = styled.div`
         }
     }
     .name {
-        padding: 10px;
+        padding: 10px 0;
     }
     .price {
-        padding: 10px;
+        padding: 10px 0;
     };
 
     .detail {
-        padding: 10px;
+        padding: 10px 0;
         color: #ccc;
     };
 
@@ -207,7 +201,7 @@ const Card = styled.div`
     .form {
         position: absolute;
         left: 2px;
-        top: 3px;
+        top: 10px;
         max-width: 70%;
         padding: 5px;
         cursor: default;
