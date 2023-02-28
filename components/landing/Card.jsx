@@ -74,7 +74,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 
             </div>
 
-            {/* <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div> */}
+            <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div>
         </Wrapper>
     )
 }
