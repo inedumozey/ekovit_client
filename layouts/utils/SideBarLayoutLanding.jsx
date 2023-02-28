@@ -1,8 +1,6 @@
 import styled from 'styled-components'
 import UserLog from './UserLog';
 import LightDarkBtn from '../../utils/components/LightDarkBtn';
-import Logout from './Logout';
-import Carts from '../../utils/components/Carts';
 
 const headerHeight = '100px'
 const footerHeight = '100px'
@@ -12,17 +10,14 @@ export default function SideBarLayoutLanding({ children, toggleState, toggle }) 
         <Wrapper>
             <div className="header">
                 <UserLog toggleState={toggleState} toggle={toggle} />
+                <div style={{ marginLeft: '8px' }}>
+                    <LightDarkBtn toggleState={toggleState} toggle={toggle} />
+                </div>
             </div>
             <div className="main">
                 {children}
             </div>
-            <div className="footer">
-                <div className='carts'><Carts /></div>
-                <div className="themeBtn">
-                    <LightDarkBtn toggleState={toggleState} toggle={toggle} />
-                    <Logout />
-                </div>
-            </div>
+            <div className="footer"> </div>
         </Wrapper>
     )
 }

@@ -51,15 +51,14 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
                         <UserLog toggleState={toggleState} toggle={toggle} />
                     </div>
                     <div className="theme-btn">
-                        <div style={{ marginRight: '10px' }}>
-                            <Logout />
-                        </div>
                         <LightDarkBtn toggleState={toggleState} toggle={toggle} />
                     </div>
                 </div>
             </div>
             <div className="bottom">
-                {/* <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div> */}
+                <div className='small-screen'>
+                    <LightDarkBtn toggleState={toggleState} toggle={toggle} />
+                </div>
                 <div className="search-wrapper"> <Search /> </div>
             </div>
         </HeaderStyle>
@@ -111,7 +110,7 @@ const HeaderStyle = styled.div`
         font-weight: bold;
         position: relative;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
 
         padding: 5px ${({ theme }) => theme.lg_padding};
@@ -127,6 +126,19 @@ const HeaderStyle = styled.div`
             height: 100%;
             width: 80%
         }
+
+        @media (min-width: ${({ theme }) => theme.sm_screen}){
+            justify-content: flex-end;
+        };
+    }
+
+    .small-screen {
+        padding: 0 10px;
+        display: none;
+
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            display: block
+        };
     }
 
     .theme-btn {
@@ -134,14 +146,15 @@ const HeaderStyle = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        @media (max-width: ${({ theme }) => theme.sm_screen}){
+            display: none
+        };
     }
 
     @media (max-width: 800px){
         .logo {
             margin: auto
-        }
-        .theme-btn {
-            display: none;
         }
     }
 

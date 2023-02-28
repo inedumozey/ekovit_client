@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import LightDarkBtn from '../../utils/components/LightDarkBtn';
-import Logout from './Logout';
 
 
 export default function SideBarLayou({ children, toggleState, toggle, isExpanded }) {
@@ -11,12 +9,6 @@ export default function SideBarLayou({ children, toggleState, toggle, isExpanded
                 {children}
             </div>
             <div className="footer">
-                <div className="themeBtn">
-                    <LightDarkBtn toggleState={toggleState} toggle={toggle} />
-                </div>
-                <div style={{ padding: '10px 3px' }}>
-                    <Logout />
-                </div>
             </div>
         </Wrapper>
     )

@@ -3,17 +3,29 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import styled from 'styled-components';
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 export default function HelpBtn() {
+    const router = useRouter()
     return (
         <Wrapper>
-            <HelpOutlineIcon />
+            <HelpOutlineIcon
+                style={{ color: router.pathname === '/help' || router.pathname === '/cancel-orders' ? '#c30' : 'inherit' }}
+            />
             <span>Help</span>
-            <KeyboardArrowDownIcon />
+            <KeyboardArrowDownIcon
+                style={{ color: router.pathname === '/help' || router.pathname === '/cancel-orders' ? '#c30' : 'inherit' }}
+            />
 
             <div className="content">
-                <Link href="/help">Help Center</Link>
-                <Link href="/help">Order Cancellation</Link>
+                <Link
+                    title="Help Center"
+                    style={{ color: router.pathname === '/help' ? '#c30' : 'inherit' }}
+                    href="/help">Help Center</Link>
+                <Link
+                    title="Order Cancellation"
+                    style={{ color: router.pathname === '/cancel-orders' ? '#c30' : 'inherit' }}
+                    href="/cancel-orders">Order Cancellation</Link>
                 <div className='chat'>LIVE CHAT</div>
 
             </div>
@@ -47,7 +59,6 @@ const Wrapper = styled.div`
             text-decoration: none;
             display: block;
             padding: 10px;
-            color: inherit;
 
             &:hover {
                 background: #aaa;
@@ -85,5 +96,6 @@ const Wrapper = styled.div`
         span {
             display: none;
         }
-    };
+    }
+    
 `

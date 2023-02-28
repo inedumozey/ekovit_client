@@ -16,7 +16,6 @@ import HelpBtn from '../utils/HelpBtn';
 import { ContextData } from '../../contextApi/ContextApi';
 import Link from 'next/link'
 import Logo from '../../utils/components/MasterLogo';
-import Logout from '../utils/Logout';
 
 const resolve = new ResolveClass()
 
@@ -50,16 +49,13 @@ export default function Landing({ children, toggleState, toggle }) {
                             <UserLog toggleState={toggleState} toggle={toggle} />
                         </div>
                         <div className="theme-btn">
-                            <div style={{ marginRight: '10px' }}>
-                                <Logout />
-                            </div>
                             <LightDarkBtn toggleState={toggleState} toggle={toggle} />
                         </div>
                     </div>
                 </div>
                 <div className="bottom">
                     {/* <div style={{ fontSize: '.6rem' }} className="content el">{resolve.path(router)}</div> */}
-                    <div className='carts-small-screen '><Carts /></div>
+                    <div className='small-screen'><Carts /></div>
 
                     <div className="search-wrapper"> <Search /> </div>
                 </div>
@@ -168,7 +164,7 @@ const Header = styled.div`
             width: 80%
         }
 
-        .carts-small-screen {
+        .small-screen {
             padding: 0 10px;
             display: none;
 
