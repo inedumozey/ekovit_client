@@ -33,6 +33,9 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
         <Wrapper>
             <div className="img">
                 <img src={data?.product_image_url} width="400" height="200" alt="" />
+                {
+                    data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
+                }
             </div>
             <div className="name">
                 {
@@ -70,12 +73,8 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                 }
 
             </div>
-            {
-                data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
-                // data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{resolve.elipsis(data.form, 40)}</div> : ''
-            }
 
-            <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div>
+            {/* <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div> */}
         </Wrapper>
     )
 }
@@ -104,11 +103,26 @@ const Wrapper = styled.div`
     .img {
         width: 100%;
         height: 65%;
+        position: relative;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        .form {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 60%;
+            padding: 5px;
+            cursor: default;
+            z-index: 2;
+            background: rgb(0 0 1 / 55%);
+            color: #fff;
+            // background: ${({ theme }) => theme.card};
         }
     }
     .name {
@@ -137,16 +151,5 @@ const Wrapper = styled.div`
         cursor: default;
         background: gold;
         z-index: 3;
-    }
-
-    .form {
-        position: absolute;
-        left: 2px;
-        top: 10px;
-        max-width: 60%;
-        padding: 5px;
-        cursor: default;
-        z-index: 2;
-        background: ${({ theme }) => theme.card};
     }
 `

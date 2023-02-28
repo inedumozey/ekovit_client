@@ -42,7 +42,7 @@ export default function User({ children, toggleState, toggle }) {
     }
 
     return (
-        !isMobile ?
+        isMobile ?
             <Wrapper>
 
                 <div onClick={minimize}>
@@ -243,7 +243,6 @@ const MobileHeader = styled.div`
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        font-family: cursive;
         color: ${({ theme }) => theme.title};
         text-decoration: none;
     }

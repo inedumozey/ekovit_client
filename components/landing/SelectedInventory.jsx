@@ -5,13 +5,13 @@ import apiClass from '../../utils/data/api';
 import { useSnap } from '@mozeyinedu/hooks-lab'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import FetchError from '../../utils/components/FetchError';
 import Spinner from '../../utils/components/Spinner';
 import { useRouter } from 'next/router';
 import { Animate } from '../../styles/globalStyles';
 import ResolveClass from '../../utils/resolveClass';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import Card from './Card';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const api = new apiClass()
 const resolve = new ResolveClass()
@@ -20,10 +20,9 @@ export default function SelectedInventory() {
     const { snap } = useSnap(.5)
     const router = useRouter();
     const { id } = router.query
-    const { access, product, carts } = useContext(ContextData);
+    const { access, product, carts, staticData } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [fetch, setFetch] = useState(false)
-    const [fetchSimilar, setFetchSimilar] = useState(false)
 
     const {
         addToCart,
@@ -98,14 +97,6 @@ export default function SelectedInventory() {
     }
 
     // fetch all data with similar product, type, generic name, brand name, categories,
-    useEffect(() => {
-        if (ready) {
-            setTimeout(() => {
-                setFetchSimilar(true)
-            }, 500)
-        }
-    }, [ready])
-
     useEffect(() => {
         const keyword = {
             product_name: productData.product_name,
@@ -182,7 +173,8 @@ export default function SelectedInventory() {
                     </Animate>
             }
             <div className="buy-wrapper">
-                <h3 className='call'><LocalPhoneIcon /></h3>
+                <a href={staticData.phone} className='call'><LocalPhoneIcon /></a>
+                <h3 className='call'><WhatsAppIcon /></h3>
                 <h3 className='buy'>BUY</h3>
             </div>
 
