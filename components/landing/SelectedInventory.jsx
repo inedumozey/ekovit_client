@@ -129,8 +129,6 @@ export default function SelectedInventory() {
         }
     }, [productData])
 
-    console.log(productsSimilarData)
-
     return (
         <Wrapper>
 
@@ -143,7 +141,7 @@ export default function SelectedInventory() {
                             </div>
                             <div className="name">
                                 {
-                                    productData.type?.toLowerCase() === 'drug' ?
+                                    productData?.type?.toLowerCase() === 'drug' ?
                                         <>
                                             <div style={{ fontWeight: 'bold' }} className='el'>{productData.generic_name}</div>
                                             <div className='el'>{productData.brand_name}</div>
@@ -196,7 +194,7 @@ export default function SelectedInventory() {
                                 fetchingProductsSimilar || !fetchingProductsSimilarSuccess ? <div><Spinner type='dots' /></div> :
                                     !productsSimilarData?.length ? "" :
                                         <>
-                                            <h2 className="Container">Similar Products</h2>
+                                            <h2 className="Container">You may also like</h2>
                                             <div className="main">
                                                 {
                                                     productsSimilarData?.map((data, i) => {
