@@ -20,7 +20,7 @@ export default function SelectedInventory() {
     const { snap } = useSnap(.5)
     const router = useRouter();
     const { id } = router.query
-    const { access, product, carts, staticData } = useContext(ContextData);
+    const { access, product, carts, contact } = useContext(ContextData);
     const [ready, setReady] = useState(false)
     const [fetch, setFetch] = useState(false)
 
@@ -173,9 +173,9 @@ export default function SelectedInventory() {
                     </Animate>
             }
             <div className="buy-wrapper">
-                <a href={staticData.phone} className='call'><LocalPhoneIcon /></a>
-                <h3 className='call'><WhatsAppIcon /></h3>
-                <h3 className='buy'>BUY</h3>
+                <a title="Call" href={contact.phone} className='call'><LocalPhoneIcon /></a>
+                <h3 title="WhatsApp" className='call'><WhatsAppIcon /></h3>
+                <h3 title="Proceed to buy" className='buy'>BUY</h3>
             </div>
 
             {
@@ -246,11 +246,21 @@ const Wrapper = styled.div`
 
         .call {
             text-align: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
             font-size: 1.2rem;
-            padding: 10px 15px;
             margin-right: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            background: ${({ theme }) => theme.card};
+            color: #fff;
+            border: 1px solid #fff;
+
+            &:hover {
+                opacity: .6;
+            }
         }
     }
 `
@@ -319,7 +329,7 @@ const SimilarItems = styled.div`
     .main {
         display: flex;
         // justify-content: center;
-        align-item: center;
+        align-items: center;
         flex-flow: wrap;
         margin-bottom: 20px;
     }

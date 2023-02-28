@@ -12,6 +12,7 @@ import ResolveClass from '../../utils/resolveClass';
 import Search from '../../utils/components/Search';
 import Copyright from '../../utils/components/Copyright';
 import Carts from '../../utils/components/Carts';
+import HelpBtn from '../utils/HelpBtn';
 import { ContextData } from '../../contextApi/ContextApi';
 import Link from 'next/link'
 import Logo from '../../utils/components/MasterLogo';
@@ -39,7 +40,12 @@ export default function Landing({ children, toggleState, toggle }) {
                     <NavLinks toggleState={toggleState} />
 
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className='carts'><Carts /></div>
+                        <div style={{ marginRight: '5px' }}>
+                            <HelpBtn />
+                        </div>
+                        <div className='carts'>
+                            <Carts />
+                        </div>
                         <div style={{ width: '100px' }}>
                             <UserLog toggleState={toggleState} toggle={toggle} />
                         </div>
@@ -119,6 +125,9 @@ const Header = styled.div`
 
         .carts {
             padding: 0 10px;
+            display: flex;
+            justify-content: space-between;
+            aligin-items: center;
 
             @media (max-width: ${({ theme }) => theme.sm_screen}){
                 display: none

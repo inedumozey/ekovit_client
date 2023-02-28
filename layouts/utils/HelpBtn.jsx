@@ -1,23 +1,21 @@
 import React from 'react'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useContext } from 'react'
-import { ContextData } from '../../contextApi/ContextApi';
-import styled from 'styled-components'
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { useSnap } from '@mozeyinedu/hooks-lab'
+import styled from 'styled-components';
+import Link from 'next/link'
 
 export default function HelpBtn() {
     return (
         <Wrapper>
-            <PersonOutlineIcon />
-            <span>Account</span>
+            <HelpOutlineIcon />
+            <span>Help</span>
+            <KeyboardArrowDownIcon />
 
             <div className="content">
-                <Link href="/help">My Account</Link>
-                <Link href="/help">My Orders</Link>
+                <Link href="/help">Help Center</Link>
+                <Link href="/help">Order Cancellation</Link>
+                <div className='chat'>LIVE CHAT</div>
+
             </div>
         </Wrapper>
     )
@@ -25,26 +23,25 @@ export default function HelpBtn() {
 
 
 const Wrapper = styled.div`
-    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    aligin-items: center;
     cursor: pointer;
     padding: 5px;
     border-radius: 4px;
     height: 30px;
-    display: flex;
-    align-items: center;
     position: relative;
     border: 1px solid ${({ theme }) => theme.border};
 
     .content {
-        width: 100%;
+        width: 130px;
         position: absolute;
         display: none;
         top: 29px;
         z-index: 100;
         right: 0;
-        left: 0;
+        min-height: 150px;
         background: ${({ theme }) => theme.card};
-        border: 1px solid ${({ theme }) => theme.border};
 
         a {
             text-decoration: none;

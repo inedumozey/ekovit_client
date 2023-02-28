@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { ContextData } from '../../contextApi/ContextApi'
 const currentYear = 2023
 
-export default function Copyright({ name }) {
+export default function Copyright() {
     const { contact } = useContext(ContextData)
     return (
         <Wrapper>
