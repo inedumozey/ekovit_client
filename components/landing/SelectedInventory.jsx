@@ -173,7 +173,7 @@ export default function SelectedInventory() {
                     </Animate>
             }
             <div className="buy-wrapper">
-                <a title="Call" href={contact.phone} className='call'><LocalPhoneIcon /></a>
+                <a title="Call" href={`tel:${contact.phone}`} className='call'><LocalPhoneIcon /></a>
                 <h3 title="WhatsApp" className='call'><WhatsAppIcon /></h3>
                 <h3 title="Proceed to buy" className='buy'>BUY</h3>
             </div>
