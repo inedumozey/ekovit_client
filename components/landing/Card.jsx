@@ -54,7 +54,7 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
                         <div># {data.selling_price}</div>
                 }
             </div>
-            <div className="h action"
+            <div className="action"
                 onClick={() => cart.includes(data._id) ? handleRemoveFromCart(data._id) : handleAddToCart(data._id)}
                 {...snap()}
                 title={cart.includes(data._id) ? "Remove from cart" : "Add to cart"}
@@ -71,7 +71,8 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
 
             </div>
             {
-                data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span> {data.form}</div> : ''
+                data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
+                // data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{resolve.elipsis(data.form, 40)}</div> : ''
             }
 
             <div onClick={() => router.push(`/${data._id}`)} className="overlay"></div>
@@ -142,9 +143,9 @@ const Wrapper = styled.div`
         position: absolute;
         left: 2px;
         top: 10px;
+        max-width: 60%;
         padding: 5px;
         cursor: default;
-        display: flex;
         z-index: 2;
         background: ${({ theme }) => theme.card};
     }

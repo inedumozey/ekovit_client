@@ -117,7 +117,6 @@ const Wrapper = styled.div`
         max-width: 70%;
         padding: 5px;
         cursor: default;
-        display: flex;
         z-index: 2;
         background: ${({ theme }) => theme.card};
     }
