@@ -122,7 +122,6 @@ const Wrapper = styled.div`
             z-index: 2;
             background: rgb(0 0 1 / 55%);
             color: #fff;
-            // background: ${({ theme }) => theme.card};
         }
     }
     .name {

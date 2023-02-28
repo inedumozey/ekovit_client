@@ -15,6 +15,9 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
         <Wrapper>
             <div className="image">
                 <img src={data?.product_image_url} width="400" height="200" alt="" />
+                {
+                    data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
+                }
             </div>
             <div className="name">
                 {
@@ -29,17 +32,15 @@ export default function Card({ data, openProductAction, setOpenProductAction, se
             <div className="price">
                 <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> # {data.purchased_price}</div>
                 <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {data.quantity}</div>
-                <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {data.market_price}</div>
                 <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> # {data.selling_price}</div>
+                <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {data.market_price}</div>
             </div>
             <div className="action" {...snap()}>
                 <div onClick={(e) => { setSelectedProduct(data); setOpenProductAction(!openProductAction) }} className="actions">
                     <MoreHorizIcon />
                 </div>
             </div>
-            {
-                data.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{data.form}</div> : ''
-            }
+
             <div onClick={() => router.push(`/admin/inventory/${data._id}`)} className="overlay"></div>
         </Wrapper>
     )
@@ -69,11 +70,25 @@ const Wrapper = styled.div`
     .image {
         width: 100%;
         height: 55%;
+        position: relative;
 
         img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        .form {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 60%;
+            padding: 5px;
+            cursor: default;
+            z-index: 2;
+            background: rgb(0 0 1 / 55%);
+            color: #fff;
         }
     }
     .name {
@@ -108,16 +123,5 @@ const Wrapper = styled.div`
         border-radius: 7px;
         color: #000;
         background: gold;
-    }
-
-    .form {
-        position: absolute;
-        left: 2px;
-        top: 10px;
-        max-width: 70%;
-        padding: 5px;
-        cursor: default;
-        z-index: 2;
-        background: ${({ theme }) => theme.card};
     }
 `
