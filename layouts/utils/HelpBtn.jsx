@@ -37,8 +37,9 @@ export default function HelpBtn() {
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-around;
-    aligin-items: center;
+    align-items: center;
     cursor: pointer;
+    padding: 0 2px;
     border-radius: 4px;
     height: 30px;
     position: relative;
