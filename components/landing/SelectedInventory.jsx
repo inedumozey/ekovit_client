@@ -177,13 +177,14 @@ export default function SelectedInventory() {
                                 {productData.other_details}
                             </CardStyle>
                         </Animate>
+
+                        <div className="buy-wrapper">
+                            <a title="Call" href={`tel:${contact.phone}`} className='call'><LocalPhoneIcon /></a>
+                            <h3 title="WhatsApp" className='call'><WhatsAppIcon /></h3>
+                            <h3 title="Proceed to buy" className='buy'>BUY</h3>
+                        </div>
                     </>
             }
-            <div className="buy-wrapper">
-                <a title="Call" href={`tel:${contact.phone}`} className='call'><LocalPhoneIcon /></a>
-                <h3 title="WhatsApp" className='call'><WhatsAppIcon /></h3>
-                <h3 title="Proceed to buy" className='buy'>BUY</h3>
-            </div>
 
             {
                 ready ?
@@ -295,8 +296,8 @@ const CardStyle = styled.div`
     user-select: none;
     background: ${({ theme }) => theme.card};
     transition: transform .09s;
-    font-size: 1.2rem;
-    line-height: 2rem;
+    font-size: 1rem;
+    line-height: 1.5rem; 
     padding: 10px;   
 
     .image {

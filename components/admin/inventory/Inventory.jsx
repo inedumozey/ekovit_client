@@ -160,8 +160,8 @@ const CardStyle = styled.div`
     user-select: none;
     background: ${({ theme }) => theme.card};
     transition: transform .09s;
-    font-size: 1.2rem;
-    line-height: 2rem;   
+    font-size: 1rem;
+    line-height: 1.5rem;   
     padding: 10px; 
 
     .image {
