@@ -47,7 +47,7 @@ export default function Header({ isExpanded, setExpanded, headerHeight, toggleSt
 
                 <NavLinks toggleState={toggleState} />
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div style={{ width: '100px' }}>
+                    <div style={{ width: '120px' }}>
                         <UserLog toggleState={toggleState} toggle={toggle} />
                     </div>
                     <div className="theme-btn">

@@ -39,7 +39,6 @@ const Wrapper = styled.div`
     justify-content: space-around;
     aligin-items: center;
     cursor: pointer;
-    padding: 5px;
     border-radius: 4px;
     height: 30px;
     position: relative;

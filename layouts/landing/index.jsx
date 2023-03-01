@@ -45,7 +45,7 @@ export default function Landing({ children, toggleState, toggle }) {
                         <div className='carts'>
                             <Carts />
                         </div>
-                        <div style={{ width: '100px' }}>
+                        <div style={{ width: '120px' }}>
                             <UserLog toggleState={toggleState} toggle={toggle} />
                         </div>
                         <div className="theme-btn">
