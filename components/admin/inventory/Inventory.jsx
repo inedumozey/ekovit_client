@@ -82,7 +82,7 @@ export default function Inventory() {
             }, 500)
         }
     }, [fetch])
-
+    console.log(productData)
 
     return (
         <Wrapper>
@@ -90,37 +90,43 @@ export default function Inventory() {
             {
                 !ready || fetchingProduct ? <div><Spinner type='dots' /></div> :
                     !fetchingProductSuccess ? <FetchError style={{ padding: '10px 0' }} /> :
-                        <Animate>
-                            <Card>
-                                <div className="image">
-                                    <img src={productData?.product_image_url} width="400" height="200" alt="" />
-                                </div>
-                                <div className="name">
-                                    {
-                                        productData.type?.toLowerCase() === 'drug' ?
-                                            <>
-                                                <div style={{ fontWeight: 'bold' }} className='el'>{productData.generic_name}</div>
-                                                <div className='el'>{productData.brand_name}</div>
-                                            </> :
-                                            <div className='el'>{productData.product_name}</div>
-                                    }
-                                </div>
-                                <div className="price">
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> # {productData.purchased_price}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Quantity:</span> {productData.quantity}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {productData.market_price}</div>
-                                    <div className='el'><span style={{ fontWeight: 'bold' }}>Selling Price:</span> # {productData.selling_price}</div>
-                                </div>
-                                <div className="action" {...snap()}>
-                                    <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
-                                        <MoreHorizIcon />
+                        <>
+                            <Animate>
+                                <CardStyle>
+                                    <div className="image">
+                                        <img src={productData?.product_image_url} width="400" height="200" alt="" />
                                     </div>
-                                </div>
-                                {
-                                    productData.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span>{productData.form}</div> : ''
-                                }
-                            </Card>
-                        </Animate>
+                                    <div className="name">
+                                        {
+                                            productData.type?.toLowerCase() === 'drug' ?
+                                                <>
+                                                    <div style={{ fontWeight: 'bold' }}>{productData.generic_name}</div>
+                                                    <div>{productData.brand_name}</div>
+                                                    <div>{productData.form}</div>
+                                                </> :
+                                                <div>{productData.product_name}</div>
+                                        }
+                                    </div>
+                                    <div className="price">
+                                        <div><span style={{ fontWeight: 'bold' }}>Purchased Price:</span> # {productData.purchased_price}</div>
+                                        <div><span style={{ fontWeight: 'bold' }}>Quantity:</span> {productData.quantity}</div>
+                                        <div><span style={{ fontWeight: 'bold' }}>Market Price:</span> # {productData.market_price}</div>
+                                        <div><span style={{ fontWeight: 'bold' }}>Selling Price:</span> # {productData.selling_price}</div>
+                                    </div>
+                                    <div className="action" {...snap()}>
+                                        <div onClick={(e) => { setSelectedProduct(productData); setOpenProductAction(!openProductAction) }} className="actions">
+                                            <MoreHorizIcon />
+                                        </div>
+                                    </div>
+                                </CardStyle>
+                            </Animate>
+                            <Animate>
+                                <div>Product Details</div>
+                                <CardStyle>
+                                    {productData.other_details}
+                                </CardStyle>
+                            </Animate>
+                        </>
             }
 
             <Modal
@@ -145,7 +151,7 @@ const Wrapper = styled.div`
     }    
 `
 
-const Card = styled.div`
+const CardStyle = styled.div`
     width: 100%;
     max-width: 600px;
     min-height: 320px;

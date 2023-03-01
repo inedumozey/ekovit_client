@@ -125,52 +125,59 @@ export default function SelectedInventory() {
 
             {
                 !ready || fetchingProduct || !fetchingProductSuccess ? <div><Spinner type='dots' /></div> :
-                    <Animate>
-                        <CardStyle>
-                            <div className="image">
-                                <img src={productData?.product_image_url} width="400" height="200" alt="" />
-                            </div>
-                            <div className="name">
-                                {
-                                    productData?.type?.toLowerCase() === 'drug' ?
-                                        <>
-                                            <div style={{ fontWeight: 'bold' }} className='el'>{productData.generic_name}</div>
-                                            <div className='el'>{productData.brand_name}</div>
-                                        </> :
-                                        <div className='el'>{productData.product_name}</div>
-                                }
-                            </div>
-                            <div className="price">
-                                {
-                                    productData.market_price > productData.selling_price ?
-                                        <div>
+                    <>
+                        <Animate>
+                            <CardStyle>
+                                <div className="image">
+                                    <img src={productData?.product_image_url} width="400" height="200" alt="" />
+                                </div>
+                                <div className="name">
+                                    {
+                                        productData?.type?.toLowerCase() === 'drug' ?
+                                            <>
+                                                <div style={{ fontWeight: 'bold' }}>{productData.generic_name}</div>
+                                                <div>{productData.brand_name}</div>
+                                                <div>{productData.form}</div>
+                                            </> :
+                                            <div>{productData.product_name}</div>
+                                    }
+                                </div>
+                                <div className="price">
+                                    {
+                                        productData.market_price > productData.selling_price ?
+                                            <div>
+                                                <div># {productData.selling_price}</div>
+                                                <small style={{ fontSize: '.7rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {productData.market_price}</small>
+                                            </div> :
                                             <div># {productData.selling_price}</div>
-                                            <small style={{ fontSize: '.7rem', textDecoration: 'line-through', fontWeight: 400, color: '#c30' }} className="strike"># {productData.market_price}</small>
-                                        </div> :
-                                        <div># {productData.selling_price}</div>
-                                }
-                            </div>
-                            <div className="action"
-                                onClick={() => cart.includes(productData._id) ? handleRemoveFromCart(productData._id) : handleAddToCart(productData._id)}
-                                {...snap()}
-                                title={cart.includes(productData._id) ? "Remove from cart" : "Add to cart"}
-                            >
-                                {
-                                    cart.includes(productData._id) ?
-                                        <RemoveShoppingCartIcon
-                                            style={{ color: 'rgb(253 71 12)', fontSize: '1.2rem' }}
-                                        /> :
-                                        <AddShoppingCartIcon
-                                            style={{ fontSize: '1.2rem', color: '#000' }}
-                                        />
-                                }
+                                    }
+                                </div>
+                                <div className="action"
+                                    onClick={() => cart.includes(productData._id) ? handleRemoveFromCart(productData._id) : handleAddToCart(productData._id)}
+                                    {...snap()}
+                                    title={cart.includes(productData._id) ? "Remove from cart" : "Add to cart"}
+                                >
+                                    {
+                                        cart.includes(productData._id) ?
+                                            <RemoveShoppingCartIcon
+                                                style={{ color: 'rgb(253 71 12)', fontSize: '1.2rem' }}
+                                            /> :
+                                            <AddShoppingCartIcon
+                                                style={{ fontSize: '1.2rem', color: '#000' }}
+                                            />
+                                    }
 
-                            </div>
-                            {
-                                productData.form ? <div className='form el'><span style={{ fontWeight: 'bold' }}></span> {productData.form}</div> : ''
-                            }
-                        </CardStyle>
-                    </Animate>
+                                </div>
+                            </CardStyle>
+                        </Animate>
+
+                        <Animate>
+                            <div>Product Details</div>
+                            <CardStyle>
+                                {productData.other_details}
+                            </CardStyle>
+                        </Animate>
+                    </>
             }
             <div className="buy-wrapper">
                 <a title="Call" href={`tel:${contact.phone}`} className='call'><LocalPhoneIcon /></a>
@@ -232,7 +239,7 @@ const Wrapper = styled.div`
         display: flex;
         align-items center;
         padding: 5px 10px;
-        z-index: 4;
+        z-index: 2;
 
 
         .buy {
@@ -264,6 +271,20 @@ const Wrapper = styled.div`
         }
     }
 `
+
+// const SubWrapper = styled.div`
+//     width: 100%;
+//     max-width: 600px;
+//     min-height: 320px;
+//     position: relative;
+//     margin: 10px auto;
+//     user-select: none;
+//     background: ${({ theme }) => theme.card};
+//     transition: transform .09s;
+//     font-size: 1.2rem;
+//     line-height: 2rem;
+//     padding: 10px;   
+// `
 
 const CardStyle = styled.div`
     width: 100%;
